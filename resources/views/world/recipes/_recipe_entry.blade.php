@@ -4,6 +4,10 @@
     @endif
     <div class="{{ $imageUrl ? 'col-md-9' : 'col-12' }}">
         <h3>
+            @if (!$recipe->is_visible)
+                <i class="fas fa-eye-slash mr-1"></i>
+            @endif
+
             @if ($recipe->needs_unlocking)
                 @if (Auth::check() && Auth::user()->hasRecipe($recipe->id))
                     <i class="fas fa-lock-open" data-toggle="tooltip" title="You have this recipe!"></i>
@@ -14,9 +18,13 @@
                 <i class="fas fa-lock-open" data-toggle="tooltip" title="This recipe is automatically unlocked."></i>
             @endif
 
-            {!! $name !!} @if (isset($idUrl) && $idUrl)
+            {!! $name !!}
+            
+            @if (isset($idUrl) && $idUrl)
                 <a href="{{ $idUrl }}" class="world-entry-search text-muted"><i class="fas fa-search"></i></a>
             @endif
+
+            <x-admin-edit title="Recipe" :object="$recipe" />
         </h3>
 
 

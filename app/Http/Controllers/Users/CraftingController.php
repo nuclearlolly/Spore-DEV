@@ -29,7 +29,7 @@ class CraftingController extends Controller {
      */
     public function getIndex(Request $request) {
         return view('home.crafting.index', [
-            'default' => Recipe::where('needs_unlocking', '0')->get(),
+            'default' => Recipe::visible(Auth::user() ?? null)->where('needs_unlocking', '0')->get(),
         ]);
     }
 
@@ -41,7 +41,7 @@ class CraftingController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getCraftRecipe(RecipeManager $service, $id) {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::visible(Auth::user() ?? null)->find($id);
         $selected = [];
 
         if (!$recipe || !Auth::user()) {
@@ -72,7 +72,7 @@ class CraftingController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function postCraftRecipe(Request $request, RecipeManager $service, $id) {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::visible(Auth::user() ?? null)->find($id);
         if (!$recipe) {
             abort(404);
         }

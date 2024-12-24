@@ -349,8 +349,12 @@ class RecipeService extends Service {
     private function populateData($data, $recipe = null) {
         if (isset($data['description']) && $data['description']) {
             $data['parsed_description'] = parse($data['description']);
+        } else {
+            $data['parsed_description'] = null;
         }
-
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
+        }
         if (isset($data['needs_unlocking']) && $data['needs_unlocking']) {
             $data['needs_unlocking'] = 1;
         } else {

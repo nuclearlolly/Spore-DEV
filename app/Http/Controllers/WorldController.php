@@ -468,7 +468,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getRecipes(Request $request) {
-        $query = Recipe::query();
+        $query = Recipe::visible(Auth::user() ?? null);
         $data = $request->only(['name', 'sort']);
         if (isset($data['name'])) {
             $query->where('name', 'LIKE', '%'.$data['name'].'%');
@@ -509,7 +509,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getRecipe($id) {
-        $recipe = Recipe::where('id', $id)->first();
+        $recipe = Recipe::visible(Auth::user() ?? null)->find($id);
         if (!$recipe) {
             abort(404);
         }

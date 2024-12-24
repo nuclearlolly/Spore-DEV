@@ -34,8 +34,13 @@
         @endif
     </div>
 
-    <div class="form-group mb-2">
-        {!! Form::checkbox('needs_unlocking', 1, $recipe->needs_unlocking, ['class' => 'form-check-input', 'data-toggle' => 'toggle', 'data-on' => 'Needs to be Unlocked', 'data-off' => 'Automatically Unlocked']) !!}
+    <div class="row">
+        <div class="col-md-6 form-group">
+            {!! Form::checkbox('needs_unlocking', 1, $recipe->needs_unlocking, ['class' => 'form-check-input', 'data-toggle' => 'toggle', 'data-on' => 'Needs to be Unlocked', 'data-off' => 'Automatically Unlocked']) !!}
+        </div>
+        <div class="col-md-6 form-group">
+            {!! Form::checkbox('is_visible', 1, $recipe->is_visible, ['class' => 'form-check-input', 'data-toggle' => 'toggle', 'data-on' => 'Visible', 'data-off' => 'Hidden']) !!}
+        </div>
     </div>
 
     <div class="form-group">
@@ -75,7 +80,17 @@
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._entry', ['imageUrl' => $recipe->imageUrl, 'name' => $recipe->displayName, 'description' => $recipe->parsed_description, 'searchUrl' => $recipe->searchUrl])
+                @include('world._entry', [
+                    'edit' => [
+                        'object' => $recipe,
+                        'title' => 'Recipe',
+                    ],
+                    'imageUrl' => $recipe->imageUrl,
+                    'name' => $recipe->displayName,
+                    'description' => $recipe->parsed_description,
+                    'searchUrl' => $recipe->searchUrl,
+                    'visible' => $recipe->is_visible,
+                ])
             </div>
         </div>
     @endif

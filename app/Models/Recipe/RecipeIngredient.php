@@ -56,7 +56,7 @@ class RecipeIngredient extends Model {
      * Get the associated recipe.
      */
     public function recipe() {
-        return $this->belongsTo('App\Models\Recipe\Recipe');
+        return $this->belongsTo(Recipe::class);
     }
 
     /**********************************************************************************************

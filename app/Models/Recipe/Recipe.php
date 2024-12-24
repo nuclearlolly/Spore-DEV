@@ -3,6 +3,7 @@
 namespace App\Models\Recipe;
 
 use App\Models\Model;
+use App\Models\User\User;
 
 class Recipe extends Model {
     /**
@@ -12,6 +13,7 @@ class Recipe extends Model {
      */
     protected $fillable = [
         'name', 'has_image', 'needs_unlocking', 'description', 'parsed_description', 'reference_url', 'artist_alias', 'artist_url', 'is_limited',
+        'is_visible',
     ];
 
     protected $appends = ['image_url'];
@@ -55,18 +57,18 @@ class Recipe extends Model {
      * Get the recipe's ingredients.
      */
     public function ingredients() {
-        return $this->hasMany('App\Models\Recipe\RecipeIngredient');
+        return $this->hasMany(RecipeIngredient::class);
     }
 
     /**
      * Get the users who have this recipe.
      */
     public function users() {
-        return $this->belongsToMany('App\Models\User\User', 'user_recipes')->withPivot('id');
+        return $this->belongsToMany(User::class, 'user_recipes')->withPivot('id');
     }
 
     public function limits() {
-        return $this->hasMany('App\Models\Recipe\RecipeLimit');
+        return $this->hasMany(RecipeLimit::class);
     }
 
     /**********************************************************************************************
@@ -74,6 +76,22 @@ class Recipe extends Model {
         SCOPES
 
     **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible recipes.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_data')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
+    }
 
     /**
      * Scope a query to sort items in alphabetical order.
@@ -234,6 +252,24 @@ class Recipe extends Model {
      */
     public function getAssetTypeAttribute() {
         return 'recipes';
+    }
+
+    /**
+     * Gets the admin edit URL.
+     *
+     * @return string
+     */
+    public function getAdminUrlAttribute() {
+        return url('admin/data/recipes/edit/'.$this->id);
+    }
+
+    /**
+     * Gets the power required to edit this model.
+     *
+     * @return string
+     */
+    public function getAdminPowerAttribute() {
+        return 'edit_data';
     }
 
     /**

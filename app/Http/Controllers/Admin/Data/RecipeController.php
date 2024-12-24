@@ -102,6 +102,7 @@ class RecipeController extends Controller {
             'ingredient_type', 'ingredient_data', 'ingredient_quantity',
             'rewardable_type', 'rewardable_id', 'reward_quantity',
             'is_limited', 'limit_type', 'limit_id', 'limit_quantity',
+            'is_visible',
         ]);
         if ($id && $service->updateRecipe(Recipe::find($id), $data, Auth::user())) {
             flash('Recipe updated successfully.')->success();
