@@ -21,7 +21,7 @@
             @endif
 
             {!! $name !!}
-            
+
             @if (isset($idUrl) && $idUrl)
                 <a href="{{ $idUrl }}" class="world-entry-search text-muted"><i class="fas fa-search"></i></a>
             @endif
@@ -58,12 +58,12 @@
                     <div class="alert alert-secondary">
                         @include('home.crafting._recipe_reward_entry', ['reward' => $item])
                     </div>
-                    @endforeach
                 @endforeach
-                @if ($counter > 3)
-                    <i class="fas fa-ellipsis-h mb-3"></i>
-                @endif
-            </div>
+            @endforeach
+            @if ($counter > 3)
+                <i class="fas fa-ellipsis-h mb-3"></i>
+            @endif
         </div>
     </div>
+</div>
 </div>
