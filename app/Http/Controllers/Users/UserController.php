@@ -225,7 +225,7 @@ class UserController extends Controller {
     }
 
     /**
-     * Shows a user's profile.
+     * Shows a user's Bank.
      *
      * @param string $name
      *
@@ -330,7 +330,7 @@ class UserController extends Controller {
     public function getUserGallery(Request $request, $name) {
         return view('user.gallery', [
             'user'        => $this->user,
-            'submissions' => $this->user->gallerySubmissions()->paginate(20)->appends($request->query()),
+            'submissions' => $this->user->gallerySubmissions()->visible(Auth::user() ?? null)->paginate(20)->appends($request->query()),
         ]);
     }
 
