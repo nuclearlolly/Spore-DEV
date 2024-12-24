@@ -12,8 +12,7 @@ class Recipe extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'has_image', 'needs_unlocking', 'description', 'parsed_description', 'reference_url', 'artist_alias', 'artist_url', 'is_limited',
-        'is_visible',
+        'name', 'has_image', 'needs_unlocking', 'description', 'parsed_description', 'reference_url', 'artist_alias', 'artist_url', 'is_visible',
     ];
 
     protected $appends = ['image_url'];
@@ -65,10 +64,6 @@ class Recipe extends Model {
      */
     public function users() {
         return $this->belongsToMany(User::class, 'user_recipes')->withPivot('id');
-    }
-
-    public function limits() {
-        return $this->hasMany(RecipeLimit::class);
     }
 
     /**********************************************************************************************
@@ -270,15 +265,6 @@ class Recipe extends Model {
      */
     public function getAdminPowerAttribute() {
         return 'edit_data';
-    }
-
-    /**
-     * Gets the currency's asset type for asset management.
-     *
-     * @return bool
-     */
-    public function getLockedAttribute() {
-        return $this->needs_unlocking && !User;
     }
 
     /**

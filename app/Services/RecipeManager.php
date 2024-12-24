@@ -31,26 +31,9 @@ class RecipeManager extends Service {
 
         try {
             // Check user has all limits
-            if ($recipe->is_limited) {
-                foreach ($recipe->limits as $limit) {
-                    $limitType = $limit->limit_type;
-                    $check = null;
-                    switch ($limitType) {
-                        case 'Item':
-                            $check = UserItem::where('item_id', $limit->reward->id)->where('user_id', $user->id)->where('count', '>=', $limit->quantity)->first();
-                            break;
-                        case 'Currency':
-                            $check = UserCurrency::where('currency_id', $limit->reward->id)->where('user_id', $user->id)->where('quantity', '>=', $limit->quantity)->first();
-                            break;
-                        case 'Recipe':
-                            $check = UserRecipe::where('recipe_id', $limit->reward->id)->where('user_id', $user->id)->first();
-                            break;
-                    }
-
-                    if (!$check) {
-                        throw new \Exception('You require '.$limit->reward->name.' x '.$limit->quantity.' to craft this');
-                    }
-                }
+            $service = new LimitManager;
+            if (!$service->checkLimits($recipe)) {
+                throw new \Exception($service->errors()->getMessages()['error'][0]);
             }
             // Check for sufficient currencies
             $user_currencies = $user->getCurrencies(true);

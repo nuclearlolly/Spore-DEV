@@ -87,8 +87,6 @@ class RecipeService extends Service {
 
             $recipe = Recipe::create($data);
             $this->populateIngredients($recipe, $data);
-            //limits
-            $this->populateLimits($recipe, $data);
 
             $recipe->output = $this->populateRewards($data);
             $recipe->save();
@@ -139,8 +137,6 @@ class RecipeService extends Service {
 
             $data = $this->populateData($data);
             $this->populateIngredients($recipe, $data);
-            // do limits
-            $this->populateLimits($recipe, $data);
 
             $image = null;
             if (isset($data['image']) && $data['image']) {
@@ -427,36 +423,5 @@ class RecipeService extends Service {
         }
 
         return null;
-    }
-
-    /**
-     * Adds limits to the recipe.
-     *
-     * @param Recipe $recipe
-     * @param array  $data
-     */
-    private function populateLimits($recipe, $data) {
-        if (!isset($data['is_limited'])) {
-            $data['is_limited'] = 0;
-        }
-
-        $recipe->is_limited = $data['is_limited'];
-        $recipe->save();
-
-        $recipe->limits()->delete();
-
-        if (isset($data['limit_type'])) {
-            foreach ($data['limit_type'] as $key => $type) {
-                if (!isset($data['limit_id'][$key])) {
-                    throw new \Exception('One of the limits was not specified.');
-                }
-                RecipeLimit::create([
-                    'recipe_id'  => $recipe->id,
-                    'limit_type' => $type,
-                    'limit_id'   => $data['limit_id'][$key],
-                    'quantity'   => $data['limit_quantity'][$key],
-                ]);
-            }
-        }
     }
 }

@@ -514,7 +514,7 @@ class WorldController extends Controller {
             abort(404);
         }
 
-        return view('world.recipes._recipe_page', [
+        return view('world.recipes.recipe', [
             'recipe'      => $recipe,
             'imageUrl'    => $recipe->imageUrl,
             'name'        => $recipe->displayName,

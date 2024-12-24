@@ -20,12 +20,18 @@
             <div class="card mb-3">
                 <div class="card-body">
                     @if ($recipe->imageUrl)
-                        <div class="world-entry-image text-center mb-2"><a href="{{ $recipe->imageUrl }}" data-lightbox="entry" data-title="{{ $recipe->name }}"><img src="{{ $recipe->imageUrl }}" class="world-entry-image mw-100"
-                                    style="max-height:300px;" /></a></div>
+                        <div class="world-entry-image text-center mb-2">
+                            <a href="{{ $recipe->imageUrl }}" data-lightbox="entry" data-title="{{ $recipe->name }}">
+                                <img src="{{ $recipe->imageUrl }}" class="world-entry-image mw-100" style="max-height:300px;" />
+                            </a>
+                        </div>
                     @endif
 
                     <div>
                         <h1>
+                            @if (!$recipe->is_visible)
+                                <i class="fas fa-eye-slash mr-1"></i>
+                            @endif
                             @if ($recipe->needs_unlocking)
                                 @if (Auth::check() && Auth::user()->hasRecipe($recipe->id))
                                     <i class="fas fa-lock-open" data-toggle="tooltip" title="You have this recipe!"></i>
@@ -41,26 +47,11 @@
                             {!! $recipe->description !!}
                         </div>
 
+                        @if (count(getLimits($recipe)))
+                            @include('widgets._limits', ['object' => $recipe])
+                            <hr />
+                        @endif
                         <div class="row">
-
-                            @if ($recipe->is_limited)
-                                <div class="col-md-12">
-                                    <h5>Requirements</h5>
-
-                                    <div class="alert alert-secondary">
-                                        <?php
-                                        $limits = [];
-                                        foreach ($recipe->limits as $limit) {
-                                            $name = $limit->reward->name;
-                                            $quantity = $limit->quantity > 1 ? $limit->quantity . ' ' : '';
-                                            $limits[] = $quantity . $name;
-                                        }
-                                        echo implode(', ', $limits);
-                                        ?>
-                                    </div>
-                                </div>
-                            @endif
-
                             <div class="col-md-6">
                                 <h5>Ingredients</h5>
                                 @foreach ($recipe->ingredients as $ingredient)

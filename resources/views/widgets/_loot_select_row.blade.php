@@ -5,11 +5,15 @@
     $characterCurrencies = \App\Models\Currency\Currency::where('is_character_owned', 1)->orderBy('sort_character', 'DESC')->pluck('name', 'id');
     $items = \App\Models\Item\Item::orderBy('name')->pluck('name', 'id');
     $currencies = \App\Models\Currency\Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id');
+    $showRecipes = isset($showRecipes) ? $showRecipes : false;
     if ($showLootTables) {
         $tables = \App\Models\Loot\LootTable::orderBy('name')->pluck('name', 'id');
     }
     if ($showRaffles) {
         $raffles = \App\Models\Raffle\Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id');
+    }
+    if ($showRecipes) {
+        $recipes = \App\Models\Recipe\Recipe::where('needs_unlocking', 1)->orderBy('name')->pluck('name', 'id');
     }
 @endphp
 

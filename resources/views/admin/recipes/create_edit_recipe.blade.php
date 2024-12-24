@@ -48,16 +48,6 @@
         {!! Form::textarea('description', $recipe->description, ['class' => 'form-control wysiwyg']) !!}
     </div>
 
-    <h3>Restrict Recipe</h3>
-    <div class="form-group">
-        {!! Form::checkbox('is_limited', 1, $recipe->is_limited, ['class' => 'is-limited-class form-check-label', 'data-toggle' => 'toggle']) !!}
-        {!! Form::label('is_limited', 'Should this recipe have a requirement?', ['class' => 'is-limited-label form-check-label ml-3']) !!} {!! add_help('If turned on, the recipe cannot be used/crafted unless the user currently owns all required items.') !!}
-    </div>
-
-    <div class="br-form-group mb-1" style="display: none">
-        @include('widgets._recipe_limit_select', ['limits' => $recipe->limits, 'showRecipes' => true])
-    </div>
-
     <h3>Recipe Ingredients</h3>
     @include('widgets._recipe_ingredient_select', ['ingredients' => $recipe->ingredients])
 
@@ -74,9 +64,10 @@
 
     @include('widgets._recipe_ingredient_select_row', ['items' => $items, 'categories' => $categories, 'currencies' => $currencies])
     @include('widgets._recipe_reward_select_row', ['items' => $items, 'currencies' => $currencies, 'tables' => $tables, 'raffles' => $raffles])
-    @include('widgets._recipe_limit_row', ['items' => $items, 'currencies' => $currencies, 'recipes' => $recipes])
 
     @if ($recipe->id)
+        @include('widgets._add_limits', ['object' => $recipe])
+
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
@@ -98,7 +89,6 @@
 
 @section('scripts')
     @parent
-    @include('js._recipe_limit_js')
     @include('js._recipe_reward_js')
     @include('js._recipe_ingredient_js')
     <script>
@@ -107,12 +97,6 @@
                 e.preventDefault();
                 loadModal("{{ url('admin/data/recipes/delete') }}/{{ $recipe->id }}", 'Delete Recipe');
             });
-
-            $('.is-limited-class').change(function(e) {
-                console.log(this.checked)
-                $('.br-form-group').css('display', this.checked ? 'block' : 'none')
-            })
-            $('.br-form-group').css('display', $('.is-limited-class').prop('checked') ? 'block' : 'none')
         });
     </script>
 @endsection

@@ -1,6 +1,8 @@
 <div class="row world-entry">
     @if ($imageUrl)
-        <div class="col-md-3 world-entry-image"><a href="{{ $imageUrl }}" data-lightbox="entry" data-title="{{ $name }}"><img src="{{ $imageUrl }}" class="world-entry-image" /></a></div>
+        <div class="col-md-3 world-entry-image">
+            <a href="{{ $imageUrl }}" data-lightbox="entry" data-title="{{ $name }}"><img src="{{ $imageUrl }}" class="world-entry-image" /></a>
+        </div>
     @endif
     <div class="{{ $imageUrl ? 'col-md-9' : 'col-12' }}">
         <h3>
@@ -27,26 +29,11 @@
             <x-admin-edit title="Recipe" :object="$recipe" />
         </h3>
 
-
+        @if (count(getLimits($recipe)))
+            @include('widgets._limits', ['object' => $recipe])
+            <hr />
+        @endif
         <div class="row">
-
-            @if ($recipe->is_limited)
-                <div class="col-md-4">
-                    <h5>Requirements</h5>
-
-                    <div class="alert alert-secondary">
-                        <?php
-                        $limits = [];
-                        foreach ($recipe->limits as $limit) {
-                            $name = $limit->reward->name;
-                            $quantity = $limit->quantity > 1 ? $limit->quantity . ' ' : '';
-                            $limits[] = $quantity . $name;
-                        }
-                        echo implode(', ', $limits);
-                        ?>
-                    </div>
-                </div>
-            @endif
             <div class="col-md">
                 <h5>Ingredients</h5>
                 @for ($i = 0; $i < count($recipe->ingredients) && $i < 3; ++$i)
@@ -71,12 +58,12 @@
                     <div class="alert alert-secondary">
                         @include('home.crafting._recipe_reward_entry', ['reward' => $item])
                     </div>
+                    @endforeach
                 @endforeach
-            @endforeach
-            @if ($counter > 3)
-                <i class="fas fa-ellipsis-h mb-3"></i>
-            @endif
+                @if ($counter > 3)
+                    <i class="fas fa-ellipsis-h mb-3"></i>
+                @endif
+            </div>
         </div>
     </div>
-</div>
 </div>

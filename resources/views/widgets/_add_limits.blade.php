@@ -10,6 +10,7 @@
     $prompts = \App\Models\Prompt\Prompt::orderBy('name')->pluck('name', 'id')->toArray();
     $items = \App\Models\Item\Item::orderBy('name')->pluck('name', 'id')->toArray();
     $currencies = \App\Models\Currency\Currency::orderBy('name')->pluck('name', 'id')->toArray();
+    $recipes = \App\Models\Recipe\Recipe::where('needs_unlocking', 1)->orderBy('name')->pluck('name', 'id')->toArray();
     $dynamics = \App\Models\Limit\DynamicLimit::orderBy('name')->pluck('name', 'id')->toArray();
 @endphp
 
@@ -70,6 +71,8 @@
                                 {!! Form::select('limit_id[]', $items, $limit->limit_id, ['class' => 'form-control limit items', 'placeholder' => 'Select Limit']) !!}
                             @elseif ($limit->limit_type == 'currency')
                                 {!! Form::select('limit_id[]', $currencies, $limit->limit_id, ['class' => 'form-control limit currencies', 'placeholder' => 'Select Limit']) !!}
+                            @elseif ($limit->limit_type == 'recipe')
+                                {!! Form::select('limit_id[]', $recipes, $limit->limit_id, ['class' => 'form-control limit recipes', 'placeholder' => 'Select Limit']) !!}
                             @elseif ($limit->limit_type == 'dynamic')
                                 {!! Form::select('limit_id[]', $dynamics, $limit->limit_id, ['class' => 'form-control limit dynamics', 'placeholder' => 'Select Limit']) !!}
                             @endif
@@ -129,6 +132,7 @@
     {!! Form::select('limit_id[]', $prompts, null, ['class' => 'form-control limit prompts', 'placeholder' => 'Select Limit']) !!}
     {!! Form::select('limit_id[]', $items, null, ['class' => 'form-control limit items', 'placeholder' => 'Select Limit']) !!}
     {!! Form::select('limit_id[]', $currencies, null, ['class' => 'form-control limit currencies', 'placeholder' => 'Select Limit']) !!}
+    {!! Form::select('limit_id[]', $recipes, null, ['class' => 'form-control limit recipes', 'placeholder' => 'Select Limit']) !!}
     {!! Form::select('limit_id[]', $dynamics, null, ['class' => 'form-control limit dynamics', 'placeholder' => 'Select Limit']) !!}
 </div>
 
@@ -138,6 +142,7 @@
         let $promptSelect = $('#rows').find('.prompts');
         let $itemSelect = $('#rows').find('.items');
         let $currencySelect = $('#rows').find('.currencies');
+        let $recipeSelect = $('#rows').find('.recipes');
         let $dynamicSelect = $('#rows').find('.dynamics');
 
         $('.limits-selectize').selectize();
@@ -160,6 +165,7 @@
             if (val == 'prompt') $clone = $promptSelect.clone();
             else if (val == 'item') $clone = $itemSelect.clone();
             else if (val == 'currency') $clone = $currencySelect.clone();
+            else if (val == 'recipe') $clone = $recipeSelect.clone();
             else if (val == 'dynamic') $clone = $dynamicSelect.clone();
 
             $limit.html('');
@@ -196,6 +202,7 @@
                 if (val == 'prompt') $clone = $promptSelect.clone();
                 else if (val == 'item') $clone = $itemSelect.clone();
                 else if (val == 'currency') $clone = $currencySelect.clone();
+                else if (val == 'recipe') $clone = $recipeSelect.clone();
                 else if (val == 'dynamic') $clone = $dynamicSelect.clone();
 
                 $cell.html('');
