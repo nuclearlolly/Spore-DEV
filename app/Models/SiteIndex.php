@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Model;
-
 class SiteIndex extends Model {
     /**
      * The attributes that are mass assignable.

@@ -10,8 +10,8 @@ use App\Models\Shop\Shop;
 use App\Models\SiteIndex;
 use App\Models\SitePage;
 use App\Models\User\User;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class IndexSitePages extends Command {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\SiteIndex;
-use DB;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller {
