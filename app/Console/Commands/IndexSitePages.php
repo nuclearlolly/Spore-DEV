@@ -54,7 +54,7 @@ class IndexSitePages extends Command {
                     // input all neccessary fields
                     'id'          => $character->id,
                     'title'       => $character->slug.': '.$character->name,
-                    'type'        => 'Character',
+                    'type'        => get_class($character),
                     'identifier'  => $character->slug,
                     'description' => $character->name,
                 ]);
@@ -67,7 +67,7 @@ class IndexSitePages extends Command {
                     // input all neccessary fields
                     'id'          => $page->id,
                     'title'       => $page->title,
-                    'type'        => 'Page',
+                    'type'        => get_class($page),
                     'identifier'  => $page->key,
                     'description' => substr_replace(strip_tags($page->text), '...', 100),
                 ]);
@@ -80,7 +80,7 @@ class IndexSitePages extends Command {
                     // input all neccessary fields
                     'id'          => $user->id,
                     'title'       => $user->name,
-                    'type'        => 'User',
+                    'type'        => get_class($user),
                     'identifier'  => $user->name,
                     'description' => null,
                 ]);
@@ -93,7 +93,7 @@ class IndexSitePages extends Command {
                     // input all neccessary fields
                     'id'          => $item->id,
                     'title'       => $item->name,
-                    'type'        => 'Item',
+                    'type'        => get_class($item),
                     'identifier'  => $item->name,
                     //'description' => substr_replace(strip_tags($item->description), '...', 100),
                 ]);
@@ -106,7 +106,7 @@ class IndexSitePages extends Command {
                     // input all neccessary fields
                     'id'          => $prompt->id,
                     'title'       => $prompt->name,
-                    'type'        => 'Prompt',
+                    'type'        => get_class($prompt),
                     'identifier'  => $prompt->id,
                     'description' => substr_replace(strip_tags($prompt->description), '...', 100),
                 ]);
@@ -119,7 +119,7 @@ class IndexSitePages extends Command {
                     // input all neccessary fields
                     'id'          => $shop->id,
                     'title'       => $shop->name,
-                    'type'        => 'Shop',
+                    'type'        => get_class($shop),
                     'identifier'  => $shop->id,
                     'description' => substr_replace(strip_tags($shop->description), '...', 100),
                 ]);
@@ -132,7 +132,7 @@ class IndexSitePages extends Command {
                     // input all neccessary fields
                     'id'          => $feature->id,
                     'title'       => $feature->name,
-                    'type'        => 'Feature',
+                    'type'        => get_class($feature),
                     'identifier'  => $feature->name,
                     'description' => substr_replace(strip_tags($feature->parsed_description), '...', 100),
                 ]);

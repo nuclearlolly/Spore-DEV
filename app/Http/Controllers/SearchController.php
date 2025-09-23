@@ -16,8 +16,7 @@ class SearchController extends Controller {
             ->get();
 
         foreach ($result as $r) {
-            $url = (new SiteIndex)->findPageUrlStructure($r->type, $r->identifier);
-            $row = '<div class="resultrow"><a href="'.$url.'"><div class="title"><span class="badge badge-secondary">'.$r->type.'</span>'.$r->title.'</div></a></div>';
+            $row = '<div class="resultrow"><a href="'.$r->indexedModel->url.'"><div class="title"><span class="badge badge-secondary">'.$r->typeLabel.'</span>'.$r->title.'</div></a></div>';
             echo $row;
         }
     }

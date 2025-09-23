@@ -23,25 +23,40 @@ class SiteIndex extends Model {
 
     /**********************************************************************************************
 
-        OTHER FUNCTIONS
+        RELATIONS
+
+    **********************************************************************************************/
+
+    /**
+     * Get the indexed item.
+     */
+    public function indexedModel() {
+        return $this->morphTo(null, 'type', 'id');
+    }
+
+    /**********************************************************************************************
+
+        ATTRIBUTES
 
      **********************************************************************************************/
 
-    public function findPageUrlStructure($type, $key) {
-        $search = strtolower($type);
-
-        $item = '/world/items?name=';
-        $character = '/character/';
-        $user = '/user/';
-        $page = '/info/';
-        $pet = '/world/pets/';
-        $prompt = '/prompts/';
-        $shop = '/shops/';
-        $feature = '/world/traits?name=';
-        //Add additional variables here with structure for custom search types
-
-        $domain = $_SERVER['SERVER_NAME'];
-
-        return ${$search}.$key;
+    /**
+     * Gets the clean label for a given model.
+     * If necessary (the name of the model doesn't match the desired label), add new cases here.
+     *
+     * @return string
+     */
+    public function getTypeLabelAttribute() {
+        switch ($this->type) {
+            case 'App\Models\SitePage':
+                return 'Page';
+                break;
+            case 'App\Models\Feature\Feature':
+                return 'Trait';
+                break;
+            default:
+                return class_basename($this->indexedModel);
+                break;
+        }
     }
 }
