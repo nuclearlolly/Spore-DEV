@@ -69,7 +69,7 @@ class IndexSitePages extends Command {
                     'title'       => $page->title,
                     'type'        => get_class($page),
                     'identifier'  => $page->key,
-                    'description' => substr_replace(strip_tags($page->text), '...', 100),
+                    'description' => substr_replace(strip_tags($page->parsed_text), '...', 100),
                 ]);
             }
 
@@ -95,7 +95,7 @@ class IndexSitePages extends Command {
                     'title'       => $item->name,
                     'type'        => get_class($item),
                     'identifier'  => $item->name,
-                    //'description' => substr_replace(strip_tags($item->description), '...', 100),
+                    'description' => substr_replace(strip_tags($item->parsed_description), '...', 100),
                 ]);
             }
 
@@ -108,7 +108,7 @@ class IndexSitePages extends Command {
                     'title'       => $prompt->name,
                     'type'        => get_class($prompt),
                     'identifier'  => $prompt->id,
-                    'description' => substr_replace(strip_tags($prompt->description), '...', 100),
+                    'description' => substr_replace(strip_tags($prompt->parsed_description), '...', 100),
                 ]);
             }
 
@@ -121,7 +121,7 @@ class IndexSitePages extends Command {
                     'title'       => $shop->name,
                     'type'        => get_class($shop),
                     'identifier'  => $shop->id,
-                    'description' => substr_replace(strip_tags($shop->description), '...', 100),
+                    'description' => substr_replace(strip_tags($shop->parsed_description), '...', 100),
                 ]);
             }
 
