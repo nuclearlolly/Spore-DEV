@@ -3,8 +3,15 @@
 namespace App\Console\Commands;
 
 use App\Models\Character\Character;
-use DB;
+use App\Models\Feature\Feature;
+use App\Models\Item\Item;
+use App\Models\Prompt\Prompt;
+use App\Models\Shop\Shop;
+use App\Models\SiteIndex;
+use App\Models\SitePage;
+use App\Models\User\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class IndexSitePages extends Command {
@@ -41,92 +48,91 @@ class IndexSitePages extends Command {
 
             //B. ------------------ Index types of content
             //1. FIND ALL CHARACTERS TO INDEX
-            $existingCharacters = DB::table('characters')->pluck('id');
-            $characters = Character::visible()->myo(0)->whereNotIn('slug', $existingCharacters)->where('is_visible', 1)->get();
+            $characters = Character::visible()->myo(0)->get();
             foreach ($characters as $character) {
                 DB::table('site_temp_index')->insert([
                     // input all neccessary fields
                     'id'          => $character->id,
                     'title'       => $character->slug.': '.$character->name,
-                    'type'        => 'Character',
+                    'type'        => get_class($character),
                     'identifier'  => $character->slug,
                     'description' => $character->name,
                 ]);
             }
 
             //2. FIND ALL PAGES TO INDEX
-            $pages = DB::table('site_pages')->get()->where('is_visible', 1);
+            $pages = SitePage::where('is_visible', 1)->get();
             foreach ($pages as $page) {
                 DB::table('site_temp_index')->insert([
                     // input all neccessary fields
                     'id'          => $page->id,
                     'title'       => $page->title,
-                    'type'        => 'Page',
+                    'type'        => get_class($page),
                     'identifier'  => $page->key,
-                    'description' => substr_replace(strip_tags($page->text), '...', 100),
+                    'description' => substr_replace(strip_tags($page->parsed_text), '...', 100),
                 ]);
             }
 
             //3. FIND ALL USERS TO INDEX
-            $users = DB::table('users')->get();
+            $users = User::all();
             foreach ($users as $user) {
                 DB::table('site_temp_index')->insert([
                     // input all neccessary fields
                     'id'          => $user->id,
                     'title'       => $user->name,
-                    'type'        => 'User',
+                    'type'        => get_class($user),
                     'identifier'  => $user->name,
                     'description' => null,
                 ]);
             }
 
             //4. FIND ALL ITEMS TO INDEX
-            $items = DB::table('items')->get();
+            $items = Item::all();
             foreach ($items as $item) {
                 DB::table('site_temp_index')->insert([
                     // input all neccessary fields
                     'id'          => $item->id,
                     'title'       => $item->name,
-                    'type'        => 'Item',
+                    'type'        => get_class($item),
                     'identifier'  => $item->name,
-                    'description' => substr_replace(strip_tags($item->description), '...', 100),
+                    'description' => substr_replace(strip_tags($item->parsed_description), '...', 100),
                 ]);
             }
 
             //5. FIND ALL PROMPTS TO INDEX
-            $prompts = DB::table('prompts')->where('is_active', 1)->get();
+            $prompts = Prompt::active()->get();
             foreach ($prompts as $prompt) {
                 DB::table('site_temp_index')->insert([
                     // input all neccessary fields
                     'id'          => $prompt->id,
                     'title'       => $prompt->name,
-                    'type'        => 'Prompt',
+                    'type'        => get_class($prompt),
                     'identifier'  => $prompt->id,
-                    'description' => substr_replace(strip_tags($prompt->description), '...', 100),
+                    'description' => substr_replace(strip_tags($prompt->parsed_description), '...', 100),
                 ]);
             }
 
             //6. FIND ALL SHOPS TO INDEX
-            $shops = DB::table('shops')->where('is_active', 1)->get();
+            $shops = Shop::where('is_active', 1)->get();
             foreach ($shops as $shop) {
                 DB::table('site_temp_index')->insert([
                     // input all neccessary fields
                     'id'          => $shop->id,
                     'title'       => $shop->name,
-                    'type'        => 'Shop',
+                    'type'        => get_class($shop),
                     'identifier'  => $shop->id,
-                    'description' => substr_replace(strip_tags($shop->description), '...', 100),
+                    'description' => substr_replace(strip_tags($shop->parsed_description), '...', 100),
                 ]);
             }
 
             //7. FIND ALL TRAITS TO INDEX
-            $features = DB::table('features')->where('is_visible', 1)->get();
+            $features = Feature::visible()->get();
             foreach ($features as $feature) {
                 DB::table('site_temp_index')->insert([
                     // input all neccessary fields
                     'id'          => $feature->id,
                     'title'       => $feature->name,
-                    'type'        => 'Feature',
+                    'type'        => get_class($feature),
                     'identifier'  => $feature->name,
                     'description' => substr_replace(strip_tags($feature->parsed_description), '...', 100),
                 ]);
@@ -143,7 +149,7 @@ class IndexSitePages extends Command {
             DB::table('site_index')->truncate();
             $index = DB::table('site_temp_index')->get();
             foreach ($index as $row) {
-                DB::table('site_index')->insert([
+                SiteIndex::create([
                     // input all neccessary fields
                     'id'          => $row->id,
                     'title'       => $row->title,
