@@ -185,6 +185,45 @@ class AccountController extends Controller {
     }
 
     /**
+     * Changes user dashboard guide visibility setting.
+     *
+     * @param App\Services\UserService $service
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postGuide(Request $request, UserService $service) {
+        if ($service->updateGuideVisibilitySetting($request->input('is_guide_active'), Auth::user())) {
+            flash('Setting updated successfully.')->success();
+        } else {
+            foreach ($service->errors()->getMessages()['error'] as $error) {
+                flash($error)->error();
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Changes user dashboard guide visibility setting from the home screen.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function guideVisibilityHome(Request $request) {
+
+        $user = Auth::user();
+        if(Auth::user()) {
+
+            $user->settings->is_guide_active = 0;
+            $user->settings->update();
+            flash('The guide has been hidden. You can bring it back via your settings if you want to.')->success();
+        }
+
+        return redirect()->back();
+    }
+
+    /**
      * Enables the user's two factor auth.
      *
      * @param App\Services\UserService $service

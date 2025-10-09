@@ -1,4 +1,7 @@
 <h1>Welcome, {!! Auth::user()->displayName !!}!</h1>
+
+@include('widgets._user_guide')
+
 <div class="card mb-4 timestamp">
     <div class="card-body">
         <i class="far fa-clock"></i> {!! format_date(Carbon\Carbon::now()) !!}

@@ -216,6 +216,29 @@ class UserService extends Service {
     }
 
     /**
+    * Updates user's dashboard guide visibility settings.
+    *
+    * @param mixed $data
+    * @param mixed $user
+    *
+    * @return bool
+    */
+    public function updateGuideVisibilitySetting($data, $user) {
+        DB::beginTransaction();
+
+        try {
+            $user->settings->is_guide_active = $data;
+            $user->settings->save();
+
+            return $this->commitReturn(true);
+        } catch (\Exception $e) {
+            $this->setError('error', $e->getMessage());
+        }
+
+        return $this->rollbackReturn(false);
+    }
+
+    /**
      * Confirms a user's two-factor auth.
      *
      * @param string           $code
