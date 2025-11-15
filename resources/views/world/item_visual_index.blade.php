@@ -36,9 +36,9 @@
     </div>
 
     @if (!isset($items) || count($items) < 1)
-    <div class="text-center">
-        <i>No search results found.</i>
-    </div>
+        <div class="text-center">
+            <i>No search results found.</i>
+        </div>
     @endif
 
     @foreach ($items as $categoryId => $categoryItems)
@@ -57,11 +57,11 @@
                                 <div class="col-md-3 col-6 text-center align-self-center inventory-item">
                                     @if ($item->first()->has_image)
                                         <a class="badge" style="border-radius:.5em; }}" href="{{ $item->first()->url }}">
-                                            <img class="my-1 modal-image" style="max-height:150px; border-radius:.5em;" src="{{ $item->first()->imageUrl }}" alt="{{ $item->first()->name }}" data-id="{{ $item->first()->id }}"  width="100px"/>
+                                            <img class="my-1 modal-image" style="max-height:150px; border-radius:.5em;" src="{{ $item->first()->imageUrl }}" alt="{{ $item->first()->name }}" data-id="{{ $item->first()->id }}" width="100px" />
                                         </a>
                                     @endif
                                     <p>
-                                        @if ( !empty($item->first()->data['is_visible']))
+                                        @if (!empty($item->first()->data['is_visible']))
                                             <i class="fas fa-eye-slash mr-1"></i>
                                         @endif
                                         {!! $item->first()->displayName !!}
@@ -77,12 +77,12 @@
 @endsection
 
 @section('scripts')
-        <script>
-            $(document).ready(function() {
-                $('.modal-image').on('click', function(e) {
-                    e.preventDefault();
-                    loadModal("{{ url('world/item-index') }}/" + $(this).data('id'), 'Item Detail');
-                });
-            })
-        </script>
+    <script>
+        $(document).ready(function() {
+            $('.modal-image').on('click', function(e) {
+                e.preventDefault();
+                loadModal("{{ url('world/item-index') }}/" + $(this).data('id'), 'Item Detail');
+            });
+        })
+    </script>
 @endsection
