@@ -372,6 +372,45 @@ class WorldController extends Controller {
     }
 
     /**
+     * Shows the visual item list.
+     *
+     * @param mixed $id
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getItemIndex(Request $request) {
+        $query = Item::with('category')->released(Auth::user() ?? null);
+
+        if (config('lorekeeper.extensions.item_entry_expansion.extra_fields')) {
+            $query->with('artist', 'shopStock')->withCount('shopStock');
+        }
+
+        $data = $request->only(['item_category_id', 'name', 'sort', 'artist']);
+        if (isset($data['item_category_id']) && $data['item_category_id'] != 'none') {
+            if ($data['item_category_id'] == 'withoutOption') {
+                $query->whereNull('item_category_id');
+            } else {
+                $query->where('item_category_id', $data['item_category_id']);
+            }
+        }
+        if (isset($data['name'])) {
+            $query->where('name', 'LIKE', '%'.$data['name'].'%');
+        }
+        if (isset($data['artist']) && $data['artist'] != 'none') {
+            $query->where('artist_id', $data['artist']);
+        }
+        $items = $query->get()->groupBy(['item_category_id', 'id']);
+
+        return view('world.item_visual_index', [
+            'items'      => $items,
+            'categories' => ItemCategory::orderBy('sort', 'DESC')->get()->keyBy('id'),
+            'categoriesForSearch' => ['none' => 'All Items'] + ['withoutOption' => 'Miscellaneous'] + ItemCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'artists'    => ['none' => 'Any Artist'] + User::whereIn('id', Item::whereNotNull('artist_id')->pluck('artist_id')->toArray())->pluck('name', 'id')->toArray(),
+        ]);
+    }
+
+
+    /**
      * Shows an individual item's page.
      *
      * @param int $id
@@ -398,6 +437,34 @@ class WorldController extends Controller {
 
         return view('world.item_page', [
             'item'        => $item,
+            'imageUrl'    => $item->imageUrl,
+            'name'        => $item->displayName,
+            'description' => $item->parsed_description,
+        ]);
+    }
+
+    /**
+     * Provides a single item's description html for use in a modal.
+     *
+     * @param mixed $id
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getItemDetail($id) {
+        $item = Item::where('id', $id);
+
+        if (config('lorekeeper.extensions.item_entry_expansion.extra_fields')) {
+            $item->with('artist', 'shopStock')->withCount('shopStock');
+        }
+
+        $item = $item->first();
+
+        if (!$item) {
+            abort(404);
+        }
+
+        return view('world._item_entry', [
+            'item' => $item,
             'imageUrl'    => $item->imageUrl,
             'name'        => $item->displayName,
             'description' => $item->parsed_description,
