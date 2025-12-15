@@ -6,6 +6,7 @@ use App\Models\Model;
 use App\Models\Rarity;
 use App\Models\Species\Species;
 use App\Models\Species\Subtype;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class Feature extends Model {
@@ -97,10 +98,10 @@ class Feature extends Model {
     /**
      * Scope a query to sort features in alphabetical order.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param bool                                  $reverse
+     * @param Builder $query
+     * @param bool    $reverse
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeSortAlphabetical($query, $reverse = false) {
         return $query->orderBy('name', $reverse ? 'DESC' : 'ASC');
@@ -109,9 +110,9 @@ class Feature extends Model {
     /**
      * Scope a query to sort features in category order.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeSortCategory($query) {
         if (FeatureCategory::all()->count()) {
@@ -124,9 +125,9 @@ class Feature extends Model {
     /**
      * Scope a query to sort features in species order.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeSortSpecies($query) {
         $ids = Species::orderBy('sort', 'DESC')->pluck('id')->toArray();
@@ -137,9 +138,9 @@ class Feature extends Model {
     /**
      * Scope a query to sort features in subtype order.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param Builder $query
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeSortSubtype($query) {
         $ids = Subtype::orderBy('sort', 'DESC')->pluck('id')->toArray();
@@ -150,10 +151,10 @@ class Feature extends Model {
     /**
      * Scope a query to sort features in rarity order.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param bool                                  $reverse
+     * @param Builder $query
+     * @param bool    $reverse
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeSortRarity($query, $reverse = false) {
         $ids = Rarity::orderBy('sort', $reverse ? 'ASC' : 'DESC')->pluck('id')->toArray();
@@ -164,10 +165,10 @@ class Feature extends Model {
     /**
      * Scope a query to sort features by newest first.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param mixed                                 $reverse
+     * @param Builder $query
+     * @param mixed   $reverse
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeSortNewest($query, $reverse = false) {
         return $query->orderBy('id', $reverse ? 'ASC' : 'DESC');
@@ -176,10 +177,10 @@ class Feature extends Model {
     /**
      * Scope a query to show only visible features.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param mixed|null                            $user
+     * @param Builder    $query
+     * @param mixed|null $user
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeVisible($query, $user = null) {
         if ($user && $user->hasPower('edit_data')) {
@@ -286,7 +287,7 @@ class Feature extends Model {
 
     **********************************************************************************************/
 
-    public static function getDropdownItems($withHidden = 0) {
+    public static function getDropdownItems($withHidden = 0, $withSpecies = 0) {
         $visibleOnly = 1;
         if ($withHidden) {
             $visibleOnly = 0;
@@ -295,10 +296,21 @@ class Feature extends Model {
         if (config('lorekeeper.extensions.organised_traits_dropdown.enable')) {
             $sorted_feature_categories = collect(FeatureCategory::all()->where('is_visible', '>=', $visibleOnly)->sortBy('sort')->pluck('name')->toArray());
 
-            $grouped = self::where('is_visible', '>=', $visibleOnly)
-                ->select('name', 'id', 'feature_category_id', 'rarity_id', 'species_id', 'subtype_id')->with(['category', 'rarity', 'species', 'subtype'])
-                ->orderBy('name')->get()->keyBy('id')->groupBy('category.name', $preserveKeys = true)
-                ->toArray();
+            if (config('show_exlusively_species_traits_in_dropdown') && $withSpecies) {
+                $grouped = self::where('is_visible', '>=', $visibleOnly)
+                    ->when($withSpecies, function (Builder $query, int $withSpecies) {
+                        $query->where('species_id', '=', $withSpecies)
+                            ->orWhere('species_id', '=', null);
+                    })
+                    ->select('name', 'id', 'feature_category_id', 'rarity_id', 'species_id', 'subtype_id')->with(['category', 'rarity', 'species', 'subtype'])
+                    ->orderBy('name')->get()->keyBy('id')->groupBy('category.name', $preserveKeys = true)
+                    ->toArray();
+            } else {
+                $grouped = self::where('is_visible', '>=', $visibleOnly)
+                    ->select('name', 'id', 'feature_category_id', 'rarity_id', 'species_id', 'subtype_id')->with(['category', 'rarity', 'species', 'subtype'])
+                    ->orderBy('name')->get()->keyBy('id')->groupBy('category.name', $preserveKeys = true)
+                    ->toArray();
+            }
             if (isset($grouped[''])) {
                 if (!$sorted_feature_categories->contains('Miscellaneous')) {
                     $sorted_feature_categories->push('Miscellaneous');
@@ -353,7 +365,21 @@ class Feature extends Model {
 
             return $features_by_category;
         } else {
-            return self::where('is_visible', '>=', $visibleOnly)->orderBy('name')->pluck('name', 'id')->toArray();
+            if (config('show_exlusively_species_traits_in_dropdown') && $withSpecies) {
+                return self::where('is_visible', '>=', $visibleOnly)
+                    ->when($withSpecies, function (Builder $query, int $withSpecies) {
+                        $query->where('species_id', '=', $withSpecies)
+                            ->orWhere('species_id', '=', null);
+                    })
+                    ->orderBy('name')
+                    ->pluck('name', 'id')
+                    ->toArray();
+            } else {
+                return self::where('is_visible', '>=', $visibleOnly)
+                    ->orderBy('name')
+                    ->pluck('name', 'id')
+                    ->toArray();
+            }
         }
     }
 }
