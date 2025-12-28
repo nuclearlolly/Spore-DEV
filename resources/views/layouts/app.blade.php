@@ -117,9 +117,12 @@
     <div id="app">
         <div class="site-header-image" id="header" style="background-image: url('{{ asset('images/header.png') }}');"></div>
         @include('layouts._nav')
-        @if (View::hasSection('sidebar'))
-            <div class="site-mobile-header bg-secondary"><a href="#" class="btn btn-sm btn-outline-light" id="mobileMenuButton">Menu <i class="fas fa-caret-right ml-1"></i></a></div>
-        @endif
+        @if ( View::hasSection('sidebar') )
+			<div class="site-mobile-header bg-secondary"><a href="#" class="btn btn-sm btn-outline-light" id="mobileMenuButton">Menu <i class="fas fa-caret-right ml-1"></i></a></div>
+		@endif
+        @if ( View::hasSection('second-sidebar') )
+			<div class="second-site-mobile-header bg-secondary"><a href="#" class="btn btn-sm btn-outline-light" id="secondMobileMenuButton">Second Menu<i class="fas fa-caret-right ml-1"></i></a></div>
+		@endif
 
         <main class="container-fluid">
             <div class="row">
@@ -152,6 +155,9 @@
                     <div class="site-footer mt-4" id="footer">
                         @include('layouts._footer')
                     </div>
+                </div>
+                 <div class="second-sidebar col-lg-2" id="secondsidebar">
+                    @yield('second-sidebar')
                 </div>
             </div>
 
@@ -192,6 +198,13 @@
                 $('#mobileMenuButton').on('click', function(e) {
                     e.preventDefault();
                     $sidebar.toggleClass('active');
+                });
+
+                var $secondMobileMenuButton = $('#secondMobileMenuButton');
+                var $secondsidebar = $('#secondsidebar');
+                $('#secondMobileMenuButton').on('click', function(e) {
+                    e.preventDefault();
+                    $secondsidebar.toggleClass('active');
                 });
 
                 $('.inventory-log-stack').on('click', function(e) {

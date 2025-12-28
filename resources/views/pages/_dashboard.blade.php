@@ -1,8 +1,12 @@
-<h1>Welcome, {!! Auth::user()->displayName !!}!</h1>
-<div class="card mb-4 timestamp">
-    <div class="card-body">
-        <i class="far fa-clock"></i> {!! format_date(Carbon\Carbon::now()) !!}
+<div class="row">
+    <div class="col-md-2 text-center">
+        <img src="/images/avatars/{{ Auth::user()->avatar }}" class="img-fluid rounded" style="max-height:160px" alt="{{ Auth::user()->name }}'s Avatar"/>
     </div>
+    <div class="col-md-6">
+        <h1>Welcome back</h1>
+        <h1>{!! Auth::user()->displayName !!}!</h1>
+    </div>
+</div>
 </div>
 <div class="row">
     <div class="col-md-6">
