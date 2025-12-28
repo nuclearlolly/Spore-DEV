@@ -94,8 +94,15 @@ Route::group(['prefix' => 'images', 'middleware' => 'power:edit_site_settings'],
     Route::post('reset', 'FileController@postResetFile');
 });
 
+// SITE DESIGN
+Route::group(['prefix' => 'design', 'middleware' => 'power:edit_site_settings'], function() {
+    Route::get('/', 'SiteDesignController@getIndex');
+    Route::post('/', 'SiteDesignController@postEditDesign');
+});
+
 // DATA
-Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:edit_data'], function () {
+Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:edit_data'], function() {
+
     // GALLERIES
     Route::get('galleries', 'GalleryController@getIndex');
     Route::get('galleries/create', 'GalleryController@getCreateGallery');
