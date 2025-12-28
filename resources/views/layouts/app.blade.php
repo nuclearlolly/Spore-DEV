@@ -95,6 +95,7 @@
         <link href="{{ asset('css/custom.css') . '?v=' . filemtime(public_path('css/custom.css')) }}" rel="stylesheet">
     @endif
 
+    @include('feed::links')
     @php
     $design = App\Models\SiteDesign::all()->first();
     @endphp
@@ -105,7 +106,10 @@
     @endisset
 
     <!--Editable font css-->
-    @include('layouts.editable_fonts') 
+    @include('layouts.editable_fonts')
+
+
+    @yield('head')
 
 </head>
 
@@ -200,6 +204,8 @@
                     $(this).next().toggle();
                 });
             });
+
+            $('.modal').appendTo("body")
         </script>
     </div>
 </body>

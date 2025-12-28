@@ -36,7 +36,7 @@ return [
     | site wherever the name needs to be displayed.
     |
     */
-    'site_name'                                         => 'Lorekeeper',
+    'site_name'                                         => 'Spore',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,7 +128,7 @@ return [
     |
     */
     'character_codes'                                   => '{category}-{number}',
-    'character_number_digits'                           => 3,
+    'character_number_digits'                           => 4,
     'character_pull_number'                             => 'all',
 
     'reset_character_status_on_transfer'                => 0,
@@ -156,10 +156,10 @@ return [
     | This is in an endeavor to make images with a transparent background
     | compress better. Set to null to disable.
     | Example:
-    | 'masterlist_image_background' => '#ffffff',
+    | 'masterlist_image_background' => '#ffffffff',
     |
     */
-    'watermark_masterlist_images'                       => 0,
+    'watermark_masterlist_images'                       => 1,
 
     'masterlist_image_dimension'                        => 0,
     'masterlist_image_dimension_target'                 => 'shorter',
@@ -285,7 +285,7 @@ return [
     | 1: Disallows custom thumbnail uploads.
     |
     */
-    'hide_manual_thumbnail_image_upload' => 0,
+    'hide_manual_thumbnail_image_upload' => 1,
 
     /*
     |--------------------------------------------------------------------------
@@ -352,7 +352,7 @@ return [
     |
     */
 
-    'allow_username_changes'                            => 0,
+    'allow_username_changes'                            => 1,
     'username_change_cooldown'                          => 30,
 
     /*
