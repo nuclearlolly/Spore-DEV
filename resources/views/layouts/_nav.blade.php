@@ -48,23 +48,27 @@
                             <a class="dropdown-item" href="{{ url('faq') }}">
                             <i class="fas fa-star"></i> Newbie Guide
                             </a>
+                            <a class="dropdown-item" href="{{ url('faq') }}">
+                            <i class="fas fa-award"></i> Achievements
+                            </a>
                         </div>
                     </li>
 
 <li class="nav-item dropdown megamenu">
     <a id="loreDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-        Explore
+        Galaxy
     </a>
         <div class="dropdown-menu" aria-labelledby="inventoryDropdown">
                 <div class="p-2">
                   <div class="row">
                     <div class="col-sm-4">
-                      <h6 class="font-weight-bold text-uppercase text-center">Locations</h6>
+                      <h6 class="font-weight-bold text-uppercase text-center">Explore</h6>
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-coins"></i> Shops</a>
                         <a class="dropdown-item" a href="{{ url('world/item-index') }}"><i class="fas fa-book"></i> Items</a>
                         <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fas fa-palette"></i> Gallery</a>
+                        <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Dailies</a>
                       </ul>
                     </div>
                     <div class="col-sm-4">
@@ -72,12 +76,13 @@
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('prompts') }}"><i class="fas fa-pen"></i> Prompts</a>
-                        <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Dailies</a>
-                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Achievements</a>
+                        <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Fetch Quests</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Forage</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Encounters</a>
                       </ul>
                     </div>
                     <div class="col-sm-4">
-                      <h6 class="font-weight-bold text-uppercase text-center">Masterlists</h6>
+                      <h6 class="font-weight-bold text-uppercase text-center">Fauna</h6>
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('users') }}"><i class="fas fa-users"></i> Users</a>
