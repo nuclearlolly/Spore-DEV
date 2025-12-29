@@ -53,7 +53,7 @@
 
 <li class="nav-item dropdown megamenu">
     <a id="loreDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-        Galaxies
+        Explore
     </a>
         <div class="dropdown-menu" aria-labelledby="inventoryDropdown">
                 <div class="p-2">
@@ -63,7 +63,7 @@
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-coins"></i> Shops</a>
-                        <a class="dropdown-item" a href="{{ url('Archives') }}"><i class="fas fa-book"></i> Archives</a>
+                        <a class="dropdown-item" a href="{{ url('Archives') }}"><i class="fas fa-book"></i> Items</a>
                         <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fas fa-palette"></i> Gallery</a>
                       </ul>
                     </div>
