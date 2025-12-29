@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Gallery\GallerySubmission;
 use App\Models\Sales\Sales;
 use App\Models\News;
-use App\Models\SitePage;
-use App\Services\LinkService;
-use App\Services\UserService;
+use Config;
+use Carbon\Carbon;
+use Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
-
-class HomeController extends Controller {
+use App\Models\SitePage;
+use App\Models\Character\Character;
+use App\Services\LinkService;
+use App\Services\DeviantArtService;
+use App\Services\UserService;
+class HomeController extends Controller
+{
     /*
     |--------------------------------------------------------------------------
     | Home Controller
@@ -36,8 +41,14 @@ class HomeController extends Controller {
             $gallerySubmissions = [];
         }
 
+        if(Settings::get('featured_character')) {
+            $character = Character::find(Settings::get('featured_character'));
+        }
+        else $character = null;
+
         return view('welcome', [
             'about'               => SitePage::where('key', 'about')->first(),
+            'featured' => $character,
             'guide'               => SitePage::where('key', 'guide')->first(),
             'saleses' => Sales::visible()->orderBy('id', 'DESC')->take(2)->get(),
             'gallerySubmissions'  => $gallerySubmissions,
