@@ -14,6 +14,8 @@
         @if ($page->id)
             <a href="#" class="btn btn-secondary float-right regen-page-button mr-md-2">Regenerate Page</a>
             <a href="{{ $page->url }}" class="btn btn-info float-right mr-md-2">View Page</a>
+        @elseif ($page->id && $page->key == 'guide')
+            <a href="{{ url('/') }}" class="btn btn-info float-right mr-md-2">View Dashboard</a>
         @endif
     </h1>
 
@@ -62,12 +64,20 @@
             {!! Form::checkbox('can_comment', 1, $page->id ? $page->can_comment : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
             {!! Form::label('can_comment', 'Commentable', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned on, users will be able to comment on the page.') !!}
             @if (!Settings::get('comment_dislikes_enabled'))
+        @if (!$page->key == 'guide')
+            <div class="col-md-4">
                 <div class="form-group">
-                    {!! Form::checkbox('allow_dislikes', 1, $page->id ? $page->allow_dislikes : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
-                    {!! Form::label('allow_dislikes', 'Allow Dislikes On Comments?', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, users cannot dislike comments.') !!}
+                    {!! Form::checkbox('can_comment', 1, $page->id ? $page->can_comment : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+                    {!! Form::label('can_comment', 'Commentable', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned on, users will be able to comment on the page.') !!}
                 </div>
-            @endif
-        </div>
+                @if (!Settings::get('comment_dislikes_enabled'))
+                    <div class="form-group">
+                        {!! Form::checkbox('allow_dislikes', 1, $page->id ? $page->allow_dislikes : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+                        {!! Form::label('allow_dislikes', 'Allow Dislikes On Comments?', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, users cannot dislike comments.') !!}
+                    </div>
+                @endif
+            </div>
+        @endif
     </div>
 
     <div class="text-right">

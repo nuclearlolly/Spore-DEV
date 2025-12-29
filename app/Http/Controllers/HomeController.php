@@ -36,6 +36,7 @@ class HomeController extends Controller {
 
         return view('welcome', [
             'about'               => SitePage::where('key', 'about')->first(),
+            'guide'               => SitePage::where('key', 'guide')->first(),
             'gallerySubmissions'  => $gallerySubmissions,
         ]);
     }

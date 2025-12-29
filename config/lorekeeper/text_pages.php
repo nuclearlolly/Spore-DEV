@@ -24,6 +24,10 @@ return [
         'title' => 'About',
         'text'  => 'Welcome to Lorekeeper! This page is editable from the admin panel. Besides being displayed on the front page when users are logged out, it is also accessible from the About link at the bottom of the page.',
     ],
+    'guide'   => [
+        'title' => 'Dashboard guide',
+        'text'  => 'Welcome to Lorekeeper! This page is editable from the admin panel. It is part of the dashboard guide widget from the dashboard page, and will be shown to logged in users.',
+    ],
     'credits' => [
         'title' => 'Credits',
         'text'  => 'This page will contain credits for code, art, ect that has been used on your site!',
