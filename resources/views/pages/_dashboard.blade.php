@@ -1,3 +1,4 @@
+@include('widgets._online_count')
 <div class="row">
     <div class="col-md-2 text-center">
         <img src="/images/avatars/{{ Auth::user()->avatar }}" class="img-fluid rounded" style="max-height:160px" alt="{{ Auth::user()->name }}'s Avatar"/>
