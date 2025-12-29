@@ -120,9 +120,6 @@
         @if ( View::hasSection('sidebar') )
 			<div class="site-mobile-header bg-secondary"><a href="#" class="btn btn-sm btn-outline-light" id="mobileMenuButton">Menu <i class="fas fa-caret-right ml-1"></i></a></div>
 		@endif
-        @if ( View::hasSection('second-sidebar') )
-			<div class="second-site-mobile-header bg-secondary"><a href="#" class="btn btn-sm btn-outline-light" id="secondMobileMenuButton">Second Menu<i class="fas fa-caret-right ml-1"></i></a></div>
-		@endif
 
         <main class="container-fluid">
             <div class="row">

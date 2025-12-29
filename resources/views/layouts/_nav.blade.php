@@ -63,7 +63,7 @@
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-coins"></i> Shops</a>
-                        <a class="dropdown-item" a href="{{ url('Archives') }}"><i class="fas fa-book"></i> Items</a>
+                        <a class="dropdown-item" a href="{{ url('world/item-index') }}"><i class="fas fa-book"></i> Items</a>
                         <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fas fa-palette"></i> Gallery</a>
                       </ul>
                     </div>

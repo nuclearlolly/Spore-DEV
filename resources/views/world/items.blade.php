@@ -47,6 +47,12 @@
         </div>
         {!! Form::close() !!}
     </div>
+    <div class="text-right mb-3">
+        <div class="btn-group">
+            <a href="/world/item-index" class="btn btn-secondary"><i class="fas fa-th"></i></a>
+            <a href="#" class="btn btn-secondary active"><i class="fas fa-bars"></i></a>
+        </div>
+    </div>
 
     {!! $items->render() !!}
     @foreach ($items as $item)

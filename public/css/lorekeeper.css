@@ -175,9 +175,6 @@ main > .row {
     font-weight: bold;
 }
 
-.sidebar .sidebar-header,.second-sidebar .sidebar-header {
-    background-color: #343a40;
-}
 .sidebar .sidebar-header a,.second-sidebar .sidebar-header a {
     color: white;
 }
@@ -220,9 +217,6 @@ main > .row {
 }
 
 @media (max-width: 767px) {
-	.site-mobile-header, .second-site-mobile-header {
-		top: 54px !important;
-    }
 
     .timestamp {
 		margin-left: 1rem!important;
@@ -235,20 +229,12 @@ main > .row {
         display: none;
     }
     .site-mobile-header {
+        text-align: center;
         display: block;
         position: fixed;
-		top: 3.45rem;
-        z-index: 4;
+        z-index: 1000;
         width: 100%;
-    }
-
-    .second-site-mobile-header {
-        display: block;
-        position: fixed;
-		top: 68px;
-        left: 225px;
-        z-index: 4;
-        width: 100%;
+        bottom: 0; 
     }
 
     #headerNav {
@@ -268,12 +254,15 @@ main > .row {
         position: absolute;
         padding-left: 0px;
         text-align: left;
-        background-color: #ddd;
+        background-color: rgba(167, 183, 255, 0.182);
+        backdrop-filter: saturate(200%) blur(10px);
         z-index: 3;
         right: 0px;
         bottom: 0px;
-        top: 0px;
+        top: 0px !important;
+        margin-top: -10px !important;
         overflow-y: scroll;
+        padding-right: 0px !important;
 
         left: -100%;
         transition: left 0.2s;
@@ -282,22 +271,19 @@ main > .row {
         left: 0%;
     }
 
-    .second-sidebar.active {
-        right: 0%;
-    } 
-
-    .sidebar > ul, .second-sidebar > ul {
-        padding-top: 0px;
+    .sidebar > ul {
+        margin-top: 100px !important;
     }
 
-    .sidebar ul, .second-sidebar ul{
+    .sidebar ul{
         list-style-type: none;
         display: block;
         padding-top: 30px;
         padding-left: 0px;
     }
 
-    .sidebar ul li, .second-sidebar ul li {
+
+    .sidebar ul li {
         background-color: white;
         border-radius: 0;
         margin-bottom: 1em;
@@ -305,6 +291,10 @@ main > .row {
 
         box-shadow: none;
     }
+
+    .main-content {
+    border-radius: 40px !important;
+}
 
 	/*fix for screen being over-wide on mobile*/
 	.row {
@@ -318,20 +308,6 @@ main > .row {
 	.site-footer .navbar .navbar-nav {
 		flex-wrap: wrap; justify-content: center;
 	}
-
-    .second-sidebar {
-        padding-right: 0px;
-        text-align: right;
-        background-color: #ddd;
-        z-index: 3;
-        right: 0px;
-        bottom: 0px;
-        top: 0px;
-        overflow-y: scroll;
-
-        right: -100%;
-        transition: right 0.2s;
-    }
 }
 
 /* Footer */
