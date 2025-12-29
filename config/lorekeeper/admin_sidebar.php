@@ -202,6 +202,10 @@ return [
                 'name' => 'Dynamic Limits',
                 'url'  => 'admin/data/limits',
             ],
+            [
+                'name' => 'Carousel',
+                'url'  => 'admin/data/carousel',
+            ],
         ],
     ],
     'Raffles'    => [

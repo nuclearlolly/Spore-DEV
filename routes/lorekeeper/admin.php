@@ -285,6 +285,15 @@ Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:
     Route::post('limits/create', 'LimitController@postCreateEditLimit');
     Route::post('limits/edit/{id?}', 'LimitController@postCreateEditLimit');
     Route::post('limits/delete/{id}', 'LimitController@postDeleteLimit');
+    
+    //CAROUSEL
+    Route::get('carousel', 'CarouselController@getIndex');
+    Route::post('carousel/create', 'CarouselController@postUploadCarousel');
+    Route::get('carousel/delete/{id}', 'CarouselController@getDeleteCarousel');
+    Route::post('carousel/delete/{id}', 'CarouselController@postDeleteCarousel');
+    Route::post('carousel/sort', 'CarouselController@postSortCarousel');
+    Route::get('carousel/edit/{id}', 'CarouselController@getEditCarousel');
+    Route::post('carousel/edit/{id}', 'CarouselController@postEditCarousel');
 });
 
 // PAGES
