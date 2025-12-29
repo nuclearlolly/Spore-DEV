@@ -320,7 +320,6 @@ main > .row {
 	}
 
     .second-sidebar {
-        position: absolute;
         padding-right: 0px;
         text-align: right;
         background-color: #ddd;
