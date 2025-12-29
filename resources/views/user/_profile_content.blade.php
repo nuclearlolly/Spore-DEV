@@ -2,7 +2,7 @@
     <div style="filter:grayscale(1); opacity:0.75">
 @endif
 
-<div class="header"><img class="header-img" style="border: 7px double #ffffffb6; border-radius: 20px;  background-image: url('{{ $user->profileImgUrl }}'); background-position: top middle; text-align: center; background-size: cover;"></div>
+<div class="header"><img class="header-img" style="border: 4px solid #ffffffff; border-radius: 20px;  background-image: url('{{ $user->profileImgUrl }}'); background-position: top middle; text-align: center; background-size: cover;"></div>
 
 
 <div class="profile-section">

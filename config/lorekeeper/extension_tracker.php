@@ -11,22 +11,5 @@ return [
     //     ]),
     //     'version' => '1.0.0',
     // ],
-    
-    'alternate_site_designs' => [
-        'key' => 'alternate_site_designs',
-        'wiki_key' => 'Alternate Site Designs',
-        'creators' => json_encode([
-            'Cylunny' => 'https://toyhou.se/cylunny',
-        ]),
-        'version' => '1.0.0', 
-    ],
 
-    'is_online' => [
-        'key' => 'is_online',
-        'wiki_key' => 'Online_Status',
-        'creators' => json_encode([
-            'Uri' => 'https://github.com/preimpression/',
-        ]),
-        'version' => '2.0.0',
-    ],
 ];

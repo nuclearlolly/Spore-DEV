@@ -34,7 +34,7 @@
         display: none;
         transition: all 0.5s ease;
         opacity: 0.75;
-        background-color: rgba(0, 0, 0, .5);
+        background-color: rgba(10, 27, 71, 0.69);
         font-size: 1.5em;
         border-radius: 50%;
     }

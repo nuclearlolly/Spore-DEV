@@ -63,7 +63,6 @@
 
             $('#submit').on('click', function(e) {
                 $('#evaluation').val(editor.getValue());
-            });
         });
     </script>
 @endsection

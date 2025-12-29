@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery\GallerySubmission;
+use App\Http\Controllers\Controller;
 use App\Models\Sales\Sales;
-use App\Models\News;
+use Auth;
+use DB;
 use Config;
 use Carbon\Carbon;
 use Settings;
+
+use App\Models\Gallery\GallerySubmission;
+use App\Models\News;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Laravel\Socialite\Facades\Socialite;
+
 use App\Models\SitePage;
 use App\Models\Character\Character;
+
 use App\Services\LinkService;
 use App\Services\DeviantArtService;
 use App\Services\UserService;
+
 class HomeController extends Controller
 {
     /*
@@ -33,7 +38,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function getIndex() {
+    public function getIndex() 
+    {
         if (config('lorekeeper.extensions.show_all_recent_submissions.enable')) {
             $query = GallerySubmission::visible(Auth::user() ?? null)->accepted()->orderBy('created_at', 'DESC');
             $gallerySubmissions = $query->get()->take(8);
@@ -44,15 +50,14 @@ class HomeController extends Controller
         if(Settings::get('featured_character')) {
             $character = Character::find(Settings::get('featured_character'));
         }
-        else $character = null;
-
+        else { $character = null; }
         return view('welcome', [
-            'about'               => SitePage::where('key', 'about')->first(),
+            'about' => SitePage::where('key', 'about')->first(),
             'featured' => $character,
             'guide'               => SitePage::where('key', 'guide')->first(),
-            'saleses' => Sales::visible()->orderBy('id', 'DESC')->take(2)->get(),
             'gallerySubmissions'  => $gallerySubmissions,
-            'newses'              => News::visible()->orderBy('updated_at', 'DESC')->take(2)->get(),
+            'newses'              => News::visible()->orderBy('updated_at', 'DESC')->take(1)->get(),
+            'saleses' => Sales::visible()->orderBy('id', 'DESC')->take(1)->get(),
         ]);
     }
 
