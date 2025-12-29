@@ -20,7 +20,7 @@
 
         </div>
     <div class="col-md-4 mb-4 align-items-center">
-
+        @include('widgets._news', ['textPreview' => true])
         </div>
         <hr class="mb-1">
         @include('widgets._sales')
