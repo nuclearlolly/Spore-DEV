@@ -100,6 +100,7 @@
         'showRaffles' => true,
         'showLootTables' => true,
         'showRecipient' => true,
+        'showRecipes' => true,
         'info' => '<p>User rewards are credited on a per-user basis, character rewards are rewarded to all characters attached. Mods are able to modify the specific rewards granted at approval time.</p><p class="mb-0">You can add loot tables containing any kind of currencies (both user- and character-attached), but be sure to keep track of which are being distributed! <strong>Character-only currencies cannot be given to users.</strong></p>',
     ])
     {{-- blade-formatter-enable --}}
@@ -109,6 +110,8 @@
     </div>
 
     {!! Form::close() !!}
+
+    @include('widgets._loot_select_row', ['showRecipes' => true])
 
     @if ($prompt->id)
         @include('widgets._add_limits', [
@@ -127,6 +130,7 @@
 
 @section('scripts')
     @parent
+    @include('js._loot_js', ['showRecipes' => true])
     @include('widgets._datetimepicker_js')
     @include('js._tinymce_wysiwyg')
     <script>

@@ -120,6 +120,10 @@ return [
                 'name' => 'Loot Table Grants',
                 'url'  => 'admin/grants/loot-tables',
             ],
+            [
+                'name' => 'Recipe Grants',
+                'url'  => 'admin/grants/recipes',
+            ],
         ],
     ],
     'Masterlist' => [
@@ -205,6 +209,10 @@ return [
             [
                 'name' => 'Carousel',
                 'url'  => 'admin/data/carousel',
+            ],
+            [
+                'name' => 'Recipes',
+                'url'  => 'admin/data/recipes',
             ],
         ],
     ],

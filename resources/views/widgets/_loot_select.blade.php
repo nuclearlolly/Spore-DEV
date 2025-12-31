@@ -45,6 +45,9 @@
     } else {
         $rewardLootData = getRewardLootData($showData, $recipient, $useCustomSelectize);
     }
+    if ($showRecipes) {
+        $recipes = \App\Models\Recipe\Recipe::where('needs_unlocking', 1)->orderBy('name')->pluck('name', 'id');
+    }
 @endphp
 <div class="text-right mb-3">
     <a href="#" class="btn btn-outline-info" id="{{ $prefix }}addLoot">Add {{ $type }}</a>

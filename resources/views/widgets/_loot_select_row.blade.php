@@ -44,6 +44,9 @@
     } else {
         $rewardLootData = getRewardLootData($showData, $recipient, $useCustomSelectize);
     }
+    if ($showRecipes) {
+        $recipes = \App\Models\Recipe\Recipe::where('needs_unlocking', 1)->orderBy('name')->pluck('name', 'id');
+    }
 @endphp
 
 <div id="{{ $prefix }}lootRowData" class="hide">
@@ -99,5 +102,8 @@
         @foreach ($rewardTypes as $rewardKey => $rewardType)
             {!! Form::select($prefix . 'rewardable_id[]', $rewardLootData[$rewardKey], null, ['class' => 'form-control object-select ' . strtolower($rewardKey) . '-select', 'placeholder' => 'Select ' . $rewardType]) !!}
         @endforeach
+    @endif
+    @if ($showRecipes)
+        {!! Form::select('rewardable_id[]', $recipes, null, ['class' => 'form-control recipe-select', 'placeholder' => 'Select Recipe']) !!}
     @endif
 </div>

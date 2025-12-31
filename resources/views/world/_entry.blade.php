@@ -24,5 +24,9 @@
         <div class="world-entry-text">
             {!! $description !!}
         </div>
+        @if (isset($edit['object']) && count(getLimits($edit['object'])))
+            <hr />
+            @include('widgets._limits', ['object' => $edit['object']])
+        @endif
     </div>
 </div>

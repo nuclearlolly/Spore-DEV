@@ -930,3 +930,7 @@ tr.accountbound {
 #ace-code-editor-wrapper .editor-btn:hover {
     background: buttonface;
 }
+/* RECIPES ***************************************************************************************/
+.recipe-image {
+    width: 150px;
+}

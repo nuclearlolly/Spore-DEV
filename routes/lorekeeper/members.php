@@ -121,6 +121,12 @@ Route::group(['prefix' => 'trades', 'namespace' => 'Users'], function () {
     Route::post('{id}/cancel-trade', 'TradeController@postCancelTrade');
 });
 
+Route::group(['prefix' => 'crafting', 'namespace' => 'Users'], function () {
+    Route::get('/', 'CraftingController@getIndex');
+    Route::get('craft/{id}', 'CraftingController@getCraftRecipe');
+    Route::post('craft/{id}', 'CraftingController@postCraftRecipe');
+});
+
 /**************************************************************************************************
     Characters
 **************************************************************************************************/
@@ -268,4 +274,11 @@ Route::group(['prefix' => 'limits'], function () {
 **************************************************************************************************/
 Route::group(['prefix' => 'rewards'], function () {
     Route::post('/types', 'RewardController@postRewardTypes');
+});
+
+/**************************************************************************************************
+    Comments
+**************************************************************************************************/
+Route::group(['prefix' => 'limits'], function () {
+    Route::post('unlock/{id}', 'Admin\LimitController@postUnlockLimits');
 });

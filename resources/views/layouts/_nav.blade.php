@@ -107,7 +107,7 @@
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('users') }}"><i class="fas fa-award"></i> Achievements</a>
                         <a class="dropdown-item" a href="{{ url('masterlist') }}"><i class="fas fa-book"></i> Collections</a>
-                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Craft</a>
+                        <a class="dropdown-item" a href="{{ url('crafting') }}"><i class="fas fa-award"></i> Craft</a>
                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Cultivate</a>
                       </ul>
                     </div>

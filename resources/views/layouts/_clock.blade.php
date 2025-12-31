@@ -1,4 +1,4 @@
-<div style="position: fixed; top: 55px; right: 10px; margin-right: 2em; display: flex; align-items: left; gap: 1em; text-align: left;">
+<div style="position: fixed; top: 55px; right: 100px; margin-right: 2em; display: flex; align-items: left; gap: 1em; text-align: left;">
     @if(Auth::check())
         <div class="money">
             @foreach(Auth::user()->getCurrencies(false)->where('id', 1) as $currency)
