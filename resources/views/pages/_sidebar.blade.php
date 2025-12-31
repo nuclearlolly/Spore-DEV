@@ -8,7 +8,7 @@
                     <div class="ML-card-two">
                     <div class="ML-card-three">
                     <div class="mt-1">
-                        <div class="h5 mb-0">@if(!$featured->is_visible) <i class="fas fa-eye-slash"></i> @endif {{ $featured->fullName }}</div>
+                        <a href="{{ $featured->url }}"><div class="h5 mb-0">@if(!$featured->is_visible) <i class="fas fa-eye-slash"></i> @endif {{ $featured->fullName }}</div></a>
                     </div>
                     </div>
                     <div class="small">
@@ -17,14 +17,16 @@
                     </div>
                         <img src="{{ $featured->image->thumbnailUrl }}" class="img-thumbnail" />
                     </div>
-                    <div class="ML-card-four">
-                        <a href="{{ $featured->url }}">Check Alien</a>
-                        <a href="{{ $featured->url }}">Monthly Prompt</a>
-                    </div>
-                </a>
+            </div>
+        <div class="sidebar-item"><a href="{{ $featured->url }}">Monthly Prompt</a></div>
         @else
             <p>There is no featured character.</p>
         @endif
     </li>
 </ul>
+<style>
+.sidebar-item {
+  margin-top: 10px;
+}
+</style>
 

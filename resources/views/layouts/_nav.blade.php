@@ -35,24 +35,44 @@
                             </a>
                         @endif
                 </li>
-                    <li class="nav-item dropdown">
-                        <a id="inventoryDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Resources
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="inventoryDropdown">
-                            <a class="dropdown-item" href="{{ url('info/Rules') }}">
-                                <i class="fas fa-list"></i> Rules
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url('faq') }}">
-                            <i class="fas fa-star"></i> Newbie Guide
-                            </a>
-                            <a class="dropdown-item" href="{{ url('faq') }}">
-                            <i class="fas fa-award"></i> Achievements
-                            </a>
-                        </div>
-                    </li>
+                <li class="nav-item dropdown megamenu">
+    <a id="loreDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+        Resources
+    </a>
+        <div class="dropdown-menu" aria-labelledby="inventoryDropdown">
+                <div class="p-2">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <h6 class="font-weight-bold text-uppercase text-center">Information</h6>
+                      <div class="dropdown-divider"></div>
+                      <ul class="list-unstyled">
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-list"></i> Rules</a>
+                        <a class="dropdown-item" a href="{{ url('world/item-index') }}"><i class="fas fa-book"></i> Terms of Service</a>
+                        <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fab fa-discord"></i> Discord</a>
+                        <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-coffee"></i> Ko-fi</a>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <h6 class="font-weight-bold text-uppercase text-center">Guides</h6>
+                      <div class="dropdown-divider"></div>
+                      <ul class="list-unstyled">
+                        <a class="dropdown-item" a href="{{ url('prompts') }}"><i class="fas fa-moon"></i> Newbie Guide</a>
+                        <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Prompt Guide</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-star"></i> Species Creation</a>
+                      </ul>
+                    </div>
+                    <div class="col-sm-4">
+                      <h6 class="font-weight-bold text-uppercase text-center">Masterlists</h6>
+                      <div class="dropdown-divider"></div>
+                      <ul class="list-unstyled">
+                        <a class="dropdown-item" a href="{{ url('users') }}"><i class="fas fa-users"></i> Users</a>
+                        <a class="dropdown-item" a href="{{ url('masterlist') }}"><i class="fas fa-paw"></i> Species</a>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+        </div>
+                </li>
 
 <li class="nav-item dropdown megamenu">
     <a id="loreDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -62,13 +82,13 @@
                 <div class="p-2">
                   <div class="row">
                     <div class="col-sm-4">
-                      <h6 class="font-weight-bold text-uppercase text-center">Explore</h6>
+                      <h6 class="font-weight-bold text-uppercase text-center">Check</h6>
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
-                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-coins"></i> Shops</a>
-                        <a class="dropdown-item" a href="{{ url('world/item-index') }}"><i class="fas fa-book"></i> Items</a>
-                        <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fas fa-palette"></i> Gallery</a>
                         <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Dailies</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-coins"></i> Shops</a>
+                        <a class="dropdown-item" a href="{{ url('world/item-index') }}"><i class="fas fa-paw"></i> Body Parts</a>
+                        <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fas fa-palette"></i> Art Gallery</a>
                       </ul>
                     </div>
                     <div class="col-sm-4">
@@ -76,18 +96,19 @@
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('prompts') }}"><i class="fas fa-pen"></i> Prompts</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-tree"></i> Forage</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-map"></i> Explore</a>
                         <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Fetch Quests</a>
-                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Forage</a>
-                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Encounters</a>
                       </ul>
                     </div>
                     <div class="col-sm-4">
-                      <h6 class="font-weight-bold text-uppercase text-center">Fauna</h6>
+                      <h6 class="font-weight-bold text-uppercase text-center">Hoard</h6>
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
-                        <a class="dropdown-item" a href="{{ url('users') }}"><i class="fas fa-users"></i> Users</a>
-                        <a class="dropdown-item" a href="{{ url('masterlist') }}"><i class="fas fa-star"></i> Species</a>
-                        <a class="dropdown-item" a href="{{ url('sublist/NPC') }}"><i class="fas fa-star"></i> NPCs</a>
+                        <a class="dropdown-item" a href="{{ url('users') }}"><i class="fas fa-award"></i> Achievements</a>
+                        <a class="dropdown-item" a href="{{ url('masterlist') }}"><i class="fas fa-book"></i> Collections</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Craft</a>
+                        <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-award"></i> Cultivate</a>
                       </ul>
                     </div>
                   </div>
@@ -152,6 +173,7 @@
                         <a class="dropdown-item" a href="{{ url('characters') }}"><i class="fas fa-star"></i> Characters</a>
                         <a class="dropdown-item" a href="{{ url('characters/myos') }}"><i class="fas fa-heart"></i> MYO Slots</a>
                         <a class="dropdown-item" a href="{{ url('characters/transfers/incoming') }}"><i class="fas fa-arrow-right"></i> Transfers</a>
+                        <a class="dropdown-item" a href="{{ url('sublist/NPC') }}"><i class="fas fa-star"></i> Pets</a>
                       </ul>
                     </div>
                     <div class="col-sm-3">
@@ -169,7 +191,7 @@
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ Auth::user()->url }}"><i class="fas fa-inbox"></i> Mail</a>
-                        <a class="dropdown-item" a href="{{ url('redeem-code') }}"><i class="fas fa-code"></i> Redeem Code</a>
+                        <a class="dropdown-item" a href="{{ url('redeem-code') }}"><i class="fas fa-code"></i> Code</a>
                         <a class="dropdown-item" a href="{{ url('') }}"><i class="fas fa-gifts"></i> Supporter</a>
                         <a class="dropdown-item" a href="{{ url('trades/open')}}"><i class="fas fa-arrow-right"></i> Trades</a>
 

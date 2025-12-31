@@ -20,7 +20,7 @@ return [
     */
 
     // Navbar News Notif - Juni
-    'navbar_news_notif' => 0,
+    'navbar_news_notif' => 1,
 
     /*  Visual Trait Indexes
      *
@@ -35,7 +35,7 @@ return [
         'enable_subtype_index'   => 0, // Enables the Subtype Trait Index
         'enable_universal_index' => 0, // Enables the Universal Trait Index
         'enable_all_trait_index' => 0, // Enables the All Traits Index
-        'trait_modals'           => 0, // Enables modals when you click on a trait for more info instead of linking to the traits page
+        'trait_modals'           => 1, // Enables modals when you click on a trait for more info instead of linking to the traits page
     ],
 
     // Character Status Badges - Juni
@@ -53,7 +53,7 @@ return [
         'resale_function' => 1,
         'loot_tables'     => [
             // Adds the ability to use either rarity criteria for items or item categories with rarity criteria in loot tables. Note that disabling this does not apply retroactively.
-            'enable'              => 0,
+            'enable'              => 1,
         ],
     ],
 
@@ -97,21 +97,21 @@ return [
     // Previous & Next buttons on Character pages - Speedy
     // Adds buttons linking to the previous character as well as the next character on all character pages.
     'previous_and_next_characters' => [
-        'display' => 0,
+        'display' => 1,
         'reverse' => 0, // By default, 0 has the lower number on the 'Next' side and the higher number on the 'Previous' side, reflecting the default masterlist order. Setting this to 1 reverses this.
     ],
 
     // Aliases on Userpage - Speedy
-    'aliases_on_userpage' => 0, // By default, does not display the aliases on userpage. Enable to add a small arrow to display these underneath the primary alias.
+    'aliases_on_userpage' => 1, // By default, does not display the aliases on userpage. Enable to add a small arrow to display these underneath the primary alias.
 
     // Show All Recent Submissions - Speedy
     'show_all_recent_submissions' => [
-        'enable' => 0,
+        'enable' => 1,
         'links'  => [
             'sidebar'      => 1,      // By default, ON, and will display in the sidebar.
             'indexbutton'  => 1, // By default, ON, and will display a button on the index.
         ],
-        'section_on_front' => 0, // By default, does not display on the front page. Enable to add a block above the footer.
+        'section_on_front' => 1, // By default, does not display on the front page. Enable to add a block above the footer.
     ],
 
     // collapsible admin sidebar - Newt

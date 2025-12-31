@@ -14,3 +14,7 @@
         
     @endif
 </div>
+
+@if (config('lorekeeper.extensions.scroll_to_top'))
+    @include('widgets/_scroll_to_top')
+@endif
