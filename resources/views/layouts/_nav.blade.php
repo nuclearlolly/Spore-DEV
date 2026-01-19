@@ -39,7 +39,7 @@
     <a id="loreDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
         Resources
     </a>
-        <div class="dropdown-menu" aria-labelledby="inventoryDropdown">
+        <div class="dropdown-menu" aria-labelledby="inventoryDropdown" style="max-height: 170px;">
                 <div class="p-2">
                   <div class="row">
                     <div class="col-sm-4">
@@ -48,7 +48,6 @@
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-list"></i> Rules</a>
                         <a class="dropdown-item" a href="{{ url('world/item-index') }}"><i class="fas fa-book"></i> Terms of Service</a>
-                        <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fab fa-discord"></i> Discord</a>
                         <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-coffee"></i> Ko-fi</a>
                       </ul>
                     </div>
@@ -62,11 +61,12 @@
                       </ul>
                     </div>
                     <div class="col-sm-4">
-                      <h6 class="font-weight-bold text-uppercase text-center">Masterlists</h6>
+                      <h6 class="font-weight-bold text-uppercase text-center">Meet</h6>
                       <div class="dropdown-divider"></div>
                       <ul class="list-unstyled">
                         <a class="dropdown-item" a href="{{ url('users') }}"><i class="fas fa-users"></i> Users</a>
                         <a class="dropdown-item" a href="{{ url('masterlist') }}"><i class="fas fa-paw"></i> Species</a>
+                        <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fab fa-discord"></i> Discord</a>
                       </ul>
                     </div>
                   </div>
