@@ -25,22 +25,22 @@
             <img class="small-icon" src="{{ $ingredient->ingredient->image_url }}">
         @endif{!! $ingredient->ingredient->displayName !!}
         category
-    @break
+        @break
 
-    @case('MultiCategory')
-        <!-- This doesn't work yet! -->
-        <strong>Any mix of {{ $ingredient->quantity }} item{{ $ingredient->quantity == 1 ? '' : 's' }} from the following categories:</strong>
-        @foreach ($ingredient->ingredient as $ing)
-            <div>- @if (isset($ing->image_url))
-                    <img class="small-icon" src="{{ $ing->image_url }}">
-                @endif
-                <span>{!! $ing->displayName !!}</span>
-            </div>
-        @endforeach
-    @break
+        @case('MultiCategory')
+            <!-- This doesn't work yet! -->
+            <strong>Any mix of {{ $ingredient->quantity }} item{{ $ingredient->quantity == 1 ? '' : 's' }} from the following categories:</strong>
+            @foreach ($ingredient->ingredient as $ing)
+                <div>- @if (isset($ing->image_url))
+                        <img class="small-icon" src="{{ $ing->image_url }}">
+                    @endif
+                    <span>{!! $ing->displayName !!}</span>
+                </div>
+            @endforeach
+        @break
 
-    @case('Currency')
-        {{ $ingredient->quantity }} {!! $ingredient->ingredient->display_name !!}
-    @break
+        @case('Currency')
+            {{ $ingredient->quantity }} {!! $ingredient->ingredient->display_name !!}
+        @break
 
-@endswitch
+    @endswitch

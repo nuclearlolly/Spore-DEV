@@ -27,23 +27,23 @@
                 @foreach ($recipe->reward_items as $type)
                     @foreach ($type as $item)
                         @if ($counter > 3)
-                        @break
-                    @endif
-                    <?php ++$counter; ?>
-                    <div class="alert alert-secondary">
-                        @include('home.crafting._recipe_reward_entry', ['reward' => $item])
-                    </div>
+                            @break
+                        @endif
+                        <?php ++$counter; ?>
+                        <div class="alert alert-secondary">
+                            @include('home.crafting._recipe_reward_entry', ['reward' => $item])
+                        </div>
+                    @endforeach
                 @endforeach
-            @endforeach
-            @if ($counter > 3)
-                <i class="fas fa-ellipsis-h mb-3"></i>
+                @if ($counter > 3)
+                    <i class="fas fa-ellipsis-h mb-3"></i>
+                @endif
+            </div>
+            @if (count(getLimits($recipe)))
+                @include('widgets._limits', ['object' => $recipe, 'compact' => true])
+                <hr />
             @endif
         </div>
-        @if (count(getLimits($recipe)))
-            @include('widgets._limits', ['object' => $recipe, 'compact' => true])
-            <hr />
-        @endif
+        <a class="btn btn-primary btn-block btn-craft" href="">Craft</a>
     </div>
-    <a class="btn btn-primary btn-block btn-craft" href="">Craft</a>
-</div>
 </div>

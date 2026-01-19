@@ -52,18 +52,18 @@
                 @foreach ($recipe->reward_items as $type)
                     @foreach ($type as $item)
                         @if ($counter > 3)
-                        @break
-                    @endif
-                    <?php ++$counter; ?>
-                    <div class="alert alert-secondary">
-                        @include('home.crafting._recipe_reward_entry', ['reward' => $item])
-                    </div>
+                            @break
+                        @endif
+                        <?php ++$counter; ?>
+                        <div class="alert alert-secondary">
+                            @include('home.crafting._recipe_reward_entry', ['reward' => $item])
+                        </div>
+                    @endforeach
                 @endforeach
-            @endforeach
+            </div>
+            @if ($counter > 3)
+                <i class="fas fa-ellipsis-h mb-3"></i>
+            @endif
         </div>
-        @if ($counter > 3)
-            <i class="fas fa-ellipsis-h mb-3"></i>
-        @endif
     </div>
-</div>
 </div>

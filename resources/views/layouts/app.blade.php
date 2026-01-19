@@ -71,7 +71,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Tangerine" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Bad+Script" rel="stylesheet" type="text/css">
-    
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/lorekeeper.css?v=' . filemtime(public_path('css/lorekeeper.css'))) }}" rel="stylesheet">
@@ -97,12 +97,12 @@
 
     @include('feed::links')
     @php
-    $design = App\Models\SiteDesign::all()->first();
+        $design = App\Models\SiteDesign::all()->first();
     @endphp
 
     <!-- ALTERNATE SITE LAYOUTS -->
     @isset($design)
-    <link href="{{ asset('css/'. $design->design .'.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/' . $design->design . '.css') }}" rel="stylesheet">
     @endisset
 
     <!--Editable font css-->
@@ -119,9 +119,9 @@
         </div>
         @include('layouts._nav')
         @include('layouts._clock')
-        @if ( View::hasSection('sidebar') )
-			<div class="site-mobile-header bg-secondary"><a href="#" class="btn btn-sm btn-outline-light" id="mobileMenuButton">Menu <i class="fas fa-caret-right ml-1"></i></a></div>
-		@endif
+        @if (View::hasSection('sidebar'))
+            <div class="site-mobile-header bg-secondary"><a href="#" class="btn btn-sm btn-outline-light" id="mobileMenuButton">Menu <i class="fas fa-caret-right ml-1"></i></a></div>
+        @endif
 
         <main class="container-fluid">
             <div class="row">
@@ -155,7 +155,7 @@
                         @include('layouts._footer')
                     </div>
                 </div>
-                 <div class="second-sidebar col-lg-2" id="secondsidebar">
+                <div class="second-sidebar col-lg-2" id="secondsidebar">
                     @yield('second-sidebar')
                 </div>
             </div>
