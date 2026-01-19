@@ -7,7 +7,7 @@
         @if ($newses->count())
             @foreach ($newses as $news)
                 <div class="{{ !$loop->last ? 'border-bottom' : '' }}">
-                    <span class="d-flex flex-column flex-sm-row align-items-sm-end pt-3 {{ !$textPreview ? 'pb-3' : '' }}">
+                    <span class="d-flex flex-column flex-sm-row align-items-sm-end pt-3 {{ !$textPreview ? 'pb-3' : '' }}" style="padding-top: 0rem !important;">
                         <h5 class="mb-0">
                             {!! $news->displayName !!}
                         </h5>
@@ -17,7 +17,7 @@
                     </span>
                     @if ($textPreview)
                         <p class="pl-3">
-                            {!! substr(strip_tags(str_replace('<br />', '&nbsp;', $news->parsed_text)), 0, 300) !!}...
+                            {!! substr(strip_tags(str_replace('<br />', '&nbsp;', $news->parsed_text)), 0, 50) !!}...
                             <a href="{!! $news->url !!}">Read more <i class="fas fa-arrow-right"></i></a>
                         </p>
                     @endif

@@ -13,7 +13,6 @@
             <div class="sidebar-item"><a href="{{ $sales->url }}" class="{{ set_active($salelink) }}">{{ '[' . ($sales->is_open ? 'OPEN' : 'CLOSED') . '] ' . $sales->title }}</a></div>
         @endforeach
 @else
-    <li class="sidebar-section">
         <div class="sidebar-section-header">Recent Sales</div>
         @foreach ($recentsales as $sales)
             @php $salelink = 'sales/'.$sales->slug; @endphp

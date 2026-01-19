@@ -49,7 +49,7 @@
         </div>
     </div>
     <hr>
-    </div>
+</div>
     <div class="col-md-4 mb-4 align-items-center">
         @include('widgets._news', ['textPreview' => true])
         <hr class="mb-1 align-items-center">
