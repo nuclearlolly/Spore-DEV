@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Models\Character\Character;
+use App\Models\Character\CharacterFolder;
 use App\Models\Character\CharacterImage;
 use App\Models\Character\Sublist;
 use App\Models\Currency\Currency;
@@ -22,9 +23,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Route;
-
-use App\Models\Character\CharacterCategory;
-use App\Models\Character\CharacterFolder;
 
 class UserController extends Controller {
     /*
@@ -107,11 +105,11 @@ class UserController extends Controller {
      * Shows a user's characters.
      *
      * @param string $name
+     * @param mixed  $folder
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function getUserCharacterFolder($name, $folder)
-    {
+    public function getUserCharacterFolder($name, $folder) {
         $folder = CharacterFolder::where('name', $folder)->where('user_id', $this->user->id)->first();
         $query = Character::myo(0)->where('user_id', $this->user->id);
         $imageQuery = CharacterImage::images(Auth::user() ?? null)->with('features')->with('rarity')->with('species')->with('features');
@@ -136,7 +134,7 @@ class UserController extends Controller {
 
         return view('user.characters', [
             'user'       => $this->user,
-            'folder' => $folder,
+            'folder'     => $folder,
             'characters' => $query->orderBy('sort', 'DESC')->get(),
         ]);
     }

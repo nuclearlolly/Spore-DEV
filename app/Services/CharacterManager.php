@@ -1119,8 +1119,11 @@ class CharacterManager extends Service {
             $count = 0;
             foreach ($characters as $character) {
                 $character->sort = $count;
-                if($folders[$count] == 'None') $character->folder_id = null; 
-                else $character->folder_id = $folders[$count];
+                if ($folders[$count] == 'None') {
+                    $character->folder_id = null;
+                } else {
+                    $character->folder_id = $folders[$count];
+                }
                 $character->save();
                 $count++;
             }
@@ -1824,15 +1827,13 @@ class CharacterManager extends Service {
      * @param int       $cooldown
      * @param string    $logType
      */
-    public function moveCharacter($character, $recipient, $data, $cooldown = -1, $logType = null)
-    {   
-
+    public function moveCharacter($character, $recipient, $data, $cooldown = -1, $logType = null) {
         $sender = $character->user;
         if (!$sender) {
             $sender = $character->owner_url;
         }
 
-        if($character->folder_id) {
+        if ($character->folder_id) {
             $character->folder_id = null;
             $character->save();
         }
