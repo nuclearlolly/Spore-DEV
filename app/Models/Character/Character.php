@@ -32,7 +32,7 @@ class Character extends Model {
         'is_sellable', 'is_tradeable', 'is_giftable',
         'sale_value', 'transferrable_at', 'is_visible',
         'is_gift_art_allowed', 'is_gift_writing_allowed', 'is_trading', 'sort',
-        'is_myo_slot', 'name', 'trade_id', 'is_links_open', 'owner_url',
+        'is_myo_slot', 'name', 'trade_id', 'is_links_open', 'owner_url', 'folder_id',
     ];
 
     /**
@@ -199,6 +199,14 @@ class Character extends Model {
     public function links() {
         // character id can be in either column
         return $this->hasMany(CharacterRelation::class, 'character_1_id')->orWhere('character_2_id', $this->id);
+    }
+
+    /**
+     * Gets which folder the character currently resides in.
+     */
+    public function folder()
+    {
+        return $this->belongsTo('App\Models\Character\CharacterFolder', 'folder_id');
     }
 
     /**********************************************************************************************

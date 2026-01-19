@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Route;
 
+use App\Models\Character\CharacterCategory;
+use App\Models\Character\CharacterFolder;
+
+
 class UserController extends Controller {
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +111,9 @@ class UserController extends Controller {
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function getUserCharacters($name) {
+    public function getUserCharacterFolder($name, $folder)
+    {
+        $folder = CharacterFolder::where('name', $folder)->where('user_id', $this->user->id)->first();
         $query = Character::myo(0)->where('user_id', $this->user->id);
         $imageQuery = CharacterImage::images(Auth::user() ?? null)->with('features')->with('rarity')->with('species')->with('features');
 
@@ -131,6 +137,7 @@ class UserController extends Controller {
 
         return view('user.characters', [
             'user'       => $this->user,
+            'folder' => $folder,
             'characters' => $query->orderBy('sort', 'DESC')->get(),
         ]);
     }
