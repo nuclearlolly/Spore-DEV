@@ -594,8 +594,6 @@ class WorldController extends Controller {
     /**
      * Shows the visual item list.
      *
-     * @param mixed $id
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getItemIndex(Request $request) {
@@ -622,13 +620,12 @@ class WorldController extends Controller {
         $items = $query->get()->groupBy(['item_category_id', 'id']);
 
         return view('world.item_visual_index', [
-            'items'      => $items,
-            'categories' => ItemCategory::orderBy('sort', 'DESC')->get()->keyBy('id'),
+            'items'               => $items,
+            'categories'          => ItemCategory::orderBy('sort', 'DESC')->get()->keyBy('id'),
             'categoriesForSearch' => ['none' => 'All Items'] + ['withoutOption' => 'Miscellaneous'] + ItemCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
-            'artists'    => ['none' => 'Any Artist'] + User::whereIn('id', Item::whereNotNull('artist_id')->pluck('artist_id')->toArray())->pluck('name', 'id')->toArray(),
+            'artists'             => ['none' => 'Any Artist'] + User::whereIn('id', Item::whereNotNull('artist_id')->pluck('artist_id')->toArray())->pluck('name', 'id')->toArray(),
         ]);
     }
-
 
     /**
      * Shows an individual item's page.
@@ -681,7 +678,7 @@ class WorldController extends Controller {
         }
 
         return view('world._item_entry', [
-            'item' => $item,
+            'item'        => $item,
             'imageUrl'    => $item->imageUrl,
             'name'        => $item->displayName,
             'description' => $item->parsed_description,

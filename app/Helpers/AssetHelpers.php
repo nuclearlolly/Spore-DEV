@@ -621,7 +621,7 @@ function getRewardTypes($showData, $recipient) {
         return ['Item' => 'Item', 'Currency' => 'Currency'] +
             ($showData['showLootTables'] ? ['LootTable' => 'Loot Table'] : []) +
             ($showData['showRaffles'] ? ['Raffle' => 'Raffle Ticket'] : []);
-            ($showData['showRecipes'] ? ['Recipe' => 'Recipe'] : []);
+        ($showData['showRecipes'] ? ['Recipe' => 'Recipe'] : []);
     } elseif ($recipient == 'Character') {
         return ['Item' => 'Item', 'Currency' => 'Currency'] +
             ($showData['showLootTables'] ? ['LootTable' => 'Loot Table'] : []);

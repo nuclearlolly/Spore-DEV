@@ -226,15 +226,11 @@ class AccountController extends Controller {
     /**
      * Changes user dashboard guide visibility setting from the home screen.
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function guideVisibilityHome(Request $request) {
-
         $user = Auth::user();
-        if(Auth::user()) {
-
+        if (Auth::user()) {
             $user->settings->is_guide_active = 0;
             $user->settings->update();
             flash('The guide has been hidden. You can bring it back via your settings if you want to.')->success();

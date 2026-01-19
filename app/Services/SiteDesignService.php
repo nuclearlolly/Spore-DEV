@@ -1,15 +1,11 @@
-<?php namespace App\Services;
+<?php
 
-use App\Services\Service;
+namespace App\Services;
 
-use DB;
-use Config;
-
-use App\Models\User\User;
 use App\Models\SiteDesign;
+use DB;
 
-class SiteDesignService extends Service
-{
+class SiteDesignService extends Service {
     /*
     |--------------------------------------------------------------------------
     | SiteDesign Service
@@ -22,36 +18,39 @@ class SiteDesignService extends Service
     /**
      * Creates a site design entry.
      *
+     * @param mixed $data
      */
-    public function createDesign($data)
-    {
+    public function createDesign($data) {
         DB::beginTransaction();
 
         try {
             $design = SiteDesign::create($data);
+
             return $this->commitReturn($design);
-        } catch(\Exception $e) { 
+        } catch (\Exception $e) {
             $this->setError('error', $e->getMessage());
         }
+
         return $this->rollbackReturn(false);
     }
 
     /**
      * Updates a site design.
      *
+     * @param mixed $design
+     * @param mixed $data
      */
-    public function updateDesign($design, $data)
-    {
+    public function updateDesign($design, $data) {
         DB::beginTransaction();
 
         try {
             $design->update($data);
+
             return $this->commitReturn($design);
-        } catch(\Exception $e) { 
+        } catch (\Exception $e) {
             $this->setError('error', $e->getMessage());
         }
+
         return $this->rollbackReturn(false);
     }
-
-    
 }

@@ -95,14 +95,13 @@ Route::group(['prefix' => 'images', 'middleware' => 'power:edit_site_settings'],
 });
 
 // SITE DESIGN
-Route::group(['prefix' => 'design', 'middleware' => 'power:edit_site_settings'], function() {
+Route::group(['prefix' => 'design', 'middleware' => 'power:edit_site_settings'], function () {
     Route::get('/', 'SiteDesignController@getIndex');
     Route::post('/', 'SiteDesignController@postEditDesign');
 });
 
 // DATA
-Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:edit_data'], function() {
-
+Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:edit_data'], function () {
     // GALLERIES
     Route::get('galleries', 'GalleryController@getIndex');
     Route::get('galleries/create', 'GalleryController@getCreateGallery');
@@ -294,8 +293,8 @@ Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:
     Route::post('limits/create', 'LimitController@postCreateEditLimit');
     Route::post('limits/edit/{id?}', 'LimitController@postCreateEditLimit');
     Route::post('limits/delete/{id}', 'LimitController@postDeleteLimit');
-    
-    //CAROUSEL
+
+    // CAROUSEL
     Route::get('carousel', 'CarouselController@getIndex');
     Route::post('carousel/create', 'CarouselController@postUploadCarousel');
     Route::get('carousel/delete/{id}', 'CarouselController@getDeleteCarousel');
@@ -372,7 +371,7 @@ Route::group(['prefix' => 'grants', 'namespace' => 'Users', 'middleware' => 'pow
 
     Route::get('loot-tables', 'GrantController@getLootTables');
     Route::post('loot-tables', 'GrantController@postLootTables');
-    
+
     Route::get('recipes', 'GrantController@getRecipes');
     Route::post('recipes', 'GrantController@postRecipes');
 });

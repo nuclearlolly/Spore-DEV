@@ -242,7 +242,7 @@ return [
             ],
             [
                 'name' => 'Site Design',
-                'url' => 'admin/design'
+                'url'  => 'admin/design',
             ],
             [
                 'name' => 'File Manager',
