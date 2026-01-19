@@ -26,7 +26,6 @@ use Route;
 use App\Models\Character\CharacterCategory;
 use App\Models\Character\CharacterFolder;
 
-
 class UserController extends Controller {
     /*
     |--------------------------------------------------------------------------
