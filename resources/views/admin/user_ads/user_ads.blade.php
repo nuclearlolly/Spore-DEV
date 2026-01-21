@@ -28,7 +28,7 @@
                     <div class="col-3">
                         <div class="logs-table-cell">Last Edited</div>
                     </div>
-					<div class="col">
+                    <div class="col">
                         <div class="logs-table-cell">Action</div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                                 <div class="logs-table-cell"><a href="{{ url('admin/user_ads/edit/' . $ad->id) }}" class="btn btn-primary py-0 px-2 w-100">Edit</a></div>
                                 <div class="logs-table-cell"><a href="{{ url('admin/user_ads/delete/' . $ad->id) }}" class="btn btn-danger py-0 px-2 w-100">Delete</a></div>
                             </div>
-							
+
                         </div>
                     </div>
                 @endforeach
