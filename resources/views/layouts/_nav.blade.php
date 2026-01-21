@@ -96,6 +96,10 @@
                             Raffles
                         </a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ url('user_ads') }}">
+                            User Ads
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('reports/bug-reports') }}">
                             Bug Reports
                         </a>
