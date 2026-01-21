@@ -9,7 +9,7 @@
 
     <h1>User Ads</h1>
     <div class="alert alert-info">
-        You can edit and delete user ads here. Deleting an ad is not reversible.
+        You can edit and delete user ads here. <strong>Deleting an ad is not reversible.</strong>
     </div>
 
     @if (!count($user_ads))
@@ -19,14 +19,17 @@
         <div class="mb-4 logs-table">
             <div class="logs-table-header">
                 <div class="row">
-                    <div class="col-12 col-md-5">
+                    <div class="col-5">
                         <div class="logs-table-cell">Text</div>
                     </div>
-                    <div class="col-6 col-md-3">
+                    <div class="col-2">
                         <div class="logs-table-cell">Created At</div>
                     </div>
-                    <div class="col-6 col-md-3">
+                    <div class="col-3">
                         <div class="logs-table-cell">Last Edited</div>
+                    </div>
+					<div class="col">
+                        <div class="logs-table-cell">Action</div>
                     </div>
                 </div>
             </div>
@@ -34,20 +37,22 @@
                 @foreach ($user_ads as $ad)
                     <div class="logs-table-row">
                         <div class="row flex-wrap">
-                            <div class="col-12 col-md-5">
+                            <div class="col-5">
                                 <div class="logs-table-cell">
                                     {!! $ad->text !!}
                                 </div>
                             </div>
-                            <div class="col-6 col-md-3">
+                            <div class="col-2 ">
                                 <div class="logs-table-cell">{!! pretty_date($ad->created_at) !!}</div>
                             </div>
-                            <div class="col-6 col-md-3">
+                            <div class="col-3">
                                 <div class="logs-table-cell">{!! pretty_date($ad->updated_at) !!}</div>
                             </div>
-                            <div class="col-12 col-md-1 text-right">
+                            <div class=" text-center">
                                 <div class="logs-table-cell"><a href="{{ url('admin/user_ads/edit/' . $ad->id) }}" class="btn btn-primary py-0 px-2 w-100">Edit</a></div>
+                                <div class="logs-table-cell"><a href="{{ url('admin/user_ads/delete/' . $ad->id) }}" class="btn btn-danger py-0 px-2 w-100">Delete</a></div>
                             </div>
+							
                         </div>
                     </div>
                 @endforeach

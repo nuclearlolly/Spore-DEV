@@ -11,6 +11,11 @@
         <a class="btn btn-primary" href="{{ url('user_ads/new') }}">
             <i class="fas fa-plus"></i> Create New User Ad
         </a>
+		@if (Auth::check() && (Auth::user()->hasPower('manage_user_ads')))
+		<a class="btn btn-primary" href="{{ url('admin/user_ads') }}">
+			<i class="fas fa-crown"></i> Ad Moderation
+		</a>
+		@endif
     </div>
 
     <h1>User Ads</h1>
