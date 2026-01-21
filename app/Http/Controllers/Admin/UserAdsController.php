@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\UserAds;
 use App\Services\UserAdsService;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserAdsController extends Controller {
-	 /**
+    /**
      * Shows the user ads index.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -20,8 +19,8 @@ class UserAdsController extends Controller {
             'user_ads' => UserAds::orderBy('created_at', 'DESC')->paginate(20),
         ]);
     }
-	
-	/**
+
+    /**
      * Shows the edit user ads page.
      *
      * @param int $id
@@ -43,7 +42,7 @@ class UserAdsController extends Controller {
      * Edits a user ad.
      *
      * @param App\Services\UserAdsService $service
-     * @param int|null                 $id
+     * @param int|null                    $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -62,8 +61,8 @@ class UserAdsController extends Controller {
 
         return redirect()->back();
     }
-	
-	/**
+
+    /**
      * Gets the user ads deletion modal.
      *
      * @param int $id
@@ -77,12 +76,12 @@ class UserAdsController extends Controller {
             'user_ads' => $user_ads,
         ]);
     }
-	
-	/**
+
+    /**
      * Deletes a user ad.
      *
      * @param App\Services\UserAdsService $service
-     * @param int                      $id
+     * @param int                         $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

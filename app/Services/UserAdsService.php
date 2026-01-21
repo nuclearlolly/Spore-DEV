@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\UserAds;
 use App\Models\User\User;
+use App\Models\UserAds;
 use Illuminate\Support\Facades\DB;
 
 class UserAdsService extends Service {
-	/*
+    /*
     |--------------------------------------------------------------------------
     | User Ads Service
     |--------------------------------------------------------------------------
@@ -15,8 +15,8 @@ class UserAdsService extends Service {
     | Handles the creation and editing of user ads.
     |
     */
-	
-	/**
+
+    /**
      * Creates a user ad.
      *
      * @param array                 $data
@@ -40,11 +40,11 @@ class UserAdsService extends Service {
 
         return $this->rollbackReturn(false);
     }
-	
-	/**
-     * Updates a user ad
+
+    /**
+     * Updates a user ad.
      *
-     * @param \App\Models\UserAds      $user_ads
+     * @param \App\Models\UserAds   $user_ads
      * @param array                 $data
      * @param \App\Models\User\User $user
      *
@@ -66,8 +66,8 @@ class UserAdsService extends Service {
 
         return $this->rollbackReturn(false);
     }
-	
-	/**
+
+    /**
      * Deletes a user ad.
      *
      * @param \App\Models\UserAds $user_ads
@@ -87,6 +87,4 @@ class UserAdsService extends Service {
 
         return $this->rollbackReturn(false);
     }
-	
-	
 }

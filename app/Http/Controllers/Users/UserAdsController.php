@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use App\Models\UserAds;
 use App\Services\UserAdsService;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserAdsController extends Controller {
-
-	/*
+    /*
     |--------------------------------------------------------------------------
     | User Ads Controller
     |--------------------------------------------------------------------------
@@ -19,19 +17,19 @@ class UserAdsController extends Controller {
     | Displays user ads by users.
     |
     */
-	
-	/**
+
+    /**
      * Shows the user ads index.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getUserAdsIndex() {
         return view('user_ads.index', [
-			'user_ads' => UserAds::orderBy('updated_at', 'DESC')->paginate(10),
-		]);
+            'user_ads' => UserAds::orderBy('updated_at', 'DESC')->paginate(10),
+        ]);
     }
-	
-	/**
+
+    /**
      * Shows a user ads ad.
      *
      * @param int         $id
@@ -46,9 +44,9 @@ class UserAdsController extends Controller {
         }
 
         return view('user_ads.user_ads', ['user_ads' => $user_ads]);
-    }    
-	
-	/**
+    }
+
+    /**
      * Shows the create user ads page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -58,20 +56,20 @@ class UserAdsController extends Controller {
             'user_ads' => new UserAds,
         ]);
     }
-	
-	/**
+
+    /**
      * Creates a user ads page.
      *
      * @param App\Services\UserAdsService $service
-     * @param int|null                 $id
+     * @param int|null                    $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postCreateEditUserAds(Request $request, UserAdsService $service, $id = null) {
         $request->validate(UserAds::$createRules);
-        
-        $data = $request->only(['text',]);
-        
+
+        $data = $request->only(['text']);
+
         $data['text'] = strip_tags($data['text']);
 
         if ($service->createUserAds($data, Auth::user())) {
@@ -86,8 +84,8 @@ class UserAdsController extends Controller {
 
         return redirect()->back();
     }
-	
-	 /**
+
+    /**
      * Gets the user ads deletion modal.
      *
      * @param int $id
@@ -96,37 +94,37 @@ class UserAdsController extends Controller {
      */
     public function getDeleteUserAds($id) {
         $user_ads = UserAds::find($id);
-		if (!$user_ads) {
-			abort(404);
-		}
-		
-		if (!(Auth::user()->hasPower('manage_user_ads') || Auth::user()->id == $user_ads->user_id)) {
-			abort(403); 
-		}
+        if (!$user_ads) {
+            abort(404);
+        }
+
+        if (!(Auth::user()->hasPower('manage_user_ads') || Auth::user()->id == $user_ads->user_id)) {
+            abort(403);
+        }
 
         return view('user_ads._delete_user_ads', [
             'user_ads' => $user_ads,
         ]);
     }
-    
+
     /**
      * Deletes a user ad.
      *
      * @param App\Services\UserAdsService $service
-     * @param int                      $id
+     * @param int                         $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postDeleteUserAds(Request $request, UserAdsService $service, $id) {
-		$user_ads = UserAds::find($id);
-		if (!$user_ads) {
-			abort(404);
-		}
-		
-		if (!(Auth::user()->hasPower('manage_user_ads') || Auth::user()->id == $user_ads->user_id)) {
-			abort(403); 
-		}
-		
+        $user_ads = UserAds::find($id);
+        if (!$user_ads) {
+            abort(404);
+        }
+
+        if (!(Auth::user()->hasPower('manage_user_ads') || Auth::user()->id == $user_ads->user_id)) {
+            abort(403);
+        }
+
         if ($service->deleteUserAds($user_ads)) {
             flash('User advertisement has been deleted successfully.')->success();
         } else {
@@ -134,7 +132,7 @@ class UserAdsController extends Controller {
                 flash($error)->error();
             }
         }
-		
+
         return redirect()->to('user_ads');
-	}
+    }
 }

@@ -3,13 +3,9 @@
 namespace App\Models;
 
 use App\Models\User\User;
-use App\Models\Model;
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 
 class UserAds extends Model {
-	
-	/**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -24,8 +20,8 @@ class UserAds extends Model {
      * @var string
      */
     protected $table = 'user_ads';
-	
-	/**
+
+    /**
      * Whether the model contains timestamps to be saved and updated.
      *
      * @var string
@@ -40,8 +36,8 @@ class UserAds extends Model {
     public static $createRules = [
         'text' => 'required|max:250',
     ];
-	
-	 /**
+
+    /**
      * Validation rules for updating.
      *
      * @var array
@@ -62,8 +58,8 @@ class UserAds extends Model {
     public function user() {
         return $this->belongsTo(User::class);
     }
-	
-	/**********************************************************************************************
+
+    /**********************************************************************************************
 
         ACCESSORS
 
@@ -77,8 +73,8 @@ class UserAds extends Model {
     public function getAdminUrlAttribute() {
         return url('admin/user_ads/edit/'.$this->id);
     }
-	
-	/**
+
+    /**
      * Gets the power required to edit this model.
      *
      * @return string
@@ -86,6 +82,4 @@ class UserAds extends Model {
     public function getAdminPowerAttribute() {
         return 'manage_user_ads';
     }
-	
-	
 }
