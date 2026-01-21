@@ -9,7 +9,7 @@
 
     <h1>User Ads</h1>
     <div class="alert alert-info">
-       You can edit and delete user ads here.  Deleting an ad is not reversible.
+        You can edit and delete user ads here. Deleting an ad is not reversible.
     </div>
 
     @if (!count($user_ads))

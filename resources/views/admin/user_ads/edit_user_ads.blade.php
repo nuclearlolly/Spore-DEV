@@ -13,7 +13,7 @@
     </h1>
 
     <div class="alert alert-info">
-       You can edit and delete user ads here.  Deleting an ad is not reversible.
+        You can edit and delete user ads here. Deleting an ad is not reversible.
     </div>
 
     {!! Form::open(['url' => 'admin/user_ads/edit/' . $user_ads->id, 'files' => true]) !!}

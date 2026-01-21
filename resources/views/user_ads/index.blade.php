@@ -14,7 +14,7 @@
     </div>
 
     <h1>User Ads</h1>
-    
+
     <ul class="list-group">
         @if (count($user_ads))
             {!! $user_ads->render() !!}
