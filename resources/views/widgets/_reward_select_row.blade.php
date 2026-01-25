@@ -14,7 +14,7 @@
     </table>
     {!! Form::select('award_id[]', $items, null, ['class' => 'form-control item-select', 'placeholder' => 'Select Item']) !!}
     {!! Form::select('award_id[]', $currencies, null, ['class' => 'form-control currency-select', 'placeholder' => 'Select Currency']) !!}
-    {!! Form::select('award_id[]', $awards, null, ['class' => 'form-control currency-select', 'placeholder' => 'Select ' . ucfirst(__('awards.award'))]) !!}
+    {!! Form::select('award_id[]', $awards, null, ['class' => 'form-control currency-select', 'placeholder' => 'Select Award']) !!}
     @if ($showLootTables)
         {!! Form::select('award_id[]', $tables, null, ['class' => 'form-control table-select', 'placeholder' => 'Select Loot Table']) !!}
     @endif

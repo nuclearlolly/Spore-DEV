@@ -223,7 +223,7 @@ class Award extends Model {
      * @return string
      */
     public function getUrlAttribute() {
-        return url('world/'.__('awards.awards').'?name='.$this->name);
+        return url('world/awards?name='.$this->name);
     }
 
     /**
@@ -232,7 +232,7 @@ class Award extends Model {
      * @return string
      */
     public function getIdUrlAttribute() {
-        return url('world/'.__('awards.awards').'/'.$this->id);
+        return url('world/awards/'.$this->id);
     }
 
     /**

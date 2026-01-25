@@ -443,7 +443,7 @@ class CharacterController extends Controller {
                 $recipient = $this->character;
 
                 if ($service->transferCharacterStack($sender, $recipient, UserAward::find($request->get('stack_id')), $request->get('stack_quantity'))) {
-                    flash(ucfirst(__('awards.award')).' transferred successfully.')->success();
+                    flash('Award transferred successfully.')->success();
                 } else {
                     foreach ($service->errors()->getMessages()['error'] as $error) {
                         flash($error)->error();
@@ -681,7 +681,7 @@ class CharacterController extends Controller {
      */
     private function postAwardTransfer(Request $request, AwardCaseManager $service) {
         if ($service->transferCharacterStack($this->character, $this->character->user, CharacterAward::find($request->get('ids')), $request->get('quantities'))) {
-            flash(ucfirst(__('awards.award')).' transferred successfully.')->success();
+            flash('Award transferred successfully.')->success();
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();
@@ -700,7 +700,7 @@ class CharacterController extends Controller {
      */
     private function postDeleteAward(Request $request, AwardCaseManager $service) {
         if ($service->deleteStack($this->character, CharacterAward::find($request->get('ids')), $request->get('quantities'))) {
-            flash(ucfirst(__('awards.award')).' deleted successfully.')->success();
+            flash('Award deleted successfully.')->success();
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();

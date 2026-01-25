@@ -1,12 +1,12 @@
 @extends('world.layout')
 
 @section('title')
-    {{ ucfirst(__('awards.award')) }} Categories
+    Award Categories
 @endsection
 
 @section('content')
-    {!! breadcrumbs(['World' => 'world', ucfirst(__('awards.award')) . ' Categories' => 'world/' . __('awards.award') . '-categories']) !!}
-    <h1>{{ ucfirst(__('awards.award')) }} Categories</h1>
+    {!! breadcrumbs(['World' => 'world', 'Award Categories' => 'world/award-categories']) !!}
+    <h1>Award Categories</h1>
 
     <div>
         {!! Form::open(['method' => 'GET', 'class' => 'form-inline justify-content-end']) !!}

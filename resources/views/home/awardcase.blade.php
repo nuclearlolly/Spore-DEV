@@ -1,17 +1,16 @@
 @extends('home.layout')
 
 @section('home-title')
-    {{ ucfirst(__('awards.awardcase')) }}
+    Awardcase
 @endsection
 
 @section('home-content')
-    {!! breadcrumbs([ucfirst(__('awards.awardcase')) => __('awards.awardcase')]) !!}
+    {!! breadcrumbs(['Awardcase' => 'awardcase']) !!}
 
     <h1>
-        {{ ucfirst(__('awards.awardcase')) }}
+        Awardcase
     </h1>
-
-    <p>These are the {{ __('awards.awards') }} you've earned for participating on this site.</p>
+    <p>These are the awards you've earned for participating on this site.</p>
     @foreach ($awards as $categoryId => $categoryAwards)
         <div class="card mb-3 awardcase-category">
             <h5 class="card-header awardcase-header">
@@ -37,11 +36,11 @@
         </div>
     @endforeach
     <div class="text-right mb-4">
-        <a href="{{ url(Auth::user()->url . '/' . __('awards.award') . '-logs') }}">View logs...</a>
+        <a href="{{ url(Auth::user()->url . '/award-logs') }}">View logs...</a>
     </div>
 
     <h3>
-        In Progress {{ ucfirst(__('awards.awards')) }}
+        In Progress Awards
     </h3>
     <div class="card mb-3 awardcase-category">
         <div class="card-body awardcase-body">
@@ -61,7 +60,7 @@
                 });
             @endphp
             @if (!$inProgressAwards->count())
-                <p class="text-success">You have completed all available {{ __('awards.awards') }}. Yay!</p>
+                <p class="text-success">You have completed all available awards. Yay!</p>
             @else
                 @foreach ($inProgressAwards as $award)
                     <div class="card mb-2">
@@ -96,8 +95,8 @@
                                 <div class="text-right mb-0">
                                     @if ($award->progressionProgress(Auth::user()) == count($award->progressions) && $award->canClaim(Auth::user()))
                                         <div class="mt-2">
-                                            {!! Form::open(['url' => __('awards.awardcase') . '/claim/' . $award->id]) !!}
-                                            {!! Form::submit('Claim ' . ucfirst(__('awards.award')), ['class' => 'btn btn-primary']) !!}
+                                            {!! Form::open(['url' => 'awardcase/claim/' . $award->id]) !!}
+                                            {!! Form::submit('Claim Award', ['class' => 'btn btn-primary']) !!}
                                             {!! Form::close() !!}
                                         </div>
                                     @endif
@@ -117,7 +116,7 @@
             $('.awardcase-stack').on('click', function(e) {
                 e.preventDefault();
                 var $parent = $(this).parent().parent();
-                loadModal("{{ url(__('awards.awardcase')) }}/" + $parent.data('id'), $parent.data('name'));
+                loadModal("{{ url('awardcase') }}/" + $parent.data('id'), $parent.data('name'));
             });
         });
     </script>

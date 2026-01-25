@@ -44,7 +44,7 @@
                                 <tr class="character-reward-row">
                                     @if ($expanded_rewards)
                                         <td>
-                                            {!! Form::select('character_rewardable_type[' . $character->character_id . '][]', ['Item' => 'Item', 'Currency' => 'Currency', 'LootTable' => 'Loot Table', 'Award' => ucfirst(__('awards.award'))], $reward->rewardable_type, [
+                                            {!! Form::select('character_rewardable_type[' . $character->character_id . '][]', ['Item' => 'Item', 'Currency' => 'Currency', 'LootTable' => 'Loot Table', 'Award' => 'Award'], $reward->rewardable_type, [
                                                 'class' => 'form-control character-rewardable-type',
                                                 'placeholder' => 'Select Reward Type',
                                             ]) !!}
@@ -55,9 +55,9 @@
                                                 'placeholder' => 'Select Currency',
                                             ]) !!}</div>
                                             <div class="character-items  {{ $reward->rewardable_type == 'Item' ? 'show' : 'hide' }}">{!! Form::select('character_rewardable_id[' . $character->character_id . '][]', $items, $reward->rewardable_type == 'Item' ? $reward->rewardable_id : null, ['class' => 'form-control character-item-id', 'placeholder' => 'Select Item']) !!}</div>
-                                            <div class="character-awards  {{ $reward->rewardable_type == 'Award' ? 'show' : 'hide' }}">{!! Form::select('character_rewardable_id[' . $character->character_id . '][]', $items, $reward->rewardable_type == 'Award' ? $reward->rewardable_id : null, [
+                                            <div class="character-awards  {{ $reward->rewardable_type == 'Award' ? 'show' : 'hide' }}">{!! Form::select('character_rewardable_id[' . $character->character_id . '][]', $awards, $reward->rewardable_type == 'Award' ? $reward->rewardable_id : null, [
                                                 'class' => 'form-control character-award-id',
-                                                'placeholder' => 'Select ' . ucfirst(__('awards.award')),
+                                                'placeholder' => 'Select Award',
                                             ]) !!}</div>
                                             <div class="character-tables {{ $reward->rewardable_type == 'Loot Table' ? 'show' : 'hide' }}">{!! Form::select('character_rewardable_id[' . $character->character_id . '][]', $tables, $reward->rewardable_type == 'Loot Table' ? $reward->rewardable_id : null, [
                                                 'class' => 'form-control character-table-id',

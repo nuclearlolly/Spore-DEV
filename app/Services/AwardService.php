@@ -30,7 +30,7 @@ class AwardService extends Service {
      * @param array                 $data
      * @param \App\Models\User\User $user
      *
-     * @return \App\Models\Award\AwardCategory|bool
+     * @return AwardCategory|bool
      */
     public function createAwardCategory($data, $user) {
         DB::beginTransaction();
@@ -66,11 +66,11 @@ class AwardService extends Service {
     /**
      * Update a category.
      *
-     * @param \App\Models\Award\AwardCategory $category
-     * @param array                           $data
-     * @param \App\Models\User\User           $user
+     * @param AwardCategory         $category
+     * @param array                 $data
+     * @param \App\Models\User\User $user
      *
-     * @return \App\Models\Award\AwardCategory|bool
+     * @return AwardCategory|bool
      */
     public function updateAwardCategory($category, $data, $user) {
         DB::beginTransaction();
@@ -109,7 +109,7 @@ class AwardService extends Service {
     /**
      * Delete a category.
      *
-     * @param \App\Models\Award\AwardCategory $category
+     * @param AwardCategory $category
      *
      * @return bool
      */
@@ -119,7 +119,7 @@ class AwardService extends Service {
         try {
             // Check first if the category is currently in use
             if (Award::where('award_category_id', $category->id)->exists()) {
-                throw new \Exception('An '.__('awards.award').' with this category exists. Please change its category first.');
+                throw new \Exception('An award with this category exists. Please change its category first.');
             }
 
             if ($category->has_image) {
@@ -173,7 +173,7 @@ class AwardService extends Service {
      * @param array                 $data
      * @param \App\Models\User\User $user
      *
-     * @return \App\Models\Award\Award|bool
+     * @return Award|bool
      */
     public function createAward($data, $user) {
         DB::beginTransaction();
@@ -184,7 +184,7 @@ class AwardService extends Service {
             }
 
             if ((isset($data['award_category_id']) && $data['award_category_id']) && !AwardCategory::where('id', $data['award_category_id'])->exists()) {
-                throw new \Exception('The selected '.__('awards.award').' category is invalid.');
+                throw new \Exception('The selected award category is invalid.');
             }
 
             $data = $this->populateData($data);
@@ -237,11 +237,11 @@ class AwardService extends Service {
     /**
      * Updates an award.
      *
-     * @param \App\Models\Award\Award $award
-     * @param array                   $data
-     * @param \App\Models\User\User   $user
+     * @param Award                 $award
+     * @param array                 $data
+     * @param \App\Models\User\User $user
      *
-     * @return \App\Models\Award\Award|bool
+     * @return Award|bool
      */
     public function updateAward($award, $data, $user) {
         DB::beginTransaction();
@@ -256,7 +256,7 @@ class AwardService extends Service {
                 throw new \Exception('The name has already been taken.');
             }
             if ((isset($data['award_category_id']) && $data['award_category_id']) && !AwardCategory::where('id', $data['award_category_id'])->exists()) {
-                throw new \Exception('The selected '.__('awards.award').' category is invalid.');
+                throw new \Exception('The selected award category is invalid.');
             }
 
             $data = $this->populateData($data, $award);
@@ -317,7 +317,7 @@ class AwardService extends Service {
     /**
      * Deletes an award.
      *
-     * @param \App\Models\Award\Award $award
+     * @param Award $award
      *
      * @return bool
      */
@@ -327,16 +327,16 @@ class AwardService extends Service {
         try {
             // Check first if the award is currently owned or if some other site feature uses it
             if (DB::table('user_awards')->where([['award_id', '=', $award->id], ['count', '>', 0]])->exists()) {
-                throw new \Exception('At least one user currently owns this '.__('awards.award').'. Please remove the '.__('awards.awards').' before deleting it.');
+                throw new \Exception('At least one user currently owns this award. Please remove the awards before deleting it.');
             }
             if (DB::table('character_awards')->where([['award_id', '=', $award->id], ['count', '>', 0]])->exists()) {
-                throw new \Exception('At least one character currently owns this '.__('awards.award').'. Please remove the '.__('awards.awards').' before deleting it.');
+                throw new \Exception('At least one character currently owns this award. Please remove the awards before deleting it.');
             }
             if (DB::table('loots')->where('rewardable_type', 'Award')->where('rewardable_id', $award->id)->exists()) {
-                throw new \Exception('At least one loot table currently distributes this '.__('awards.award').' as a potential reward. Please remove the '.__('awards.awards').' before deleting it.');
+                throw new \Exception('At least one loot table currently distributes this award as a potential reward. Please remove the awards before deleting it.');
             }
             if (DB::table('prompt_rewards')->where('rewardable_type', 'Award')->where('rewardable_id', $award->id)->exists()) {
-                throw new \Exception('At least one prompt currently distributes this '.__('awards.award').' as a reward. Please remove the '.__('awards.awards').' before deleting it.');
+                throw new \Exception('At least one prompt currently distributes this award as a reward. Please remove the awards before deleting it.');
             }
 
             DB::table('awards_log')->where('award_id', $award->id)->delete();
@@ -358,8 +358,8 @@ class AwardService extends Service {
     /**
      * Handle category data.
      *
-     * @param array                                $data
-     * @param \App\Models\Award\AwardCategory|null $category
+     * @param array              $data
+     * @param AwardCategory|null $category
      *
      * @return array
      */
@@ -382,8 +382,8 @@ class AwardService extends Service {
     /**
      * Processes user input for creating/updating an award.
      *
-     * @param array                   $data
-     * @param \App\Models\Award\Award $award
+     * @param array $data
+     * @param Award $award
      *
      * @return array
      */

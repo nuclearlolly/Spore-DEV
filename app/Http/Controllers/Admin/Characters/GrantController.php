@@ -65,7 +65,7 @@ class GrantController extends Controller {
     public function postCharacterAwards($slug, Request $request, AwardCaseManager $service) {
         $data = $request->only(['award_ids', 'quantities', 'data', 'disallow_transfer', 'notes']);
         if ($service->grantCharacterAwards($data, Character::where('slug', $slug)->first(), Auth::user())) {
-            flash(ucfirst(__('awards.awards')).' granted successfully.')->success();
+            flash('Awards granted successfully.')->success();
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();

@@ -100,5 +100,5 @@
             {!! Form::select($prefix . 'rewardable_id[]', $rewardLootData[$rewardKey], null, ['class' => 'form-control object-select ' . strtolower($rewardKey) . '-select', 'placeholder' => 'Select ' . $rewardType]) !!}
         @endforeach
     @endif
-    {!! Form::select('rewardable_id[]', $awards, null, ['class' => 'form-control award-select', 'placeholder' => 'Select ' . ucfirst(__('awards.award'))]) !!}
+    {!! Form::select('rewardable_id[]', $awards, null, ['class' => 'form-control award-select', 'placeholder' => 'Select Award']) !!}
 </div>

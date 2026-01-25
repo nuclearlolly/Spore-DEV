@@ -721,7 +721,7 @@ class WorldController extends Controller {
         }
 
         if (!$released) {
-            flash('This '.__('awards.award').' is not yet released.')->error();
+            flash('This award is not yet released.')->error();
         }
 
         return view('world.award_page', [

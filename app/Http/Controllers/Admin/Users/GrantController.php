@@ -113,7 +113,7 @@ class GrantController extends Controller {
             'character_names', 'character_award_ids', 'character_quantities',
         ]);
         if ($service->grantAwards($data, Auth::user())) {
-            flash(ucfirst(__('awards.awards')).' granted successfully.')->success();
+            flash('Awards granted successfully.')->success();
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();

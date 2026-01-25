@@ -1,16 +1,15 @@
 @extends('user.layout')
 
 @section('profile-title')
-    {{ $user->name }}'s {{ ucfirst(__('awards.awardcase')) }}
+    {{ $user->name }}'s Awardcase
 @endsection
 
 @section('profile-content')
-    {!! breadcrumbs(['Users' => 'users', $user->name => $user->url, ucfirst(__('awards.awardcase')) => $user->url . '/awardcase']) !!}
+    {!! breadcrumbs(['Users' => 'users', $user->name => $user->url, 'Awardcase' => $user->url . '/awardcase']) !!}
 
     <h1>
-        {!! $user->displayName !!}'s {{ ucfirst(__('awards.awardcase')) }}
+        {!! $user->displayName !!}'s Awardcase
     </h1>
-
     @foreach ($awards as $categoryId => $categoryAwards)
         <div class="card mb-3 awardcase-category">
             <h5 class="card-header awardcase-header">
@@ -45,7 +44,7 @@
         <div class="d-flex row flex-wrap col-12 mt-1 pt-1 px-0 ubt-bottom">
             <div class="col-6 col-md-2 font-weight-bold">Sender</div>
             <div class="col-6 col-md-2 font-weight-bold">Recipient</div>
-            <div class="col-6 col-md-2 font-weight-bold">{{ ucfirst(__('awards.award')) }}</div>
+            <div class="col-6 col-md-2 font-weight-bold">Award</div>
             <div class="col-6 col-md-4 font-weight-bold">Log</div>
             <div class="col-6 col-md-2 font-weight-bold">Date</div>
         </div>
@@ -54,7 +53,7 @@
         @endforeach
     </div>
     <div class="text-right">
-        <a href="{{ url($user->url . '/' . __('awards.award') . '-logs') }}">View all...</a>
+        <a href="{{ url($user->url . '/award-logs') }}">View all...</a>
     </div>
 @endsection
 
@@ -64,7 +63,7 @@
             $('.awardcase-stack').on('click', function(e) {
                 e.preventDefault();
                 var $parent = $(this).parent().parent();
-                loadModal("{{ url(__('awards.awardcase')) }}/" + $parent.data('id'), $parent.data('name'));
+                loadModal("{{ url('awardcase') }}/" + $parent.data('id'), $parent.data('name'));
             });
         });
     </script>
