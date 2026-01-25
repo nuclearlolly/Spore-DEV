@@ -22,4 +22,9 @@
         <div class="sidebar-item"><a href="{{ url('world/currency-categories') }}" class="{{ set_active('world/currency-categories*') }}">Currency Categories</a></div>
         <div class="sidebar-item"><a href="{{ url('world/currencies') }}" class="{{ set_active('world/currencies*') }}">All Currencies</a></div>
     </li>
+    <li class="sidebar-section">
+        <div class="sidebar-section-header">{{ ucfirst(__('awards.awards')) }}</div>
+        <div class="sidebar-item"><a href="{{ url('world/' . __('awards.award') . '-categories') }}" class="{{ set_active('world/' . __('awards.award') . '-categories*') }}">{{ ucfirst(__('awards.award')) }} Categories</a></div>
+        <div class="sidebar-item"><a href="{{ url('world/' . __('awards.awards')) }}" class="{{ set_active('world/' . __('awards.awards') . '*') }}">All {{ ucfirst(__('awards.awards')) }} </a></div>
+    </li>
 </ul>
