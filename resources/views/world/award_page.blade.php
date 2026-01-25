@@ -19,9 +19,7 @@
 @endsection
 
 @section('content')
-
     {!! breadcrumbs(['World' => 'world', 'Awards' => 'world/awards', $award->name => $award->idUrl]) !!}
 
     @include('world._award_entry', ['award' => $award])
-
 @endsection
