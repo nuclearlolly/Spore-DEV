@@ -159,10 +159,6 @@ return [
                 'url'  => 'admin/data/galleries',
             ],
             [
-                'name' => 'Award Categories',
-                'url'  => 'admin/data/award-categories',
-            ],
-            [
                 'name' => 'Awards',
                 'url'  => 'admin/data/awards',
             ],

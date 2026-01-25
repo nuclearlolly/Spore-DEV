@@ -43,7 +43,7 @@
             @foreach ($awards as $award)
                 <div class="d-flex row flex-wrap col-12 mt-1 pt-2 px-0 ubt-top">
                     <div class="col-5 col-md-6"> {{ $award->name }} </div>
-                    <div class="col-4 col-md-5"> {{ $award->category ? $award->category->name : '' }} </div>
+                    <div class="col-4 col-md-5"> {{ $award->category ? $award->category->name : 'None' }} </div>
                     <div class="col-3 col-md-1 text-right">
                         <a href="{{ url('admin/data/awards/edit/' . $award->id) }}" class="btn btn-primary py-0 px-2">Edit</a>
                     </div>

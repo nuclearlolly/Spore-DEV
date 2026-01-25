@@ -7,13 +7,17 @@
     <div class="{{ $award->imageUrl ? 'col-md-9' : 'col-12' }}">
         <div class="card mb-2">
             <div class="card-header d-flex flex-wrap no-gutters">
-                <h1 class="col-12">{!! $award->displayName !!}
-                    <div class="float-md-right small">
+                <h1 class="col-12">
+                    {!! $award->displayName !!}
+                    <div class="float-md-right ml-2 small mb-0">
+                        <x-admin-edit title="Award" :object="$award" />
+                    </div>
+                    <div class="float-md-right small mb-0">
                         @if ($award->is_character_owned)
-                            <i class="fas fa-paw mx-2 small" data-toggle="tooltip" title="This award can be held by characters."></i>
+                            <i class="fas fa-paw small" data-toggle="tooltip" title="This award can be held by characters."></i>
                         @endif
                         @if ($award->is_user_owned)
-                            <i class="fas fa-user mx-2 small" data-toggle="tooltip" title="This award can be held by users."></i>
+                            <i class="fas fa-user small" data-toggle="tooltip" title="This award can be held by users."></i>
                         @endif
                     </div>
                 </h1>
@@ -54,20 +58,6 @@
                     @endforeach
                 </div>
             @endif
-            {{-- progression --}}
-            {{-- @if (count($award->progressions) > 0)
-                <div class="card-header h5">Award Progress ({{ count($award->progressions) }}/{{ count($award->progressions) }})</div>
-                <div class="card-body d-flex flex-wrap justify-content-center">
-                    <p>Note that this looks fully completed, since you are viewing it as an admin. Progression is only visible on the awards page or user inventory.</p>
-                    <div class="row col-12">
-                        @foreach ($award->progressions as $progression)
-                            <div class="col-md-2">
-                                {!! $progression->unlocked(null, true) !!}
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif --}}
             {{-- progression --}}
             @if (isset($staffView) && $staffView && count($award->progressions) > 0)
                 <div class="card-header h5">Award Progress ({{ count($award->progressions) }}/{{ count($award->progressions) }})</div>

@@ -80,20 +80,20 @@
                     {!! Form::checkbox('allow_transfer', 1, $award->id ? $award->allow_transfer : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
                     {!! Form::label('allow_transfer', 'Allow User → User Transfer', ['class' => 'form-check-label font-weight-bold ml-3']) !!} {!! add_help('If this is off, users will not be able to transfer this award to other users. Non-account-bound awards can be account-bound when granted to users directly.') !!}
                 </div>
-                <div class="col-md-4 form-group pl-md-3">
-                    {!! Form::checkbox('is_character_owned', 1, $award->id ? $award->is_character_owned : 0, ['class' => 'form-check-input hold-toggle', 'data-toggle' => 'toggle']) !!}
+                <div class="col-md-6 form-group pl-md-3">
+                    {!! Form::checkbox('is_character_owned', 1, $award->id ? $award->is_character_owned : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
                     {!! Form::label('is_character_owned', 'Character Held', ['class' => 'form-check-label font-weight-bold ml-3']) !!}
                     {!! add_help('If this is enabled, characters will be able to hold this award. The limit is how many can be held at a time. 0 means no limit, if set to 1 then quantity will be treated as a boolean.') !!}
-                    <div class="limit d-inline-flex align-items-center ml-3 {{ $award->is_character_owned ? '' : 'hide' }}">
+                    <div class="limit d-inline-flex align-items-center ml-3 ">
                         {!! Form::label('character_limit', 'Limit', ['class' => 'font-weight-bold mr-3 mb-0']) !!}
                         {!! Form::number('character_limit', $award->id ? $award->character_limit : 0, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="col-md-6 form-group pl-md-3">
-                    {!! Form::checkbox('is_user_owned', 1, $award->id ? $award->is_user_owned : 1, ['class' => 'form-check-input hold-toggle', 'data-toggle' => 'toggle']) !!}
+                    {!! Form::checkbox('is_user_owned', 1, $award->id ? $award->is_user_owned : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
                     {!! Form::label('is_user_owned', 'User Held', ['class' => 'form-check-label font-weight-bold ml-3']) !!}
                     {!! add_help('If this is enabled, users will be able to hold this award. The limit is how many can be held at a time. 0 means no limit, if set to 1 then quantity will be treated as a boolean.') !!}
-                    <div class="limit d-inline-flex align-items-center ml-3 {{ !$award->id || $award->is_user_owned ? '' : 'hide' }}">
+                    <div class="limit d-inline-flex align-items-center ml-3 ">
                         {!! Form::label('user_limit', 'Limit', ['class' => 'font-weight-bold mr-3 mb-0']) !!}
                         {!! Form::number('user_limit', $award->id ? $award->user_limit : 0, ['class' => 'form-control']) !!}
                     </div>
@@ -262,6 +262,7 @@
 @endsection
 
 @section('scripts')
+    @include('js._tinymce_wysiwyg')
     @parent
     <script>
         $(document).ready(function() {
@@ -284,13 +285,6 @@
             $('.remove-credit-button').on('click', function(e) {
                 e.preventDefault();
                 removeCreditRow($(this));
-            })
-
-            $('.hold-toggle').on('change', function(e) {
-                e.preventDefault();
-                $limit = $(this).parent().parent().find('.limit');
-                if ($limit.hasClass('hide')) $limit.removeClass('hide');
-                else $limit.addClass('hide');
             })
 
             function addCreditRow() {

@@ -37,7 +37,9 @@
                         @foreach ($chunk as $awardId => $stack)
                             <div class="col-sm-3 col-6 text-center awards-award" data-id="{{ $stack->first()->pivot->id }}" data-name="{{ $character->name ? $character->name : $character->slug }}'s {{ $stack->first()->name }}">
                                 <div class="mb-1">
-                                    <a href="#" class="awards-stack {{ $stack->first()->is_featured ? 'alert alert-success' : '' }}"><img src="{{ $stack->first()->imageUrl }}" alt="{{ $stack->first()->name }}" class="mw-100" /></a>
+                                    <a href="#" class="awards-stack {{ $stack->first()->is_featured ? 'alert alert-success' : '' }}">
+                                        <img src="{{ $stack->first()->imageUrl }}" alt="{{ $stack->first()->name }}" class="mw-100" />
+                                    </a>
                                 </div>
                                 <div>
                                     <a href="#" class="awards-stack awards-stack-name">{{ $stack->first()->name }}@if ($stack->first()->user_limit != 1)
@@ -137,7 +139,7 @@
             $('.awards-stack').on('click', function(e) {
                 e.preventDefault();
                 var $parent = $(this).parent().parent();
-                loadModal("{{ url('awards/character/' + $parent.data('id')) }}", $parent.data('name'));
+                loadModal("{{ url('awardcase/character' ) }}/" + $parent.data('id'), $parent.data('name'));
             });
 
             $('.default.award-select').selectize();

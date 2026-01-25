@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 **************************************************************************************************/
 
 Route::get('items/{id}', 'Users\InventoryController@getStack');
-Route::get('awardcase/{id}', 'Users\AwardCaseController@getStack');
 Route::get('items/character/{id}', 'Users\InventoryController@getCharacterStack');
+Route::get('awardcase/{id}', 'Users\AwardCaseController@getStack');
 Route::get('awardcase/character/{id}', 'Users\AwardCaseController@getCharacterStack');
 
 /**************************************************************************************************

@@ -28,8 +28,11 @@
 
     <div class="form-group">
         {!! Form::label('World Page Image (Optional)') !!} {!! add_help('This image is used only on the world information pages.') !!}
-        <div>{!! Form::file('image') !!}</div>
-        <div class="text-muted">Recommended size: 200px x 200px</div>
+        <div class="custom-file">
+            {!! Form::label('image', 'Choose file...', ['class' => 'custom-file-label']) !!}
+            {!! Form::file('image', ['class' => 'custom-file-input']) !!}
+        </div>
+        <div class="text-muted">Recommended size: 100px x 100px</div>
         @if ($category->has_image)
             <div class="form-check">
                 {!! Form::checkbox('remove_image', 1, false, ['class' => 'form-check-input']) !!}
@@ -42,8 +45,6 @@
         {!! Form::label('Description (Optional)') !!}
         {!! Form::textarea('description', $category->description, ['class' => 'form-control wysiwyg']) !!}
     </div>
-
-
 
     <div class="text-right">
         {!! Form::submit($category->id ? 'Edit' : 'Create', ['class' => 'btn btn-primary']) !!}
@@ -62,6 +63,7 @@
 @endsection
 
 @section('scripts')
+    @include('js._tinymce_wysiwyg')
     @parent
     <script>
         $(document).ready(function() {
