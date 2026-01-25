@@ -9,9 +9,7 @@
         {!! breadcrumbs(['MYO Masterlist' => 'myos', $character->fullName => $character->url, 'Awardcase' => $character->url . '/awardcase']) !!}
     @else
         {!! breadcrumbs([
-            $character->category->masterlist_sub_id ? $character->category->sublist->name . ' Masterlist' : 'Character masterlist' => $character->category->masterlist_sub_id
-                ? 'sublist/' . $character->category->sublist->key
-                : 'masterlist',
+            $character->category->masterlist_sub_id ? $character->category->sublist->name . ' Masterlist' : 'Character masterlist' => $character->category->masterlist_sub_id ? 'sublist/' . $character->category->sublist->key : 'masterlist',
             $character->fullName => $character->url,
             'Awardcase' => $character->url . '/awardcase',
         ]) !!}
@@ -85,7 +83,7 @@
                         <div class="form-group">
                             {!! Form::open(['url' => 'admin/character/' . $character->slug . '/grant-awards']) !!}
 
-                                {!! Form::label('award_ids', 'Award(s)') !!} {!! add_help('Must have at least 1 award and quantity must be at least 1.') !!}
+                            {!! Form::label('award_ids', 'Award(s)') !!} {!! add_help('Must have at least 1 award and quantity must be at least 1.') !!}
                             <div id="awardList">
                                 <div class="d-flex mb-2">
                                     {!! Form::select('award_ids[]', $awardOptions, null, ['class' => 'form-control mr-2 default award-select', 'placeholder' => 'Select Award']) !!}
@@ -114,9 +112,7 @@
 
                             <div class="form-group">
                                 {!! Form::checkbox('disallow_transfer', 1, 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
-                                {!! Form::label('disallow_transfer', 'Character-bound?', ['class' => 'form-check-label ml-3']) !!} {!! add_help(
-                                    'If this is on, the character\'s owner will not be able to transfer this award to their Awardcase. Awards that disallow transfers by default will still not be transferrable.',
-                                ) !!}
+                                {!! Form::label('disallow_transfer', 'Character-bound?', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is on, the character\'s owner will not be able to transfer this award to their Awardcase. Awards that disallow transfers by default will still not be transferrable.') !!}
                             </div>
 
                             <div class="text-right">

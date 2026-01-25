@@ -1,7 +1,7 @@
 <div class="row world-entry align-items-center">
     @if ($award->imageUrl)
         <div class="col-md-3 world-entry-image"><a href="{{ $award->imageUrl }}" data-lightbox="entry" data-title="{{ $award->displayName }}">
-            <img src="{{ $award->imageUrl }}" class="world-entry-image img-fluid" /></a>
+                <img src="{{ $award->imageUrl }}" class="world-entry-image img-fluid" /></a>
         </div>
     @endif
     <div class="{{ $award->imageUrl ? 'col-md-9' : 'col-12' }}">

@@ -14,9 +14,7 @@
         ]) !!}
     @else
         {!! breadcrumbs([
-            $character->category->masterlist_sub_id ? $character->category->sublist->name . ' Masterlist' : 'Character masterlist' => $character->category->masterlist_sub_id
-                ? 'sublist/' . $character->category->sublist->key
-                : 'masterlist',
+            $character->category->masterlist_sub_id ? $character->category->sublist->name . ' Masterlist' : 'Character masterlist' => $character->category->masterlist_sub_id ? 'sublist/' . $character->category->sublist->key : 'masterlist',
             $character->fullName => $character->url,
             'Awards' => $character->url . '/awardcase',
             'Logs' => $character->url . '/award-logs',
