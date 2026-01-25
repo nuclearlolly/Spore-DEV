@@ -53,6 +53,29 @@ class ConvertRewards extends Command {
             $this->info('No prompt rewards to convert.');
         }
 
+        if (Schema::table('award_rewards')) {
+            $this->line("\nConverting award rewards...\n");
+            $awardRewards = DB::table('award_rewards')->get();
+            $bar = $this->output->createProgressBar(count($awardRewards));
+            $bar->start();
+            foreach ($awardRewards as $awardReward) {
+                Reward::create([
+                    'object_model'    => 'App\Models\Award\Award',
+                    'object_id'       => $awardReward->award_id,
+                    'rewardable_type' => getAssetModelString(strtolower($awardReward->type)),
+                    'rewardable_id'   => $awardReward->type_id,
+                    'quantity'        => $awardReward->quantity,
+                ]);
+
+                $bar->advance();
+            }
+            $bar->finish();
+            $this->info("\nDone!");
+            Schema::dropIfExists('award_rewards');
+        } else {
+            $this->info('No award rewards to convert.');
+        }
+
         // Add other object types here as needed...
 
         $this->info("\nAll done!");

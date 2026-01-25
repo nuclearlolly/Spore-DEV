@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Models\Award\Award;
 use App\Models\Award\AwardCategory;
 use App\Models\Award\AwardProgression;
-use App\Models\Award\AwardReward;
-use DB;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class AwardService extends Service {
     /*
@@ -212,12 +212,12 @@ class AwardService extends Service {
             }
 
             $award->update([
-                'data' => json_encode([
-                    'rarity'  => isset($data['rarity']) && $data['rarity'] ? $data['rarity'] : null,
-                    'release' => isset($data['release']) && $data['release'] ? $data['release'] : null,
-                    'prompts' => isset($data['prompts']) && $data['prompts'] ? $data['prompts'] : null,
-                    'credits' => isset($data['credits']) && $data['credits'] ? $data['credits'] : null,
-                ]), // rarity, availability info (original source, drop locations), credits
+                'data' => [
+                    'rarity_id'  => isset($data['rarity_id']) && $data['rarity_id'] ? $data['rarity_id'] : null,
+                    'release'    => isset($data['release']) && $data['release'] ? $data['release'] : null,
+                    'prompts'    => isset($data['prompts']) && $data['prompts'] ? $data['prompts'] : null,
+                    'credits'    => isset($data['credits']) && $data['credits'] ? $data['credits'] : null,
+                ], // rarity, availability info (original source, drop locations), credits
             ]);
 
             if ($image) {
@@ -293,18 +293,28 @@ class AwardService extends Service {
             }
 
             $award->update($data);
-
             $award->update([
-                'data' => json_encode([
-                    'rarity'  => isset($data['rarity']) && $data['rarity'] ? $data['rarity'] : null,
-                    'release' => isset($data['release']) && $data['release'] ? $data['release'] : null,
-                    'prompts' => isset($data['prompts']) && $data['prompts'] ? $data['prompts'] : null,
-                    'credits' => isset($data['credits']) && $data['credits'] ? $data['credits'] : null,
-                ]), // rarity, availability info (original source, drop locations)
+                'data' => [
+                    'rarity_id'  => isset($data['rarity_id']) && $data['rarity_id'] ? $data['rarity_id'] : null,
+                    'release'    => isset($data['release']) && $data['release'] ? $data['release'] : null,
+                    'prompts'    => isset($data['prompts']) && $data['prompts'] ? $data['prompts'] : null,
+                    'credits'    => isset($data['credits']) && $data['credits'] ? $data['credits'] : null,
+                ], // rarity, availability info (original source, drop locations)
             ]);
 
             $this->populateProgression($data, $award);
-            $this->populateRewards($data, $award);
+            $rewardService = new RewardService;
+            if (!$rewardService->populateRewards(
+                get_class($award),
+                $award->id,
+                Arr::only($data, ['rewardable_type', 'rewardable_id', 'quantity', 'rewardable_recipient']),
+                false
+            )) {
+                foreach ($rewardService->errors()->getMessages()['error'] as $error) {
+                    flash($error)->error();
+                }
+                throw new \Exception('Failed to create rewards.');
+            }
 
             return $this->commitReturn($award);
         } catch (\Exception $e) {
@@ -440,35 +450,13 @@ class AwardService extends Service {
         // Clear the old shit...
         $award->progressions()->delete();
 
-        if (isset($data['rewardable_type'])) {
-            foreach ($data['rewardable_type'] as $key => $type) {
+        if (isset($data['progression_rewardable_type'])) {
+            foreach ($data['progression_rewardable_type'] as $key => $type) {
                 AwardProgression::create([
                     'award_id'      => $award->id,
                     'type'          => $type,
-                    'type_id'       => $data['rewardable_id'][$key],
-                    'quantity'      => $data['quantity'][$key],
-                ]);
-            }
-        }
-    }
-
-    /**
-     * Populates the rewards of an award.
-     *
-     * @param mixed $data
-     * @param mixed $award
-     */
-    private function populateRewards($data, $award) {
-        // Clear the old shit...
-        $award->rewards()->delete();
-
-        if (isset($data['award_type'])) {
-            foreach ($data['award_type'] as $key => $type) {
-                AwardReward::create([
-                    'award_id'      => $award->id,
-                    'type'          => $type,
-                    'type_id'       => $data['award_id'][$key],
-                    'quantity'      => $data['award_quantity'][$key],
+                    'type_id'       => $data['progression_rewardable_id'][$key],
+                    'quantity'      => $data['progression_quantity'][$key],
                 ]);
             }
         }

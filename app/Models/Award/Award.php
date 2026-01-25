@@ -5,6 +5,8 @@ namespace App\Models\Award;
 use App\Models\Character\CharacterAward;
 use App\Models\Model;
 use App\Models\Prompt\Prompt;
+use App\Models\Rarity;
+use App\Models\Reward\Reward;
 use App\Models\User\User;
 use App\Models\User\UserAward;
 
@@ -34,6 +36,7 @@ class Award extends Model {
      */
     protected $casts = [
         'credits' => 'array',
+        'data'    => 'array',
     ];
 
     /**
@@ -46,7 +49,6 @@ class Award extends Model {
         'name'              => 'required|unique:awards|between:3,100',
         'description'       => 'nullable',
         'image'             => 'mimes:png,jpeg,jpg,gif',
-        'rarity'            => 'nullable',
         'uses'              => 'nullable|between:3,250',
         'release'           => 'nullable|between:3,100',
     ];
@@ -75,21 +77,28 @@ class Award extends Model {
      * Get the category the award belongs to.
      */
     public function category() {
-        return $this->belongsTo('App\Models\Award\AwardCategory', 'award_category_id');
+        return $this->belongsTo(AwardCategory::class, 'award_category_id');
     }
 
     /**
      * Gets the awards progressions.
      */
     public function progressions() {
-        return $this->hasMany('App\Models\Award\AwardProgression', 'award_id');
+        return $this->hasMany(AwardProgression::class, 'award_id');
     }
 
     /**
-     * Gets the awards rewards.
+     * Get the rewards attached to this prompt.
      */
     public function rewards() {
-        return $this->hasMany('App\Models\Award\AwardReward', 'award_id');
+        return $this->morphMany(Reward::class, 'object', 'object_model', 'object_id');
+    }
+
+    /**
+     * Gets the award's rarity.
+     */
+    public function rarity() {
+        return $this->belongsTo(Rarity::class, $this->attributes['rarity_id'] ?? null, 'id');
     }
 
     /**********************************************************************************************
@@ -280,12 +289,12 @@ class Award extends Model {
      *
      * @return string
      */
-    public function getRarityAttribute() {
-        if (!$this->data) {
+    public function getRarityIdAttribute() {
+        if (!isset($this->data) || !isset($this->data['rarity_id'])) {
             return null;
         }
 
-        return $this->data['rarity'];
+        return $this->data['rarity_id'];
     }
 
     /**

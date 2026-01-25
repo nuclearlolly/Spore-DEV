@@ -35,20 +35,23 @@
                         {!! Form::select('award_category_id', $categories, $award->award_category_id, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group d-flex align-items-center">
-                        {!! Form::label('rarity', 'Rarity (Optional)', ['class' => 'col-3 mr-2 mb-0 font-weight-bold']) !!}
-                        {!! Form::number('rarity', $award && $award->rarity ? $award->rarity : null, ['class' => 'form-control']) !!}
+                        {!! Form::label('rarity_id', 'Rarity (Optional)', ['class' => 'col-3 mr-2 mb-0 font-weight-bold']) !!}
+                        {!! Form::select('rarity_id', $rarities, $award && $award->rarity_id ? $award->rarity_id : null, ['class' => 'form-control', 'placeholder' => 'Select Rarity']) !!}
                     </div>
                 </div>
                 <div class="form-group col-md-6 pl-md-3">
                     @if ($award->has_image)
-                        <img src="{{ $award->imageUrl }}" class="float-left mr-2" />
+                        <img src="{{ $award->imageUrl }}" class="img-fluid float-left mr-2" style="max-width: 100px;" />
                     @endif
-                    {!! Form::label('image', 'World Page Image (Optional)', ['class' => 'mr-2 mb-0 font-weight-bold']) !!} {!! add_help('This image is used only on the world information pages.') !!}
-                    <div>{!! Form::file('image') !!}</div>
+                    {!! Form::label('World Page Image (Optional)') !!} {!! add_help('This image is used only on the world information pages.') !!}
+                    <div class="custom-file">
+                        {!! Form::label('image', 'Choose file...', ['class' => 'custom-file-label']) !!}
+                        {!! Form::file('image', ['class' => 'custom-file-input']) !!}
+                    </div>
                     <div class="text-muted">Recommended size: 100px x 100px</div>
                     @if ($award->has_image)
                         <div class="form-check">
-                            {!! Form::checkbox('remove_image', 1, false, ['class' => 'form-input']) !!}
+                            {!! Form::checkbox('remove_image', 1, false, ['class' => 'form-check-input']) !!}
                             {!! Form::label('remove_image', 'Remove current image', ['class' => 'form-check-label']) !!}
                         </div>
                     @endif
@@ -77,7 +80,7 @@
                     {!! Form::checkbox('allow_transfer', 1, $award->id ? $award->allow_transfer : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
                     {!! Form::label('allow_transfer', 'Allow User → User Transfer', ['class' => 'form-check-label font-weight-bold ml-3']) !!} {!! add_help('If this is off, users will not be able to transfer this award to other users. Non-account-bound awards can be account-bound when granted to users directly.') !!}
                 </div>
-                <div class="col-md-6 form-group pl-md-3">
+                <div class="col-md-4 form-group pl-md-3">
                     {!! Form::checkbox('is_character_owned', 1, $award->id ? $award->is_character_owned : 0, ['class' => 'form-check-input hold-toggle', 'data-toggle' => 'toggle']) !!}
                     {!! Form::label('is_character_owned', 'Character Held', ['class' => 'form-check-label font-weight-bold ml-3']) !!}
                     {!! add_help('If this is enabled, characters will be able to hold this award. The limit is how many can be held at a time. 0 means no limit, if set to 1 then quantity will be treated as a boolean.') !!}
@@ -166,7 +169,16 @@
                     If the progressions are changed after a user has claimed the award, they will see the requirements they fulfilled alongside the current ones.
                 </p>
                 <hr />
-                @include('widgets._loot_select', ['loots' => $award->progressions, 'showLootTables' => false, 'showRaffles' => false, 'progression' => true])
+                @include('widgets._add_rewards', [
+                    'object' => $award,
+                    'hideTitle' => true,
+                    'useForm' => false,
+                    'showRaffles' => true,
+                    'showLootTables' => true,
+                    'prefix' => 'progression_',
+                    'type' => 'Progression',
+                    'loots' => $award->progressions,
+                ])
             </div>
         </div>
 
@@ -185,8 +197,13 @@
                         their inventory.</b>
                 </p>
 
-                @include('widgets._reward_select', ['loots' => $award->rewards, 'showLootTables' => false, 'showRaffles' => false])
-
+                @include('widgets._add_rewards', [
+                    'object' => $award,
+                    'hideTitle' => true,
+                    'useForm' => false,
+                    'showRaffles' => true,
+                    'showLootTables' => true,
+                ])
                 <p>
                     {!! Form::checkbox('allow_reclaim', 1, $award->id ? $award->allow_reclaim : 0, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
                     {!! Form::label('allow_reclaim', 'Allow Reclaim?', ['class' => 'form-check-label font-weight-bold ml-3']) !!}
@@ -201,11 +218,6 @@
     </div>
 
     {!! Form::close() !!}
-
-    @if ($award->id)
-        @include('widgets._loot_select_row', ['items' => $items, 'currencies' => $currencies, 'tables' => $tables, 'raffles' => $raffles, 'awards' => $awards, 'showLootTables' => false, 'showRaffles' => false, 'progression' => true])
-        @include('widgets._reward_select_row', ['items' => $items, 'currencies' => $currencies, 'tables' => $tables, 'raffles' => $raffles, 'awards' => $awards, 'showLootTables' => false, 'showRaffles' => false, 'progression' => true])
-    @endif
 
     <div class="row hide credit-row col-12 mb-1">
         <div class="col-md-2">
@@ -239,7 +251,10 @@
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._award_entry', ['imageUrl' => $award->imageUrl, 'name' => $award->displayName, 'description' => $award->parsed_description, 'searchUrl' => $award->searchUrl])
+                @include('world._award_entry', [
+                    'award' => $award,
+                    'staffView' => true,
+                ])
             </div>
         </div>
     @endif
@@ -248,8 +263,6 @@
 
 @section('scripts')
     @parent
-    @include('js._loot_js', ['showLootTables' => false, 'showRaffles' => false])
-    @include('js._reward_js', ['showLootTables' => false, 'showRaffles' => false])
     <script>
         $(document).ready(function() {
             var $credits = $('#creditsTable');

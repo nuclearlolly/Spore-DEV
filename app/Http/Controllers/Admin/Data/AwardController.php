@@ -10,6 +10,7 @@ use App\Models\Item\Item;
 use App\Models\Loot\LootTable;
 use App\Models\Prompt\Prompt;
 use App\Models\Raffle\Raffle;
+use App\Models\Rarity;
 use App\Models\User\User;
 use App\Services\AwardService;
 use Auth;
@@ -192,6 +193,7 @@ class AwardController extends Controller {
             'categories'  => ['none' => 'No category'] + AwardCategory::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'prompts'     => Prompt::where('is_active', 1)->orderBy('id')->pluck('name', 'id'),
             'userOptions' => User::query()->orderBy('name')->pluck('name', 'id')->toArray(),
+            'rarities'    => Rarity::orderBy('rarities.sort', 'DESC')->pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -218,6 +220,7 @@ class AwardController extends Controller {
             'currencies'  => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
             'tables'      => LootTable::orderBy('name')->pluck('name', 'id'),
             'raffles'     => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
+            'rarities'    => Rarity::orderBy('rarities.sort', 'DESC')->pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -235,14 +238,13 @@ class AwardController extends Controller {
         // TODO: Add "extension" to image processing - see WE for example
 
         $data = $request->only([
-            'name', 'award_category_id', 'rarity', 'is_released', 'allow_transfer',
+            'name', 'award_category_id', 'rarity_id', 'is_released', 'allow_transfer',
             'is_user_owned', 'is_character_owned', 'user_limit', 'character_limit', 'is_featured',
             'description', 'image', 'remove_image', 'uses', 'prompts', 'release',
             'credit-name', 'credit-url', 'credit-id', 'credit-role',
             // progression stuff - since we're reusing loot select we gotta refer to it as rewardable
+            'progression_rewardable_id', 'progression_rewardable_type', 'progression_quantity',
             'rewardable_id', 'rewardable_type', 'quantity',
-            // reward
-            'award_type', 'award_id', 'award_quantity', 'allow_reclaim',
         ]);
         if ($id && $service->updateAward(Award::find($id), $data, Auth::user())) {
             flash('Award updated successfully.')->success();

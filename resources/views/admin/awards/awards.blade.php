@@ -5,7 +5,7 @@
 @endsection
 
 @section('admin-content')
-    {!! breadcrumbs(['Admin Panel' => 'admin', Awards => 'admin/data/awards']) !!}
+    {!! breadcrumbs(['Admin Panel' => 'admin', 'Awards' => 'admin/data/awards']) !!}
 
     <h1>Awards</h1>
 

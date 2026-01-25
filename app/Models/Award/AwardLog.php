@@ -2,7 +2,9 @@
 
 namespace App\Models\Award;
 
+use App\Models\Character\Character;
 use App\Models\Model;
+use App\Models\User\User;
 
 class AwardLog extends Model {
     /**
@@ -42,10 +44,10 @@ class AwardLog extends Model {
      */
     public function sender() {
         if ($this->sender_type == 'User') {
-            return $this->belongsTo('App\Models\User\User', 'sender_id');
+            return $this->belongsTo(User::class, 'sender_id');
         }
 
-        return $this->belongsTo('App\Models\Character\Character', 'sender_id');
+        return $this->belongsTo(Character::class, 'sender_id');
     }
 
     /**
@@ -53,16 +55,16 @@ class AwardLog extends Model {
      */
     public function recipient() {
         if ($this->recipient_type == 'User') {
-            return $this->belongsTo('App\Models\User\User', 'recipient_id');
+            return $this->belongsTo(User::class, 'recipient_id');
         }
 
-        return $this->belongsTo('App\Models\Character\Character', 'recipient_id');
+        return $this->belongsTo(Character::class, 'recipient_id');
     }
 
     /**
      * Get the award that is the target of the action.
      */
     public function award() {
-        return $this->belongsTo('App\Models\Award\Award');
+        return $this->belongsTo(Award::class, 'award_id');
     }
 }

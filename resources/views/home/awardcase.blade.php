@@ -60,7 +60,7 @@
                 });
             @endphp
             @if (!$inProgressAwards->count())
-                <p class="text-success">You have completed all available awards. Yay!</p>
+                <p class="text-success mb-0">You have completed all available awards. Yay!</p>
             @else
                 @foreach ($inProgressAwards as $award)
                     <div class="card mb-2">

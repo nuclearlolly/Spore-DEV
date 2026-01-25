@@ -53,7 +53,7 @@ class AwardProgression extends Model {
      * Get the award the progression belongs to.
      */
     public function award() {
-        return $this->belongsTo('App\Models\Award\Award', 'award_id');
+        return $this->belongsTo(Award::class, 'award_id');
     }
 
     /**
