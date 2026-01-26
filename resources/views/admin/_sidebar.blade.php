@@ -1,8 +1,8 @@
 <ul>
     <li class="sidebar-header">Admin Home</li>
-        <li class="sidebar-section">
-    @foreach (config('lorekeeper.admin_sidebar') as $key => $section)
-        @if (Auth::user()->isAdmin || Auth::user()->hasPower($section['power']))
+    <li class="sidebar-section">
+        @foreach (config('lorekeeper.admin_sidebar') as $key => $section)
+            @if (Auth::user()->isAdmin || Auth::user()->hasPower($section['power']))
                 <div class="sidebar-section-header" data-toggle="collapse" href="#collapse-{!! $key !!}" role="button" aria-expanded="false" aria-controls="collapse-{!! $key !!}">{{ str_replace(' ', '', $key) }} </div>
                 <div class="{{ config('lorekeeper.extensions.collapsible_admin_sidebar') ? 'collapse' : '' }} collapse-{!! $key !!}" id="collapse-{!! $key !!}">
                     {{-- order by name --}}
@@ -17,9 +17,9 @@
                         </div>
                     @endforeach
                 </div>
-        @endif
-    @endforeach
-        </li>
+            @endif
+        @endforeach
+    </li>
     </li>
 </ul>
 

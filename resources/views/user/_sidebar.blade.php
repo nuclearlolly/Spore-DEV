@@ -25,7 +25,7 @@
     </li>
 
     @if (Auth::check() && Auth::user()->hasPower('edit_user_info'))
-    <li class="sidebar-header"><a href="{{ url('/') }}" class="card-link">Admin</a></li>
+        <li class="sidebar-header"><a href="{{ url('/') }}" class="card-link">Admin</a></li>
         <li class="sidebar-section">
             <div class="sidebar-item"><a href="{{ $user->adminUrl }}">Edit User</a></div>
         </li>

@@ -80,7 +80,7 @@ class AddSiteSettings extends Command {
         $this->addSiteSetting('group_currency', 1, 'ID of the group currency to award from gallery submissions (if enabled).');
 
         $this->addSiteSetting('is_maintenance_mode', 0, '0: Site is normal, 1: Users without the Has Maintenance Access power will be redirected to the home page.');
-        
+
         $this->addSiteSetting('featured_character', 1, 'ID of the currently featured character.');
 
         $this->line("\nSite settings up to date!");

@@ -188,7 +188,7 @@ return [
             ],
             [
                 'name' => 'Dailies',
-                'url' => 'admin/data/dailies'
+                'url'  => 'admin/data/dailies',
             ],
             [
                 'name' => 'Currencies',
@@ -242,7 +242,7 @@ return [
             ],
             [
                 'name' => 'Site Design',
-                'url' => 'admin/design'
+                'url'  => 'admin/design',
             ],
             [
                 'name' => 'File Manager',

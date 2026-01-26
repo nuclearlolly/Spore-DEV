@@ -4,6 +4,6 @@
 <hr>
 <style>
     .badge-primary {
-    color: #2b0089ff
-}
+        color: #2b0089ff
+    }
 </style>

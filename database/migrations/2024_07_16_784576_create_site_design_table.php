@@ -1,22 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateSiteDesignTable extends Migration
-{
+class CreateSiteDesignTable extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('site_design', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('design'); //eg. headerless, squished...
+            $table->string('design'); // eg. headerless, squished...
 
             $table->string('heading_font_family');
             $table->integer('heading_letter_spacing');
@@ -42,11 +38,8 @@ class CreateSiteDesignTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('site_design');
     }
 }
