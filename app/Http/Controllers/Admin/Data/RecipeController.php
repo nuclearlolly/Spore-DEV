@@ -1,0 +1,155 @@
+<?php
+
+namespace App\Http\Controllers\Admin\Data;
+
+use App\Http\Controllers\Controller;
+use App\Models\Currency\Currency;
+use App\Models\Item\Item;
+use App\Models\Item\ItemCategory;
+use App\Models\Loot\LootTable;
+use App\Models\Raffle\Raffle;
+use App\Models\Recipe\Recipe;
+use App\Services\RecipeService;
+use Auth;
+use Illuminate\Http\Request;
+
+class RecipeController extends Controller {
+    /*
+    |--------------------------------------------------------------------------
+    | Admin / Recipe Controller
+    |--------------------------------------------------------------------------
+    |
+    | Handles creation/editing of recipes.
+    |
+    */
+
+    /**********************************************************************************************
+
+        RECIPES
+
+    **********************************************************************************************/
+
+    /**
+     * Shows the recipe index.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getRecipeIndex(Request $request) {
+        $query = Recipe::query();
+        $data = $request->only(['name']);
+        if (isset($data['name'])) {
+            $query->where('name', 'LIKE', '%'.$data['name'].'%');
+        }
+
+        return view('admin.recipes.recipes', [
+            'recipes' => $query->paginate(20)->appends($request->query()),
+        ]);
+    }
+
+    /**
+     * Shows the create recipe page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getCreateRecipe() {
+        return view('admin.recipes.create_edit_recipe', [
+            'recipe'     => new Recipe,
+            'items'      => Item::orderBy('name')->pluck('name', 'id'),
+            'categories' => ItemCategory::orderBy('name')->pluck('name', 'id'),
+            'currencies' => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
+            'tables'     => LootTable::orderBy('name')->pluck('name', 'id'),
+            'raffles'    => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
+            'recipes'    => Recipe::orderBy('name')->pluck('name', 'id'),
+        ]);
+    }
+
+    /**
+     * Shows the edit recipe page.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getEditRecipe($id) {
+        $recipe = Recipe::find($id);
+        if (!$recipe) {
+            abort(404);
+        }
+
+        return view('admin.recipes.create_edit_recipe', [
+            'recipe'     => $recipe,
+            'items'      => Item::orderBy('name')->pluck('name', 'id'),
+            'categories' => ItemCategory::orderBy('name')->pluck('name', 'id'),
+            'currencies' => Currency::where('is_user_owned', 1)->orderBy('name')->pluck('name', 'id'),
+            'tables'     => LootTable::orderBy('name')->pluck('name', 'id'),
+            'raffles'    => Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name')->pluck('name', 'id'),
+            'recipes'    => Recipe::orderBy('name')->pluck('name', 'id'),
+        ]);
+    }
+
+    /**
+     * Creates or edits an recipe.
+     *
+     * @param App\Services\RecipeService $service
+     * @param int|null                   $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postCreateEditRecipe(Request $request, RecipeService $service, $id = null) {
+        $id ? $request->validate(Recipe::$updateRules) : $request->validate(Recipe::$createRules);
+        $data = $request->only([
+            'name', 'description', 'image', 'remove_image', 'needs_unlocking',
+            'ingredient_type', 'ingredient_data', 'ingredient_quantity',
+            'rewardable_type', 'rewardable_id', 'reward_quantity',
+            'is_visible',
+        ]);
+        if ($id && $service->updateRecipe(Recipe::find($id), $data, Auth::user())) {
+            flash('Recipe updated successfully.')->success();
+        } elseif (!$id && $recipe = $service->createRecipe($data, Auth::user())) {
+            flash('Recipe created successfully.')->success();
+
+            return redirect()->to('admin/data/recipes/edit/'.$recipe->id);
+        } else {
+            foreach ($service->errors()->getMessages()['error'] as $error) {
+                flash($error)->error();
+            }
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Gets the recipe deletion modal.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getDeleteRecipe($id) {
+        $recipe = Recipe::find($id);
+
+        return view('admin.recipes._delete_recipe', [
+            'recipe' => $recipe,
+        ]);
+    }
+
+    /**
+     * Creates or edits an recipe.
+     *
+     * @param App\Services\RecipeService $service
+     * @param int                        $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postDeleteRecipe(Request $request, RecipeService $service, $id) {
+        if ($id && $service->deleteRecipe(Recipe::find($id))) {
+            flash('Recipe deleted successfully.')->success();
+        } else {
+            foreach ($service->errors()->getMessages()['error'] as $error) {
+                flash($error)->error();
+            }
+        }
+
+        return redirect()->to('admin/data/recipes');
+    }
+}
