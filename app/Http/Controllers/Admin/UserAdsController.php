@@ -94,6 +94,6 @@ class UserAdsController extends Controller {
             }
         }
 
-        return redirect()->back();
+        return redirect()->to('admin/user_ads');
     }
 }

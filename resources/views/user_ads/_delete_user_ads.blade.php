@@ -1,5 +1,5 @@
 @if ($user_ads)
-    {!! Form::open(['url' => 'user_ads/delete/' . $user_ads->id]) !!}
+    {!! Form::open(['url' => 'admin/user_ads/delete/' . $user_ads->id]) !!}
 
     <div class="alert alert-info">
         <p>You are about to delete the user ad <strong>{{ $user_ads->text }}</strong>. This is not reversible.</p>

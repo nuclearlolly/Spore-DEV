@@ -8,7 +8,7 @@
     {!! breadcrumbs(['Admin Panel' => 'admin', 'User Ads' => 'admin/user_ads']) !!}
 
     <h1>User Ads</h1>
-    <div class="alert alert-info">
+    <div class="alert alert-warning">
         You can edit and delete user ads here. <strong>Deleting an ad is not reversible.</strong>
     </div>
 
@@ -50,9 +50,8 @@
                             </div>
                             <div class=" text-center">
                                 <div class="logs-table-cell"><a href="{{ url('admin/user_ads/edit/' . $ad->id) }}" class="btn btn-primary py-0 px-2 w-100">Edit</a></div>
-                                <div class="logs-table-cell"><a href="{{ url('admin/user_ads/delete/' . $ad->id) }}" class="btn btn-danger py-0 px-2 w-100">Delete</a></div>
+                                <div class="logs-table-cell"><a href="{{ url('admin/user_ads/delete/' . $ad->id) }}" class="btn btn-danger py-0 px-2 w-100 delete-user-ads-button" data-id="{{ $ad->id }}">Delete</a></div>
                             </div>
-
                         </div>
                     </div>
                 @endforeach
@@ -63,4 +62,15 @@
         <div class="text-center mt-4 small text-muted">{{ $user_ads->total() }} result{{ $user_ads->total() == 1 ? '' : 's' }} found.</div>
     @endif
 
+@endsection
+
+@section('scripts')
+    @parent
+    <script>
+        $('.delete-user-ads-button').on('click', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            loadModal("{{ url('admin/user_ads/delete') }}/" + id, 'Delete Ad');
+        });
+    </script>
 @endsection

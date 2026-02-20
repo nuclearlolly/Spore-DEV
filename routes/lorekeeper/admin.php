@@ -266,7 +266,10 @@ Route::group(['prefix' => 'news', 'middleware' => 'power:manage_news'], function
 Route::group(['prefix' => 'user_ads', 'middleware' => 'power:manage_user_ads'], function () {
     Route::get('/', 'UserAdsController@getIndex');
     Route::get('edit/{id}', 'UserAdsController@getEditUserAds');
+    Route::get('delete/{id}', 'UserAdsController@getDeleteUserAds');
     Route::post('edit/{id?}', 'UserAdsController@postCreateEditUserAds');
+    Route::post('delete/{id}', 'UserAdsController@postDeleteUserAds');
+    
 });
 
 // SALES

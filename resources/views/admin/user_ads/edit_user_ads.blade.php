@@ -9,7 +9,7 @@
 
     <h1>
         Edit User Ad
-        <a href="#" class="btn btn-danger float-right delete-user-ad-button">Delete Ad</a>
+        {{-- <a href="#" class="btn btn-danger float-right delete-user-ads-button">Delete Ad</a> --}}
     </h1>
 
     <div class="alert alert-info">
@@ -33,11 +33,10 @@
     @parent
     <script>
         $(document).ready(function() {
-			$('.delete-user-ad-button').on('click', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            loadModal("{{ url('admin/user_ads/delete') }}/" + id, 'Delete Ad');
+            $('.delete-user-ads-button').on('click', function(e) {
+                e.preventDefault();
+                loadModal("{{ url('admin/user_ads/delete') }}/{{ $user_ads->id }}", 'Delete Ad');
+            });
         });
-		
     </script>
 @endsection
