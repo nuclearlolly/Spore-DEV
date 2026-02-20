@@ -33,11 +33,10 @@
     @parent
     <script>
         $(document).ready(function() {
-			$('.delete-user-ad-button').on('click', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            loadModal("{{ url('admin/user_ads/delete') }}/" + id, 'Delete Ad');
-        });
-		
+                    $('.delete-user-ad-button').on('click', function(e) {
+                        e.preventDefault();
+                        var id = $(this).data('id');
+                        loadModal("{{ url('admin/user_ads/delete') }}/" + id, 'Delete Ad');
+                    });
     </script>
 @endsection
