@@ -269,7 +269,6 @@ Route::group(['prefix' => 'user_ads', 'middleware' => 'power:manage_user_ads'], 
     Route::get('delete/{id}', 'UserAdsController@getDeleteUserAds');
     Route::post('edit/{id?}', 'UserAdsController@postCreateEditUserAds');
     Route::post('delete/{id}', 'UserAdsController@postDeleteUserAds');
-    
 });
 
 // SALES
