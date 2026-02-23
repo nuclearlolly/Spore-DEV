@@ -10,6 +10,7 @@
         @endif
         <div class="sidebar-item"><a href="{{ $user->url . '/myos' }}" class="{{ set_active('user/' . $user->name . '/myos*') }}">MYO Slots</a></div>
         <div class="sidebar-item"><a href="{{ $user->url . '/inventory' }}" class="{{ set_active('user/' . $user->name . '/inventory*') }}">Inventory</a></div>
+        <div class="sidebar-item"><a href="{{ $user->url . '/awardcase' }}" class="{{ set_active('user/' . $user->name . '/awardcase*') }}">Awardcase</a></div>
         <div class="sidebar-item"><a href="{{ $user->url . '/bank' }}" class="{{ set_active('user/' . $user->name . '/bank*') }}">Bank</a></div>
         <div class="sidebar-section-header">Gallery</div>
         <div class="sidebar-item"><a href="{{ $user->url . '/gallery' }}" class="{{ set_active('user/' . $user->name . '/gallery*') }}">Gallery</a></div>
@@ -20,6 +21,7 @@
         <div class="sidebar-item"><a href="{{ $user->url . '/ownership' }}" class="{{ set_active('user/' . $user->name . '/ownership*') }}">Ownership History</a></div>
         <div class="sidebar-item"><a href="{{ $user->url . '/item-logs' }}" class="{{ set_active('user/' . $user->name . '/item-logs*') }}">Item Logs</a></div>
         <div class="sidebar-item"><a href="{{ $user->url . '/currency-logs' }}" class="{{ set_active('user/' . $user->name . '/currency-logs*') }}">Currency Logs</a></div>
+        <div class="sidebar-item"><a href="{{ $user->url . '/award-logs' }}" class="{{ set_active('user/' . $user->name . '/award-logs*') }}">Award Logs</a></div>
         <div class="sidebar-item"><a href="{{ $user->url . '/submissions' }}" class="{{ set_active('user/' . $user->name . '/submissions*') }}">Submissions</a></div>
         <div class="sidebar-item"><a href="{{ $user->url . '/recipe-logs' }}" class="{{ set_active($user->url . '/recipe-logs*') }}">Recipe Logs</a></div>
     </li>

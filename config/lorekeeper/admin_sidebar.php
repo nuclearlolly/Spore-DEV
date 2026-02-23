@@ -124,6 +124,10 @@ return [
                 'name' => 'Recipe Grants',
                 'url'  => 'admin/grants/recipes',
             ],
+            [
+                'name' => 'Award Grants',
+                'url'  => 'admin/grants/awards',
+            ],
         ],
     ],
     'Masterlist' => [
@@ -157,6 +161,10 @@ return [
             [
                 'name' => 'Galleries',
                 'url'  => 'admin/data/galleries',
+            ],
+            [
+                'name' => 'Awards',
+                'url'  => 'admin/data/awards',
             ],
             [
                 'name' => 'Character Categories',

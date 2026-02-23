@@ -44,6 +44,25 @@
             {!! $user->profile->parsed_text !!}
         </div>
     @endif
+    <h5 class="card-title text-center">Achievements</h5>
+        <div class="card-body text-center">
+            @if (count($awards))
+                <div class="row">
+                    @foreach ($awards as $award)
+                        <div class="col-md-3 col-6 profile-inventory-item">
+                            @if ($award->imageUrl)
+                                <img src="{{ $award->imageUrl }}" class="img-fluid" data-toggle="tooltip" title="{{ $award->name }}" />
+                            @else
+                                <p>{{ $award->name }}</p>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div>No awards earned.</div>
+            @endif
+        <div class="text-right"><a href="{{ $user->url . '/awardcase' }}">View all...</a></div>
+        </div>
 </div>
 <hr>
 <div class="card-deck mb-3 profile-assets" style="clear:both;">
@@ -86,7 +105,6 @@
         </div>
     </div>
 </div>
-
 <div class="card">
     <div class="card-header text-center" style="box-shadow: 0px 0px 6px 3px rgba(70, 0, 136, 0.03);">
         <h2><a href="{{ $user->url . '/characters' }}">Characters</a>

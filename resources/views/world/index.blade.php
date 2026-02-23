@@ -34,13 +34,15 @@
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-body text-center">
-                    <img src="{{ asset('images/inventory.png') }}" alt="Items" />
-                    <h5 class="card-title">Items</h5>
+                    <img src="{{ asset('images/inventory.png') }}" alt="Items and Awards" />
+                    <h5 class="card-title">Items & Awards</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><a href="{{ url('world/item-categories') }}">Item Categories</a></li>
                     <li class="list-group-item"><a href="{{ url('world/items') }}">All Items</a></li>
                     <li class="list-group-item"><a href="{{ url('world/item-index') }}">Item Index</a></li>
+                    <li class="list-group-item"><a href="{{ url('world/award-categories') }}">Achievements Categories</a></li>
+                    <li class="list-group-item"><a href="{{ url('world/awards') }}">Achievements Awards</a></li>
                     <li class="list-group-item"><a href="{{ url('world/currencies') }}">Currencies</a></li>
                     <li class="list-group-item"><a href="{{ url('world/recipes') }}">All Recipes</a></li>
                 </ul>

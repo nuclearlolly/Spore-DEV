@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('items/{id}', 'Users\InventoryController@getStack');
 Route::get('items/character/{id}', 'Users\InventoryController@getCharacterStack');
+Route::get('awardcase/{id}', 'Users\AwardCaseController@getStack');
+Route::get('awardcase/character/{id}', 'Users\AwardCaseController@getCharacterStack');
 
 /**************************************************************************************************
     News
@@ -62,9 +64,10 @@ Route::group(['prefix' => 'user', 'namespace' => 'Users'], function () {
     Route::get('{name}/myos', 'UserController@getUserMyoSlots');
     Route::get('{name}/inventory', 'UserController@getUserInventory');
     Route::get('{name}/bank', 'UserController@getUserBank');
-
+    Route::get('{name}/awardcase', 'UserController@getUserAwardCase');
     Route::get('{name}/currency-logs', 'UserController@getUserCurrencyLogs');
     Route::get('{name}/item-logs', 'UserController@getUserItemLogs');
+    Route::get('{name}/award-logs', 'UserController@getUserAwardLogs');
     Route::get('{name}/ownership', 'UserController@getUserOwnershipLogs');
     Route::get('{name}/submissions', 'UserController@getUserSubmissions');
 
@@ -81,10 +84,12 @@ Route::group(['prefix' => 'character', 'namespace' => 'Characters'], function ()
     Route::get('{slug}', 'CharacterController@getCharacter');
     Route::get('{slug}/profile', 'CharacterController@getCharacterProfile');
     Route::get('{slug}/links', 'CharacterController@getCharacterLinks');
+    Route::get('{slug}/awardcase', 'CharacterController@getCharacterAwards');
     Route::get('{slug}/bank', 'CharacterController@getCharacterBank');
     Route::get('{slug}/inventory', 'CharacterController@getCharacterInventory');
     Route::get('{slug}/images', 'CharacterController@getCharacterImages');
 
+    Route::get('{slug}/award-logs', 'CharacterController@getCharacterAwardLogs');
     Route::get('{slug}/currency-logs', 'CharacterController@getCharacterCurrencyLogs');
     Route::get('{slug}/item-logs', 'CharacterController@getCharacterItemLogs');
     Route::get('{slug}/ownership', 'CharacterController@getCharacterOwnershipLogs');
@@ -118,6 +123,9 @@ Route::group(['prefix' => 'world'], function () {
     Route::get('all-traits-index', 'WorldController@getKitchenSinkFeatures');
     Route::get('item-categories', 'WorldController@getItemCategories');
     Route::get('items', 'WorldController@getItems');
+    Route::get('award-categories', 'WorldController@getAwardCategories');
+    Route::get('awards', 'WorldController@getAwards');
+    Route::get('awards/{id}', 'WorldController@getAward');
     Route::get('items/{id}', 'WorldController@getItem');
     Route::get('item-index', 'WorldController@getItemIndex');
     Route::get('item-index/{id}', 'WorldController@getItemDetail');

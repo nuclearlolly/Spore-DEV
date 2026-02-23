@@ -17,16 +17,21 @@
     if (!isset($showLootTables)) {
         $showLootTables = false;
     }
+    if (!isset($hideTitle)) {
+        $hideTitle = false;
+    }
 @endphp
 
 <div class="card p-4 mb-3 mt-3" id="reward-card">
-    <h3>Rewards</h3>
+    @if (!$hideTitle)
+        <h3>Rewards</h3>
 
-    <p>
-        You can add rewards to this object by clicking "Add Reward" & selecting a reward from the dropdown below.
-        <br />
-        <br /><b>Note that the checks for rewards are automatic, but their granting needs to be defined in the code.</b>
-    </p>
+        <p>
+            You can add rewards to this object by clicking "Add Reward" & selecting a reward from the dropdown below.
+            <br />
+            <br /><b>Note that the checks for rewards are automatic, but their granting needs to be defined in the code.</b>
+        </p>
+    @endif
     {!! isset($info) ? '<div class="alert alert-info">' . $info . '</div>' : '' !!}
 
     @if ($useForm)
@@ -36,7 +41,7 @@
 
         @include('widgets._loot_select', [
             'prefix' => $prefix ?? '',
-            'loots' => getRewards($object),
+            'loots' => $loots ?? getRewards($object),
             'showRecipient' => $showRecipient,
             'showRaffles' => $showRaffles,
             'showLootTables' => $showLootTables,
@@ -53,7 +58,7 @@
     @else
         @include('widgets._loot_select', [
             'prefix' => $prefix ?? '',
-            'loots' => getRewards($object),
+            'loots' => $loots ?? getRewards($object),
             'showRecipient' => $showRecipient,
             'showRaffles' => $showRaffles,
             'showLootTables' => $showLootTables,

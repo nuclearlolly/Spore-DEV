@@ -72,9 +72,9 @@ function calculateGroupCurrency($data) {
  */
 function getAssetKeys($isCharacter = false) {
     if (!$isCharacter) {
-        return ['items', 'currencies', 'raffle_tickets', 'loot_tables', 'user_items', 'characters', 'recipes'];
+        return ['items', 'currencies', 'raffle_tickets', 'loot_tables', 'user_items', 'characters', 'recipes', 'awards', 'user_awards'];
     } else {
-        return ['currencies', 'items', 'character_items', 'loot_tables'];
+        return ['currencies', 'items', 'character_items', 'loot_tables', 'awards'];
     }
 }
 
@@ -94,6 +94,14 @@ function getAssetModelString($type, $namespaced = true) {
                 return '\App\Models\Item\Item';
             } else {
                 return 'Item';
+            }
+            break;
+
+        case 'awards': case 'award':
+            if ($namespaced) {
+                return '\App\Models\Award\Award';
+            } else {
+                return 'Award';
             }
             break;
 
@@ -126,6 +134,14 @@ function getAssetModelString($type, $namespaced = true) {
                 return '\App\Models\User\UserItem';
             } else {
                 return 'UserItem';
+            }
+            break;
+
+        case 'user_awards':
+            if ($namespaced) {
+                return '\App\Models\User\UserAward';
+            } else {
+                return 'UserAward';
             }
             break;
 
@@ -359,6 +375,17 @@ function fillUserAssets($assets, $sender, $recipient, $logType, $data) {
                     return false;
                 }
             }
+        } elseif ($key == 'awards' && count($contents)) {
+            $service = new App\Services\AwardCaseManager;
+            foreach ($contents as $asset) {
+                if (!$service->creditAward($sender, $recipient, $logType, $data, $asset['asset'], $asset['quantity'])) {
+                    foreach ($service->errors()->getMessages()['error'] as $error) {
+                        flash($error)->error();
+                    }
+
+                    return false;
+                }
+            }
         } elseif ($key == 'currencies' && count($contents)) {
             $service = new App\Services\CurrencyManager;
             foreach ($contents as $asset) {
@@ -385,6 +412,17 @@ function fillUserAssets($assets, $sender, $recipient, $logType, $data) {
             $service = new App\Services\InventoryManager;
             foreach ($contents as $asset) {
                 if (!$service->moveStack($sender, $recipient, $logType, $data, $asset['asset'], $asset['quantity'])) {
+                    foreach ($service->errors()->getMessages()['error'] as $error) {
+                        flash($error)->error();
+                    }
+
+                    return false;
+                }
+            }
+        } elseif ($key == 'user_awards' && count($contents)) {
+            $service = new App\Services\AwardCaseManager;
+            foreach ($contents as $asset) {
+                if (!$service->moveStack($sender, $recipient, $logType, $data, $asset['asset'])) {
                     foreach ($service->errors()->getMessages()['error'] as $error) {
                         flash($error)->error();
                     }
@@ -563,6 +601,13 @@ function fillCharacterAssets($assets, $sender, $recipient, $logType, $data, $sub
                     return false;
                 }
             }
+        } elseif ($key == 'awards' && count($contents)) {
+            $service = new App\Services\AwardCaseManager;
+            foreach ($contents as $asset) {
+                if (!$service->creditAward($sender, ($asset['asset']->is_character_owned ? $recipient : $item_recipient), $logType, $data, $asset['asset'], $asset['quantity'])) {
+                    return false;
+                }
+            }
         }
     }
 
@@ -618,12 +663,12 @@ function createRewardsString($array, $useDisplayName = true, $absQuantities = fa
  */
 function getRewardTypes($showData, $recipient) {
     if ($recipient == 'User') {
-        return ['Item' => 'Item', 'Currency' => 'Currency'] +
+        return ['Item' => 'Item', 'Currency' => 'Currency', 'Award' => 'Award'] +
             ($showData['showLootTables'] ? ['LootTable' => 'Loot Table'] : []) +
             ($showData['showRaffles'] ? ['Raffle' => 'Raffle Ticket'] : []);
         ($showData['showRecipes'] ? ['Recipe' => 'Recipe'] : []);
     } elseif ($recipient == 'Character') {
-        return ['Item' => 'Item', 'Currency' => 'Currency'] +
+        return ['Item' => 'Item', 'Currency' => 'Currency', 'Award' => 'Award'] +
             ($showData['showLootTables'] ? ['LootTable' => 'Loot Table'] : []);
     } else {
         throw new Exception('No recipient given.');
@@ -687,6 +732,19 @@ function getRewardLootData($showData, $recipient = 'User', $useCustomSelectize =
                 break;
             case 'Raffle':
                 $query = App\Models\Raffle\Raffle::where('rolled_at', null)->where('is_active', 1)->orderBy('name');
+                break;
+            case 'Award':
+                $query = App\Models\Award\Award::orderBy('name');
+                if ($recipient == 'Character') {
+                    $query->where('is_character_owned', 1);
+                } elseif ($recipient == 'User') {
+                    $query->where('is_user_owned', 1);
+                }
+                $query->where(function ($query) use ($showData) {
+                    if ($showData['isTradeable']) {
+                        $query->where('allow_user_to_user', 1);
+                    }
+                });
                 break;
                 // Add the query builder for your other assets here, set with the matching key in getRewardTypes
                 // If your asset type does not have a model, you may need to add special handling here.

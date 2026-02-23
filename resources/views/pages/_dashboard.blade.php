@@ -43,7 +43,7 @@
                             <div class="sidebar-header">Hoard</div>
                         </h5>
                         <div class="sidebar-section p-2" style="height:130px;">
-                            <a class="dropdown-item" a href="{{ url('users') }}" style="font-family: Raleway;letter-spacing: 1px;text-transform: uppercase;font-weight: 900;"><i class="fas fa-award"></i> Achievements</a>
+                            <a class="dropdown-item" a href="{{ url('awardcase') }}" style="font-family: Raleway;letter-spacing: 1px;text-transform: uppercase;font-weight: 900;"><i class="fas fa-award"></i> Achievements</a>
                             <a class="dropdown-item" a href="{{ url('masterlist') }}" style="font-family: Raleway;letter-spacing: 1px;text-transform: uppercase;font-weight: 900;"><i class="fas fa-book"></i> Collections</a>
                             <a class="dropdown-item" a href="{{ url('shops') }}" style="font-family: Raleway;letter-spacing: 1px;text-transform: uppercase;font-weight: 900;"><i class="fas fa-award"></i> Craft</a>
                             <a class="dropdown-item" a href="{{ url('shops') }}" style="font-family: Raleway;letter-spacing: 1px;text-transform: uppercase;font-weight: 900;"><i class="fas fa-award"></i> Cultivate</a>
