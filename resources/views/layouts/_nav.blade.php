@@ -146,11 +146,11 @@
                     @endif
 
                     <li class="nav-item dropdown">
-                        <a id="browseDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a id="submitDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             Submit
                         </a>
 
-                        <div class="dropdown-menu" aria-labelledby="browseDropdown">
+                        <div class="dropdown-menu" aria-labelledby="submitDropdown">
                             <a class="dropdown-item" href="{{ url('submissions/new') }}">
                                 Submit Prompt
                             </a>

@@ -2,7 +2,7 @@
     <div class="card-header">
         <h4 class="mb-0"><i class="fas fa-money-bill-wave"></i> Recent Sales</h4>
     </div>
-    <div class="card-body text-center justify-content-center" style="max-width:262px; margin-left: 19px;">
+    <div class="card-body text-center justify-content-center" style="max-width:262px; margin-left: 19px; padding-top:0px !important;">
         @if ($saleses->count())
             @foreach ($saleses as $sales)
                 <div class="text-center">
@@ -53,6 +53,7 @@
         <h5 class="mb-0">There are no sales.</h5>
     </div>
     @endif
+</div>
 </div>
 </div>
 </div>
