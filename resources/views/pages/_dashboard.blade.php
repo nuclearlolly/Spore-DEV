@@ -16,6 +16,11 @@
         <h5 class="card-title"><a href="{{ url('prompts/prompts') }}">Shops</a></h5>
     </div>
 </div>
+<div class="card" style="margin-bottom: 15px;">
+    <div class="card-body">
+@include('layouts._user_ads')
+</div>
+</div>
 @include('widgets._dashboard_guide')
 <div class="row">
     <div class="col-md-8">

@@ -87,10 +87,10 @@
                                     <h6 class="font-weight-bold text-uppercase text-center">Check</h6>
                                     <div class="dropdown-divider"></div>
                                     <ul class="list-unstyled">
-                                        <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Dailies</a>
                                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-coins"></i> Shops</a>
                                         <a class="dropdown-item" a href="{{ url('world/item-index') }}"><i class="fas fa-paw"></i> Body Parts</a>
                                         <a class="dropdown-item" a href="{{ url('gallery') }}"> <i class="fas fa-palette"></i> Art Gallery</a>
+                                        <a class="dropdown-item" href="{{ url('user_ads') }}"> User Ads</a>
                                     </ul>
                                 </div>
                                 <div class="col-sm-4">
@@ -101,6 +101,7 @@
                                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-tree"></i> Forage</a>
                                         <a class="dropdown-item" a href="{{ url('shops') }}"><i class="fas fa-map"></i> Explore</a>
                                         <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Fetch Quests</a>
+                                        <a class="dropdown-item" a href="{{ url(__('dailies.dailies')) }}"><i class="fas fa-clipboard-list"></i> Dailies</a>
                                     </ul>
                                 </div>
                                 <div class="col-sm-4">

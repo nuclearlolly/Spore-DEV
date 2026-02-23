@@ -320,3 +320,15 @@ Route::group(['prefix' => 'awardcase', 'namespace' => 'Users'], function () {
 
     Route::get('selector', 'AwardCaseController@getSelector');
 });
+
+/**************************************************************************************************
+    User Ads
+**************************************************************************************************/
+
+Route::group(['prefix' => 'user_ads'], function () {
+    Route::get('/', 'Users\UserAdsController@getUserAdsIndex');
+    Route::get('new', 'Users\UserAdsController@getCreateUserAds');
+    Route::get('delete/{id}', 'Users\UserAdsController@getDeleteUserAds');
+    Route::post('create', 'Users\UserAdsController@postCreateEditUserAds');
+    Route::post('delete/{id}', 'Users\UserAdsController@postDeleteUserAds');
+});
