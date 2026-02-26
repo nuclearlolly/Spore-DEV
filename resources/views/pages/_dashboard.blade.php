@@ -18,8 +18,8 @@
 </div>
 <div class="card" style="margin-bottom: 15px;">
     <div class="card-body">
-@include('layouts._user_ads')
-</div>
+        @include('layouts._user_ads')
+    </div>
 </div>
 @include('widgets._dashboard_guide')
 <div class="row">
@@ -57,17 +57,17 @@
                 </div>
             </div>
         </div>
-    <hr>
-</div>
+        <hr>
+    </div>
     <div class="col-md-4 mb-4 align-items-center">
         @include('widgets._news', ['textPreview' => true])
         <hr class="mb-1 align-items-center">
         @include('widgets._sales')
     </div>
-@include('widgets._recent_gallery_submissions', ['gallerySubmissions' => $gallerySubmissions])
+    @include('widgets._recent_gallery_submissions', ['gallerySubmissions' => $gallerySubmissions])
 
-<style>
-    .mb-4 {
-        margin-bottom: 0rem !important;
-    }
-</style>
+    <style>
+        .mb-4 {
+            margin-bottom: 0rem !important;
+        }
+    </style>

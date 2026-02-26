@@ -16,7 +16,7 @@
         <div class="sidebar-item"><a href="{{ $character->url . '/currency-logs' }}" class="{{ set_active('character/' . $character->slug . '/currency-logs') }}">Currency Logs</a></div>
         <div class="sidebar-item"><a href="{{ $character->url . '/submissions' }}" class="{{ set_active('character/' . $character->slug . '/submissions') }}">Submissions</a></div>
         <div class="sidebar-item"><a href="{{ $character->url . '/award-logs' }}" class="{{ set_active('character/' . $character->slug . '/award-logs') }}">Achievements Logs</a></div>
-    @if (Auth::check() && (Auth::user()->id == $character->user_id || Auth::user()->hasPower('manage_characters')))
+        @if (Auth::check() && (Auth::user()->id == $character->user_id || Auth::user()->hasPower('manage_characters')))
             <div class="sidebar-section-header">Settings</div>
             <div class="sidebar-item"><a href="{{ $character->url . '/profile/edit' }}" class="{{ set_active('character/' . $character->slug . '/profile/edit') }}">Edit Profile</a></div>
             <div class="sidebar-item"><a href="{{ $character->url . '/links/edit' }}" class="{{ set_active('character/' . $character->slug . '/links/edit') }}">Edit Relations</a></div>

@@ -1,7 +1,5 @@
 @php
-    $randomAd = \App\Models\UserAds::with('user')
-        ->inRandomOrder()
-        ->first();
+    $randomAd = \App\Models\UserAds::with('user')->inRandomOrder()->first();
 @endphp
 <div class="row">
     <div class="col-12">

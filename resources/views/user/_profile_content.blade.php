@@ -45,24 +45,24 @@
         </div>
     @endif
     <h5 class="card-title text-center">Achievements</h5>
-        <div class="card-body text-center">
-            @if (count($awards))
-                <div class="row">
-                    @foreach ($awards as $award)
-                        <div class="col-md-3 col-6 profile-inventory-item">
-                            @if ($award->imageUrl)
-                                <img src="{{ $award->imageUrl }}" class="img-fluid" data-toggle="tooltip" title="{{ $award->name }}" />
-                            @else
-                                <p>{{ $award->name }}</p>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div>No awards earned.</div>
-            @endif
+    <div class="card-body text-center">
+        @if (count($awards))
+            <div class="row">
+                @foreach ($awards as $award)
+                    <div class="col-md-3 col-6 profile-inventory-item">
+                        @if ($award->imageUrl)
+                            <img src="{{ $award->imageUrl }}" class="img-fluid" data-toggle="tooltip" title="{{ $award->name }}" />
+                        @else
+                            <p>{{ $award->name }}</p>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div>No awards earned.</div>
+        @endif
         <div class="text-right"><a href="{{ $user->url . '/awardcase' }}">View all...</a></div>
-        </div>
+    </div>
 </div>
 <hr>
 <div class="card-deck mb-3 profile-assets" style="clear:both;">
