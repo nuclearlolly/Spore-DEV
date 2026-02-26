@@ -19,10 +19,10 @@ class UserAdsService extends Service {
     /**
      * Creates a user ad.
      *
-     * @param array                 $data
-     * @param \App\Models\User\User $user
+     * @param array $data
+     * @param User  $user
      *
-     * @return \App\Models\UserAds|bool
+     * @return bool|UserAds
      */
     public function createUserAds($data, $user) {
         DB::beginTransaction();
@@ -44,11 +44,11 @@ class UserAdsService extends Service {
     /**
      * Updates a user ad.
      *
-     * @param \App\Models\UserAds   $user_ads
-     * @param array                 $data
-     * @param \App\Models\User\User $user
+     * @param UserAds $user_ads
+     * @param array   $data
+     * @param User    $user
      *
-     * @return \App\Models\UserAds|bool
+     * @return bool|UserAds
      */
     public function updateUserAds($user_ads, $data, $user) {
         DB::beginTransaction();
@@ -70,7 +70,7 @@ class UserAdsService extends Service {
     /**
      * Deletes a user ad.
      *
-     * @param \App\Models\UserAds $user_ads
+     * @param UserAds $user_ads
      *
      * @return bool
      */

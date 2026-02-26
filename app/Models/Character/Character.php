@@ -209,6 +209,7 @@ class Character extends Model {
     public function folder() {
         return $this->belongsTo('App\Models\Character\CharacterFolder', 'folder_id');
     }
+
     /**
      * Get the character's awards.
      */

@@ -184,8 +184,9 @@ class User extends Authenticatable implements MustVerifyEmail {
     public function recipes() {
         return $this->belongsToMany('App\Models\Recipe\Recipe', 'user_recipes')->withPivot('id');
     }
+
     /**
-    * Get the user's awards.
+     * Get the user's awards.
      */
     public function awards() {
         return $this->belongsToMany('App\Models\Award\Award', 'user_awards')->withPivot('count', 'data', 'updated_at', 'id')->whereNull('user_awards.deleted_at');
@@ -687,6 +688,7 @@ class User extends Authenticatable implements MustVerifyEmail {
             return $query->paginate(30);
         }
     }
+
     /**
      * Get the user's award logs.
      *
@@ -694,7 +696,7 @@ class User extends Authenticatable implements MustVerifyEmail {
      *
      * @return \Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection
      */
-        public function getAwardLogs($limit = 10) {
+    public function getAwardLogs($limit = 10) {
         $user = $this;
         $query = AwardLog::with('award')->where(function ($query) use ($user) {
             $query->with('sender')->where('sender_type', 'User')->where('sender_id', $user->id)->whereNotIn('log_type', ['Staff Grant', 'Prompt Rewards', 'Claim Rewards']);

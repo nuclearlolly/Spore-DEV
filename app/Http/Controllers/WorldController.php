@@ -703,6 +703,7 @@ class WorldController extends Controller {
             'description' => $item->parsed_description,
         ]);
     }
+
     /**
      * Shows the awards page.
      *

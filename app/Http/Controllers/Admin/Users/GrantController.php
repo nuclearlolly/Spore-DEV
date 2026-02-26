@@ -118,7 +118,7 @@ class GrantController extends Controller {
         return redirect()->back();
     }
 
-        /*
+    /*
      * Show the award grant page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -131,8 +131,8 @@ class GrantController extends Controller {
             'characterAwardOptions' => Award::orderBy('name')->where('is_character_owned', 1)->pluck('name', 'id'),
         ]);
     }
-    
-     /**
+
+    /**
      * Grants or removes awards from multiple users.
      *
      * @param App\Services\AwardCaseManager $service
